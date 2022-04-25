@@ -12,7 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// My Test routes
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.org.index');
+});
+
+
+Route::get('/stations/add', function () {
+    return view('pages.org.stations.add_station');
+});
+
+Route::get('/stations/list', function () {
+    return view('pages.org.stations.list_stations');
 });
