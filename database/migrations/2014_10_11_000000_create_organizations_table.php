@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePumpsTable extends Migration
+class CreateOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreatePumpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pumps', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tank_id');
+            // $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('service_type');
-            $table->string('description');
+            $table->string('location');
+            $table->string('address')->nullable();
+            $table->string('contact')->nullable();
             $table->timestamps();
 
-            $table->foreign('tank_id')->references('id')->on('tanks');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -32,6 +33,6 @@ class CreatePumpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pumps');
+        Schema::dropIfExists('organizations');
     }
 }

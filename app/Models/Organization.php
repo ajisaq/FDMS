@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
@@ -15,12 +16,12 @@ class Organization extends Model
         'location',
         'address',
         'contact',
-        'user_id',
+        // 'user_id',
     ];
 
 
-    public function supervisor(): BelongsTo
+    public function users(): HasMany
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasMany(User::class);
     }
 }

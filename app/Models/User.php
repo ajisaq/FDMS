@@ -22,8 +22,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'username',
         'password',
         'role_id',
+        'org_id'
     ];
 
     /**
@@ -64,9 +67,9 @@ class User extends Authenticatable
         return $this->hasMany(Station::class);
     }
 
-    public function organizations(): HasMany
+    public function organization(): BelongsTo
     {
-        return $this->hasMany(Organization::class);
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 
     public function transactions(): HasMany

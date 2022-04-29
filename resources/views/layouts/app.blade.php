@@ -55,8 +55,25 @@
   <script src="{{ asset('/assets/js/plugins/dragula/dragula.min.js') }}"></script>
   <script src="{{ asset('/assets/js/plugins/jkanban/jkanban.js') }}"></script>
   <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
-   
+  <script src="{{ asset('/assets/js/plugins/multistep-form.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/choices.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/dropzone.min.js') }}"></script>
+  <script src="{{ asset('/assets/js/plugins/quill.min.js') }}"></script>
+
    <script async defer src="https://buttons.github.io/buttons.js"></script>
    <script src="{{ asset('/assets/js/argon-dashboard.min.js?v=2.0.1')}}"></script>
+
+   <script src="{{ asset('/assets/js/plugins/datatables.js')}}"></script>
+  <script>
+    const dataTableBasic = new simpleDatatables.DataTable("#datatable-basic", {
+      searchable: false,
+      fixedHeight: true
+    });
+
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+      searchable: true,
+      fixedHeight: true
+    });
+  </script>
 </body>
 </html>

@@ -15,12 +15,12 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tank_id');
+            $table->unsignedBigInteger('cluster_id');
             $table->integer('open_stock');
             $table->integer('close_stock');
             $table->timestamps();
 
-            $table->foreign('tank_id')->references('id')->on('tanks');
+            $table->foreign('cluster_id')->references('id')->on('clusters');
         });
     }
 

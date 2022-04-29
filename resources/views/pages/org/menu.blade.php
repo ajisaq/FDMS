@@ -28,7 +28,7 @@
                 <div class="collapse " id="station">
                   <ul class="nav ms-4">
                     <li class="nav-item ">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" href="{{route('list_stations')}}">
                         <span class="sidenav-mini-icon"> L </span>
                         <span class="sidenav-normal"> Locations </span>
                       </a>

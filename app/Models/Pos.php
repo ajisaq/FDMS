@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Pump extends Model
+class Pos extends Model
 {
     use HasFactory;
 
@@ -14,11 +14,11 @@ class Pump extends Model
         'name',
         'service_type',
         'description',
-        'tank_id',
+        'cluster_id',
     ];
 
-    public function tank(): BelongsTo
+    public function cluster(): BelongsTo
     {
-        return $this->belongsTo(Tank::class, 'tank_id', 'id');
+        return $this->belongsTo(Cluster::class, 'cluster_id', 'id');
     }
 }

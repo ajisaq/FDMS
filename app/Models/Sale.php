@@ -13,11 +13,11 @@ class Sale extends Model
     protected $fillable = [
         'open_stock',
         'close_stock',
-        'tank_id',
+        'cluster_id',
     ];
 
     public function tank(): BelongsTo
     {
-        return $this->belongsTo(Tank::class, 'tank_id', 'id');
+        return $this->belongsTo(Cluster::class, 'cluster_id', 'id');
     }
 }

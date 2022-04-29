@@ -22,8 +22,8 @@ class CreateStationsTable extends Migration
             $table->string('location');
             $table->string('address')->nullable();
             $table->string('contact')->nullable();
-            $table->string('no_of_pumps');
-            $table->string('no_of_tanks');
+            // $table->string('no_of_pumps');
+            $table->string('no_of_clusters');
             $table->string('no_of_pos');
             $table->timestamps();
 
