@@ -10,34 +10,26 @@
             <div class="row">
             <div class="col text-start">
                 <div class="dropdown text-end">
-                    <a href="#" class="cursor-pointer text-secondary">
+                     <a href="#" class="cursor-pointer text-secondary">
                       <span class="text-xs text-secondary">Dashboard </span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> Page</span>
+                      <span class="text-xs text-secondary"> Station</span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
+                        <span class="text-xs text-secondary">Cluster </span>
                       </a>
                       |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
-                      </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
-                      </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
+                    <a href="#" class="cursor-pointer text-secondary">
+                        <span class="text-xs text-secondary">POS </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Clusters</h6>
-                <p> List of clusters</p>
+                <h6 class="font-weight-bolder mb-0">POS</h6>
+                <p> List of Pos's</p>
                 <div>
-                    <a href="{{route('show_add_cluster')}}" class="btn btn-default border-radius-xs">add</a>
+                    <a href="{{route('show_add_pos')}}" class="btn btn-default border-radius-xs">add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -60,9 +52,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">clusters</h5>
+              <h5 class="mb-0">POS</h5>
               <p class="text-sm mb-0">
-                Below are the list of clusters.
+                Below are the list of POS.
               </p>
             </div>
             <div class="table-responsive">
@@ -93,22 +85,30 @@
                       <a href="#" class="dataTable-sorter">Description</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Station</a>
+                      <a href="#" class="dataTable-sorter">Services</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Cluster</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Action</a>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($clusters) > 0)
-                  @foreach ($clusters as $s)
+                  @if (count($pos) > 0)
+                  @foreach ($pos as $p)
                   <tr>
-                    <td class="text-sm font-weight-normal">{{$s->name}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->description}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->station->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal">{{$p->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$p->description}}</td>
+                    <td class="text-sm font-weight-normal">{{$p->service_type}}</td>
+                    <td class="text-sm font-weight-normal">{{$p->cluster->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal"> <a href="{{route('show_pos_info', ['id' => $p->id])}}" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_cluster')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_pos')}}">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>

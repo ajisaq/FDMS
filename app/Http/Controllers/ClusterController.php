@@ -19,7 +19,7 @@ class ClusterController extends Controller
         //
         $clusters = Cluster::all();
 
-        return view('pages.org.clusters.list', compact('clusters'));
+        return view('pages.org.clusters.list_cluster', compact('clusters'));
     }
 
     /**
@@ -74,8 +74,10 @@ class ClusterController extends Controller
     public function show($id)
     {
         $cluster = Cluster::find($id);
+        $stations = Station::all();
 
-        return $cluster;
+        // return $cluster;
+        return view('pages.org.clusters.info_cluster', compact('stations', 'cluster'));
     }
 
     /**
@@ -105,7 +107,7 @@ class ClusterController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'description' => ['required'],
-            'station' => ['nullable'],
+            'station' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -119,7 +121,7 @@ class ClusterController extends Controller
         ]);
 
         if ($cluster) {
-            return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is Updated, check below info to verify. Thank you!");
+            return redirect()->route('show_cluster_info', ['id' => $id])->with('success', "Cluster is Updated, check below info to verify. Thank you!");
         } else {
             return back()->with('error', "Cluster is not updated, Try Again. Thank you!");
         }

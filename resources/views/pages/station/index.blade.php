@@ -87,6 +87,7 @@
       </div>
     </div>
 
+
     <div class="row mt-4">
       <div class="col-lg-12">
         <div class="card h-100 border-radius-xs">
@@ -97,7 +98,7 @@
           </div>
           <div class="card-body p-3">
             <div class="chart">
-             <h1>Content</h1>
+             <h1>Contffent</h1>
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ class StationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -100,7 +100,10 @@ class StationController extends Controller
     {
         $station = Station::find($id);
 
-        return $station;
+        // return $station;
+        $supervisors = User::all();
+        $managers = $supervisors;
+        return view('pages.org.stations.info_station', compact('station', 'supervisors', 'managers'));
     }
 
     /**
@@ -159,7 +162,7 @@ class StationController extends Controller
         ]);
 
         if ($station) {
-            return redirect()->route('show_station_info', ['id' => $station->id])->with('success', "station is added, check below info to verify. Thank you!");
+            return redirect()->route('show_station_info', ['id' => $id])->with('success', "station is added, check below info to verify. Thank you!");
         } else {
             return back()->with('error', "Station is not added, Try Again. Thank you!");
         }

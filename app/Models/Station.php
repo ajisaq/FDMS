@@ -21,8 +21,7 @@ class Station extends Model
         'location',
         'address',
         'contact',
-        'no_of_pumps',
-        'no_of_tanks',
+        'no_of_clusters',
         'no_of_pos',
         'supervisor_id',
         'manager_id',
@@ -48,8 +47,13 @@ class Station extends Model
         return $this->hasMany(Device::class);
     }
 
-    public function tanks(): HasMany
+    public function clusters(): HasMany
     {
-        return $this->hasMany(Tank::class);
+        return $this->hasMany(Cluster::class, 'no_');
+    }
+
+    public function pos(): HasMany
+    {
+        return $this->hasMany(Cluster::class);
     }
 }

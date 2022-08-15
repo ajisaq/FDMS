@@ -10,34 +10,26 @@
             <div class="row">
             <div class="col text-start">
                 <div class="dropdown text-end">
-                    <a href="#" class="cursor-pointer text-secondary">
+                     <a href="#" class="cursor-pointer text-secondary">
                       <span class="text-xs text-secondary">Dashboard </span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> Page</span>
+                      <span class="text-xs text-secondary"> Station</span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
+                        <span class="text-xs text-secondary">Cluster </span>
                       </a>
                       |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
-                      </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
-                      </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
+                    <a href="#" class="cursor-pointer text-secondary">
+                        <span class="text-xs text-secondary">Info </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Station</h6>
-                <p> List of station</p>
+                <h6 class="font-weight-bolder mb-0">Clusters</h6>
+                <p> List of clusters</p>
                 <div>
-                    <a href="{{route('show_add_stations')}}" class="btn btn-default border-radius-xs">add</a>
+                    <a href="{{route('show_add_cluster')}}" class="btn btn-default border-radius-xs">add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -60,9 +52,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">Stations</h5>
+              <h5 class="mb-0">clusters</h5>
               <p class="text-sm mb-0">
-                Below are the list of stations.
+                Below are the list of clusters.
               </p>
             </div>
             <div class="table-responsive">
@@ -90,19 +82,10 @@
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
                     <th data-sortable="" style="width: 51.1261%;">
-                      <a href="#" class="dataTable-sorter">location</a>
-                    </th>
-                    <th data-sortable="" style="width: 30.8559%;">
-                      <a href="#" class="dataTable-sorter">contact</a>
-                    </th>
-                    <th data-sortable="" style="width: 15.0901%;">
-                      <a href="#" class="dataTable-sorter">Number of clusters</a>
-                    </th>
-                    <th data-sortable="" style="width: 27.4775%;">
-                      <a href="#" class="dataTable-sorter">Number os pos</a>
+                      <a href="#" class="dataTable-sorter">Description</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Address</a>
+                      <a href="#" class="dataTable-sorter">Station</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
@@ -110,41 +93,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($stations) > 0)
-                  @foreach ($stations as $s)
+                  @if (count($clusters) > 0)
+                  @foreach ($clusters as $s)
                   <tr>
                     <td class="text-sm font-weight-normal">{{$s->name}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->location}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->contact ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->no_of_clusters}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->no_of_pos}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->address ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal">
-                      <a href="{{route('show_station_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a>
-                    </td>
+                    <td class="text-sm font-weight-normal">{{$s->description}}</td>
+                    <td class="text-sm font-weight-normal">{{$s->station->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO stations yet. create stations? <a href="{{route('show_add_stations')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_cluster')}}">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>
               </table>
             </div>
           </div>
-        {{-- <div class="card h-100 border-radius-xs">
-          <div class="card-header pb-0 p-3">
-            <div class="d-flex justify-content-between">
-              <h6 class="mb-0"></h6>
-            </div>
-          </div>
-          <div class="card-body p-3">
-            <div class="chart">
-             <h1>Content</h1>
-            </div>
-          </div>
-        </div> --}}
+       
       </div>
 
     </div>

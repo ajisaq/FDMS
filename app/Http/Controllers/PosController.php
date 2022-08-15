@@ -19,7 +19,7 @@ class PosController extends Controller
 
         $pos = Pos::all();
 
-        return view('pages.org.pos.list', compact('pos'));
+        return view('pages.org.pos.list_pos', compact('pos'));
     }
 
     /**
@@ -31,7 +31,7 @@ class PosController extends Controller
     {
         $clusters = Cluster::all();
 
-        return view('pages.org.pos.add', compact('clusters'));
+        return view('pages.org.pos.add_pos', compact('clusters'));
     }
 
     /**
@@ -76,8 +76,10 @@ class PosController extends Controller
     public function show($id)
     {
         $pos = Pos::find($id);
+        $clusters = Cluster::all();
 
-        return $pos;
+        // return $pos;
+        return view('pages.org.pos.info_pos', compact('clusters', 'pos'));
     }
 
     /**
@@ -92,7 +94,7 @@ class PosController extends Controller
 
         $cluster = $pos->cluster;
 
-        return view('pages.org.pos.edit', compact('pos', 'cluster'));
+        return view('pages.org.pos.edit_pos', compact('pos', 'cluster'));
     }
 
     /**

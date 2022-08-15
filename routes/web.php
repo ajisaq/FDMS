@@ -33,7 +33,7 @@ Route::controller(StationController::class)->group(function () {
     Route::post('/stations/{id}/edit', 'update')->name('update_station_info');
     Route::post('/stations/{id}/delete', 'destroy')->name('delete_station_info');
 });
-
+ 
 // Clusters routes
 Route::controller(ClusterController::class)->group(function () {
     Route::get('/clusters/list', 'index')->name('list_clusters');
