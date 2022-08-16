@@ -2,25 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
-use App\Models\Station;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class DeviceController extends Controller
-{
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    
+class CategoryController extends Controller
+{ 
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +15,9 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Device::all();
+        $categories = Category::all();
 
-        return view('pages.org.device.list_device', compact('devices'));
+         return view('pages.org.category.list', compact('categories'));
     }
 
     /**
@@ -40,9 +27,7 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        $stations = Station::all();
-
-        return view('pages.org.device.add_device', compact('stations'));
+        return view('pages.org.category.add');
     }
 
     /**
@@ -55,22 +40,28 @@ class DeviceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'station' => ['required'],           //Station Id
+            'type' => ['required'],
+            'p' => ['nullable'],
         ]);
+
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
 
-        $device = Device::create([
+        $category = Category::create([
             'name' => $request->name,
-            'station_id' => $request->station,
+            'type' => $request->type,
         ]);
 
-        if ($device) {
-            return redirect()->route('show_device_info', ['id' => $device->id])->with('success', "Device is created, check below info to verify. Thank you!");
+        if ($category) {
+            if ($request->p == "main") {
+                return redirect()->route('show_category_info', ['id' => $category->id])->with('success', "Category is added, check below info to verify. Thank you!");
+            }
+            return back()->with('succes', "cartegory is added successfuly. Thank you!");
+            // return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is added, check below info to verify. Thank you!");
         } else {
-            return back()->with('error', "Device is not added, Try Again. Thank you!");
+            return back()->with('error', "Category is not added, Try Again. Thank you!");
         }
     }
 
@@ -82,11 +73,9 @@ class DeviceController extends Controller
      */
     public function show($id)
     {
-        $device = Device::find($id);
-        $stations = Station::all();
+        $category = Category::find($id);
 
-        // return $device;
-        return view('pages.org.device.info_device', compact('stations', 'device'));
+        return view('pages.org.category.info', compact('category'));
     }
 
     /**
@@ -97,11 +86,7 @@ class DeviceController extends Controller
      */
     public function edit($id)
     {
-        $device = Device::find($id);
-
-        $station = $device->station;
-
-        return view('pages.org.device.edit_device', compact('station', 'device'));
+        //
     }
 
     /**
@@ -115,22 +100,23 @@ class DeviceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'station' => ['required'],
+            'type' => ['required'],
         ]);
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
-
-        $device = Device::where('id', '=', $id)->update([
+        
+         $category = Category::where('id', '=', $id)->update([
             'name' => $request->name,
-            'station_id' => $request->station,
+            'type' => $request->type,
         ]);
 
-        if ($device) {
-            return redirect()->route('show_device_info', ['id' => $id])->with('success', "device is updated, check below info to verify. Thank you!");
+        if ($category) {
+            return back()->with('succes', "cartegory is Updated successfuly. Thank you!");
+            // return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is added, check below info to verify. Thank you!");
         } else {
-            return back()->with('error', "device is not Updated, Try Again. Thank you!");
+            return back()->with('error', "Category is not Updated, Try Again. Thank you!");
         }
     }
 
@@ -142,12 +128,12 @@ class DeviceController extends Controller
      */
     public function destroy($id)
     {
-        $device = Device::where('id', '=', $id)->destroy();
+        $category = Category::where('id', '=', $id)->destroy();
 
-        if ($device) {
-            return redirect()->route('list_devices')->with('success', 'device is deleted successfully.');
+        if ($category) {
+            return redirect()->route('list_categories')->with('success', 'category is deleted successfully.');
         } else {
-            return back()->with('error', 'Failed to delete device, Try again later.');
+            return back()->with('error', 'Failed to delete category, Try again later.');
         }
     }
 }

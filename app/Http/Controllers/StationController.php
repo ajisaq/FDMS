@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class StationController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *

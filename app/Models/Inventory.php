@@ -29,7 +29,7 @@ class Inventory extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function devices(): BelongsToMany

@@ -3,6 +3,9 @@
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\StationController;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +61,7 @@ Route::controller(PosController::class)->group(function () {
 
 
 // Device routes
-Route::controller(PosController::class)->group(function () {
+Route::controller(DeviceController::class)->group(function () {
     Route::get('/devices/list', 'index')->name('list_devices');
     Route::get('/devices/add', 'create')->name('show_add_device');
     Route::post('/devices/add', 'store')->name('store_device');
@@ -66,4 +69,28 @@ Route::controller(PosController::class)->group(function () {
     Route::get('/devices/{id}/edit', 'edit')->name('show_edit_device');
     Route::post('/devices/{id}/edit', 'update')->name('update_device_info');
     Route::post('/devices/{id}/delete', 'destroy')->name('delete_device_info');
+});
+
+
+// Inventory routes
+Route::controller(InventoryController::class)->group(function () {
+    Route::get('/inventory/list', 'index')->name('list_inventories');
+    Route::get('stations/{id}/inventory/list', 'station_inventories')->name('list_station_inventories');
+    Route::get('stations/{id}/inventory/add', 'create')->name('show_add_inventory');
+    Route::post('/inventory/add', 'store')->name('store_inventory');
+    // Route::get('/inventory/{id}/info', 'show')->name('show_device_info');
+    // Route::get('/inventory/{id}/edit', 'edit')->name('show_edit_device');
+    // Route::post('/inventory/{id}/edit', 'update')->name('update_device_info');
+    // Route::post('/inventory/{id}/delete', 'destroy')->name('delete_device_info');
+});
+
+// Category routes
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category/list', 'index')->name('list_categories');
+    Route::get('/category/add', 'create')->name('show_add_category');
+    Route::post('/category/add', 'store')->name('store_category');
+    Route::get('/category/{id}/info', 'show')->name('show_category_info');
+    Route::get('/category/{id}/edit', 'edit')->name('show_edit_category');
+    Route::post('/category/{id}/edit', 'update')->name('update_category_info');
+    Route::post('/category/{id}/delete', 'destroy')->name('delete_category_info');
 });

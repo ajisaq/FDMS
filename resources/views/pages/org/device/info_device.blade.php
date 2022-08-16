@@ -19,19 +19,15 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
-                      </a>
-                    |
-                    <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Pos </span>
+                        <span class="text-xs text-secondary">Device </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
                         <span class="text-xs text-secondary">Info </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">POS</h6>
-                <p>POS Info</p>
+                <h6 class="font-weight-bolder mb-0">Device</h6>
+                <p>Device Info</p>
                 <div>
                     <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
@@ -54,66 +50,41 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <form class="multisteps-form__form mb-8" style="height: 406px;" action="{{route('update_pos_info', ['id'=>$pos->id])}}" method="post">
+        <form class="multisteps-form__form mb-8" style="height: 406px;" action="{{route('update_device_info', ['id'=>$device->id])}}" method="post">
             @csrf
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">POS Info</p>
+                <p class="mb-0 text-uppercase">device Info</p>
                 <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
               </div>
             </div>
             <div class="card-body">
-              <p class="text-uppercase text-sm">POS Information</p>
+              {{-- <p class="text-uppercase text-sm">device Information</p> --}}
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Name</label>
-                    <input class="form-control" type="text" name="name" value="{{$pos->name}}" >
+                    <input class="form-control" type="text" name="name" value="{{$device->name}}" >
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Description</label>
-                    <input class="form-control" type="text" name="service_type" value="{{$pos->service_type}}">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Description</label>
-                    <input class="form-control" type="text" name="description" value="{{$pos->description}}">
-                  </div>
-                </div>
-            </div>
-              <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Cluster</p>
-                <div class="row mt-3">
-                  <div class="col-6 col-md-6">
+                <div class="col-6 col-md-6">
                     <label>Choose Cluster</label>
-                        <select class="multisteps-form__select form-control" name="cluster" id="choices-category">
-                          <option value="{{$pos->cluster->id}}">{{$pos->cluster->name}}</option>
-                          @foreach ($clusters as $c)
-                              <option value="{{$c->id}}" @selected(old('version') == $c)>
-                                {{$c->name}}
+                        <select class="multisteps-form__select form-control" name="station" id="choices-category">
+                          <option value="{{$device->station->id}}">{{$device->station->name}}</option>
+                          @foreach ($stations as $s)
+                              <option value="{{$s->id}}" @selected(old('version') == $s)>
+                                {{$s->name}}
                               </option>
                           @endforeach
                         </select>
-                    {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
                   </div>
-                  <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">station</label>
-                        <input class="form-control" type="text" disabled value="{{$pos->cluster->station->name ?? "Not specified"}}">
-                      </div>
-                    </div>
-                </div>
+            </div>
               
             </div>
           </div>
-        </form>
-            
+        </form> 
     </div>
-
     
 </div>
 

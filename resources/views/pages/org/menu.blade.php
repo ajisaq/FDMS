@@ -44,7 +44,13 @@
                             <span class="sidenav-mini-icon"> P </span>
                             <span class="sidenav-normal"> Pos </span>
                         </a>
-                    </li>                      
+                    </li> 
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{{route('list_devices')}}">
+                            <span class="sidenav-mini-icon"> d </span>
+                            <span class="sidenav-normal"> Device </span>
+                        </a>
+                    </li>
                   </ul>
                 </div>
             </li> 
@@ -101,6 +107,15 @@
                     </li>
                   </ul>
                 </div>
+            </li> 
+
+            <li class="nav-item">
+                <a href="{{route('list_categories')}}" class="nav-link ">
+                  <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                    <i class="ni ni-single-copy-04 text-primary text-sm opacity-10"></i>
+                  </div>
+                  <span class="nav-link-text ms-1"><b>Category</b></span>
+                </a>
             </li> 
         </ul>
       </div>

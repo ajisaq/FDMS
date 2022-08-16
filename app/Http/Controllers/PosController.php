@@ -9,6 +9,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PosController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -110,7 +122,7 @@ class PosController extends Controller
             'name' => ['required'],
             'service_type' => ['required'],
             'description' => ['required'],
-            'cluster' => ['nullable'],
+            'cluster' => ['required'],
         ]);
 
         if ($validator->fails()) {

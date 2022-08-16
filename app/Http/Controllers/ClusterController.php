@@ -9,6 +9,18 @@ use Illuminate\Support\Facades\Validator;
 
 class ClusterController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -138,7 +150,7 @@ class ClusterController extends Controller
         $cluster = Cluster::where('id', '=', $id)->destroy();
 
         if ($cluster) {
-            return redirect()->route('list_stations')->with('success', 'cluster is deleted successfully.');
+            return redirect()->route('list_clusters')->with('success', 'cluster is deleted successfully.');
         } else {
             return back()->with('error', 'Failed to delete cluster, Try again later.');
         }
