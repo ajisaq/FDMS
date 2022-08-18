@@ -6,6 +6,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -94,3 +95,15 @@ Route::controller(CategoryController::class)->group(function () {
     Route::post('/category/{id}/edit', 'update')->name('update_category_info');
     Route::post('/category/{id}/delete', 'destroy')->name('delete_category_info');
 });
+
+// Customer routes
+Route::controller(CustomerController::class)->group(function () {
+    Route::get('/customer/list', 'index')->name('list_customers');
+    Route::get('/customer/add', 'create')->name('show_add_customer');
+    Route::post('/customer/add', 'store')->name('store_customer');
+    Route::get('/customer/{id}/info', 'show')->name('show_customer_info');
+    Route::get('/customer/{id}/edit', 'edit')->name('show_edit_customer');
+    Route::post('/customer/{id}/edit', 'update')->name('update_customer_info');
+    Route::post('/customer/{id}/delete', 'destroy')->name('delete_customer_info');
+});
+

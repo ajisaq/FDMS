@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
-{ 
+class CustomerController extends Controller
+{
      /**
      * Create a new controller instance.
      *
@@ -18,7 +18,6 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +25,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $customers = Customer::all();
 
-         return view('pages.org.category.list', compact('categories'));
+        return view('pages.customer.list', compact('customers'));
     }
 
     /**
@@ -38,7 +37,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.org.category.add');
+        return view('pages.customer.add');
     }
 
     /**
@@ -51,28 +50,30 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'type' => ['required'],
-            'p' => ['nullable'],
+            'contact' => ['required'],
+            'email' => ['required', 'email', 'unique:customers,email'],
+            'phone' => ['required', 'unique:customers,phone'],
         ]);
-
 
         if ($validator->fails()) {
-            return back()->with($validator->errors());
+            // return the error only
+            // return response()->json(['error' => $validator->errors()->first()]);
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        $category = Category::create([
+        $customer = Customer::create([
             'name' => $request->name,
-            'type' => $request->type,
+            'contact' => $request->contact,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
-        if ($category) {
-            if ($request->p == "main") {
-                return redirect()->route('show_category_info', ['id' => $category->id])->with('success', "Category is added, check below info to verify. Thank you!");
-            }
-            return back()->with('succes', "cartegory is added successfuly. Thank you!");
-            // return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is added, check below info to verify. Thank you!");
+        if ($customer) {
+            return redirect()->route('show_customer_info', ['id' => $customer->id])->with('success', "Customer is added, check below info to verify. Thank you!");
         } else {
-            return back()->with('error', "Category is not added, Try Again. Thank you!");
+            return back()->with('error', "Customer is not added, Try Again. Thank you!");
         }
     }
 
@@ -84,9 +85,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
+        $customer = Customer::find($id);
 
-        return view('pages.org.category.info', compact('category'));
+        return view('pages.customer.info', compact('customer'));
     }
 
     /**
@@ -111,24 +112,28 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'type' => ['required'],
+            'contact' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required'],
         ]);
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
-        
-         $category = Category::where('id', '=', $id)->update([
+
+        $customer = Customer::where('id', '=', $id)->update([
             'name' => $request->name,
-            'type' => $request->type,
+            'contact' => $request->contact,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
-        if ($category) {
-            return back()->with('succes', "cartegory is Updated successfuly. Thank you!");
-            // return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is added, check below info to verify. Thank you!");
+        if ($customer) {
+            return  back()->with('success', "Customer is update, check below info to verify. Thank you!");
         } else {
-            return back()->with('error', "Category is not Updated, Try Again. Thank you!");
+            return back()->with('error', "Customer is not update, Try Again. Thank you!");
         }
+
     }
 
     /**
@@ -139,12 +144,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::where('id', '=', $id)->destroy();
+        $customer = Customer::where('id', '=', $id)->destroy();
 
-        if ($category) {
-            return redirect()->route('list_categories')->with('success', 'category is deleted successfully.');
+        if ($customer) {
+            return redirect()->route('list_customers')->with('success', 'customer is deleted successfully.');
         } else {
-            return back()->with('error', 'Failed to delete category, Try again later.');
+            return back()->with('error', 'Failed to delete customer, Try again later.');
         }
     }
 }
