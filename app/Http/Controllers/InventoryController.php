@@ -42,7 +42,7 @@ class InventoryController extends Controller
         $stations = Station::all();
         $categories = Category::all();
 
-        return view('pages.org.inventory.add', compact('station', 'categories'));
+        return view('pages.org.inventory.add', compact('stations', 'categories'));
     }
 
     /**
