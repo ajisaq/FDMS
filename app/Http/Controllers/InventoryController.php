@@ -37,9 +37,9 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $station = Station::find($id);
+        $station = Station::all();
         $categories = Category::all();
 
         return view('pages.org.inventory.add', compact('station', 'categories'));

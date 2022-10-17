@@ -77,7 +77,7 @@ Route::controller(DeviceController::class)->group(function () {
 Route::controller(InventoryController::class)->group(function () {
     Route::get('/inventory/list', 'index')->name('list_inventories');
     Route::get('stations/{id}/inventory/list', 'station_inventories')->name('list_station_inventories');
-    Route::get('stations/{id}/inventory/add', 'create')->name('show_add_inventory');
+    Route::get('/inventory/add', 'create')->name('show_add_inventory');
     Route::post('/inventory/add', 'store')->name('store_inventory');
     // Route::get('/inventory/{id}/info', 'show')->name('show_device_info');
     // Route::get('/inventory/{id}/edit', 'edit')->name('show_edit_device');
