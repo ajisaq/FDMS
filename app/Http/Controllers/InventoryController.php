@@ -39,7 +39,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        $station = Station::all();
+        $stations = Station::all();
         $categories = Category::all();
 
         return view('pages.org.inventory.add', compact('station', 'categories'));

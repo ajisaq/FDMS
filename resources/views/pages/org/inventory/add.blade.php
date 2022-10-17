@@ -111,7 +111,10 @@
                         <div class="col-12">
                           <label>Choose station</label>
                               <select required class="multisteps-form__select form-control" name="station" id="choices-category">
-                                    <option value="{{$station->id}}">{{$station->name}}</option>
+                                    {{-- <option value="{{$station->id}}">{{$station->name}}</option> --}}
+                                    @foreach ($stations as $station)
+                                      <option value="{{$station->id}}">{{$station->name}}</option>
+                                    @endforeach
                               </select>
                         </div>
                       </div>
