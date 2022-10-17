@@ -72,15 +72,15 @@
                       <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                           <label>Name</label>
-                          <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Item name " onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input required name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Item name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                         <div class="col-6 col-sm-6">
                           <label>Unit</label>
-                          <input name="unit" class="multisteps-form__input form-control" type="text" placeholder="eg. NGN " onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input required name="unit" class="multisteps-form__input form-control" type="text" placeholder="eg. NGN " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                         <div class="col-6 col-sm-6">
                           <label>Amount</label>
-                          <input name="amount" class="multisteps-form__input form-control" type="text" placeholder="eg. 999999 " onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input required name="amount" class="multisteps-form__input form-control" type="text" placeholder="eg. 999999 " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
 
                         <div class="col-6 col-sm-6">
