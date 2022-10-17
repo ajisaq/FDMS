@@ -29,8 +29,8 @@
                   <ul class="nav ms-4">
                     <li class="nav-item ">
                       <a class="nav-link" href="{{route('list_stations')}}">
-                        <span class="sidenav-mini-icon"> L </span>
-                        <span class="sidenav-normal"> Locations </span>
+                        <span class="sidenav-mini-icon"> S </span>
+                        <span class="sidenav-normal"> Stations </span>
                       </a>
                     </li>
                     <li class="nav-item ">
