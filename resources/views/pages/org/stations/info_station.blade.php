@@ -38,7 +38,7 @@
                 <p> Edit station</p>
                 <div>
                     <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('show_add_inventory', ['id' => $station->id])}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
+                    <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
                     <a href="{{route('list_station_inventories', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">List Inventories</a>
                     {{-- <button type="button" class="btn btn-info border-radius-xs">Info</button>
                     <button type="button" class="btn btn-success border-radius-xs">Success</button>
