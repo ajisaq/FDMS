@@ -101,6 +101,7 @@
                         <div class="col-12">
                           <label>Choose Cluster</label>
                               <select class="multisteps-form__select form-control cluster_id" name="cluster" id="choices-category">
+                                <option disabled>--Select</option>
                                 @foreach ($clusters as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                 @endforeach
