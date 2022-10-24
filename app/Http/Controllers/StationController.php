@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Station;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class StationController extends Controller
@@ -27,7 +28,7 @@ class StationController extends Controller
      */
     public function index()
     {
-        $stations = Station::all();
+        $stations = Station::where("org_id", Auth::user()->org_id)->get();
         return view('pages.org.stations.list_stations', compact("stations"));
     }
 
@@ -42,7 +43,7 @@ class StationController extends Controller
         // $managers = User::where('role_id', '=', 4)->get();
 
         // this is just for testing only:
-        $supervisors = User::all();
+        $supervisors = User::where("org_id", Auth::user()->org_id)->get();
         $managers = $supervisors;
 
         return view('pages.org.stations.add_station', compact('supervisors', 'managers'));
@@ -72,6 +73,7 @@ class StationController extends Controller
         }
 
         $station = Station::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'location' => $request->location,
             'address' => $request->address,
@@ -100,7 +102,7 @@ class StationController extends Controller
         $station = Station::find($id);
 
         // return $station;
-        $supervisors = User::all();
+        $supervisors = User::where("org_id", Auth::user()->org_id)->get();
         $managers = $supervisors;
         return view('pages.org.stations.info_station', compact('station', 'supervisors', 'managers'));
     }
@@ -119,7 +121,7 @@ class StationController extends Controller
         // $managers = User::where('role_id', '=', 4)->get();
 
         // this is just for testing only:
-        $supervisors = User::all();
+        $supervisors = User::where("org_id", Auth::user()->org_id)->get();
         $managers = $supervisors;
 
         return view('pages.org.stations.edit_station', compact('station', 'supervisors', 'managers'));
@@ -150,6 +152,7 @@ class StationController extends Controller
         }
 
         $station = Station::where('id', '=', $id)->update([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'location' => $request->location,
             'address' => $request->address,

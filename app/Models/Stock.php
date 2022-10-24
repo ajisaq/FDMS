@@ -15,10 +15,16 @@ class Stock extends Model
         'expiry_date',
         'status',
         'inventory_id',
+        'org_id',
     ];
 
     public function inventory(): BelongsTo
     {
         return $this->belongsTo(Inventory::class, 'inventory_id', 'id');
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

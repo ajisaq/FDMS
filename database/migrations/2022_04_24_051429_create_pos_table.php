@@ -15,12 +15,15 @@ class CreatePosTable extends Migration
     {
         Schema::create('pos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('cluster_id');
+            $table->unsignedBigInteger('sub_cluster_id');
             $table->string('name');
             $table->string('service_type');
             $table->string('description');
             $table->timestamps();
-
+            
+            $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('cluster_id')->references('id')->on('clusters');
         });
     }

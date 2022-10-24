@@ -15,6 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('inventory_id');
             $table->unsignedBigInteger('user_id');
@@ -23,7 +24,8 @@ class CreateTransactionsTable extends Migration
             $table->float('amount');
             $table->float('quantity');
             $table->timestamps();
-
+            
+            $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('inventory_id')->references('id')->on('inventories');
             $table->foreign('user_id')->references('id')->on('users');

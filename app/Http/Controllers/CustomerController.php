@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -25,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.customer.list', compact('customers'));
     }
@@ -64,6 +65,7 @@ class CustomerController extends Controller
         }
 
         $customer = Customer::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'contact' => $request->contact,
             'email' => $request->email,
@@ -122,6 +124,7 @@ class CustomerController extends Controller
         }
 
         $customer = Customer::where('id', '=', $id)->update([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'contact' => $request->contact,
             'email' => $request->email,

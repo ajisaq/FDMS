@@ -15,17 +15,14 @@ class CreateDeviceInventoriesTable extends Migration
     {
         Schema::create('device_inventories', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('inventory_id');
             $table->foreign('inventory_id')
                 ->references('id')
                 ->on('inventories')->onDelete('cascade');
-
             $table->unsignedBigInteger('device_id');
             $table->foreign('device_id')
                 ->references('id')
                 ->on('devices')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class Inventory extends Model
         'unit',
         'station_id',
         'category_id',
+        'org_id',
     ];
 
     public function station(): BelongsTo
@@ -45,5 +46,10 @@ class Inventory extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

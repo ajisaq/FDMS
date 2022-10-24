@@ -14,10 +14,27 @@ class Sale extends Model
         'open_stock',
         'close_stock',
         'cluster_id',
+        'sub_cluster_id',
+        'org_id',
     ];
+
+    public function cluster(): BelongsTo
+    {
+        return $this->belongsTo(Cluster::class, 'cluster_id', 'id');
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
+    }
 
     public function tank(): BelongsTo
     {
-        return $this->belongsTo(Cluster::class, 'cluster_id', 'id');
+        return $this->belongsTo(Tank::class, 'sub_cluster_id', 'id');
+    }
+
+    public function other(): BelongsTo
+    {
+        return $this->belongsTo(Other::class, 'sub_cluster_id', 'id');
     }
 }

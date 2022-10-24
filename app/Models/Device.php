@@ -14,6 +14,7 @@ class Device extends Model
     protected $fillable = [
         'name',
         'station_id',
+        'org_id',
     ];
 
     public function inventories(): BelongsToMany
@@ -24,5 +25,10 @@ class Device extends Model
     public function station(): BelongsTo
     {
         return $this->belongsTo(Station::class, 'station_id', 'id');
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

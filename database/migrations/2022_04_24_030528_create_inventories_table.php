@@ -15,6 +15,7 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('station_id');
             $table->unsignedBigInteger('category_id');
             $table->string('name');
@@ -23,7 +24,8 @@ class CreateInventoriesTable extends Migration
             $table->integer('with_payer_name');
             $table->string('unit');
             $table->timestamps();
-
+            
+            $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('station_id')->references('id')->on('stations');
             $table->foreign('category_id')->references('id')->on('categories');
         });

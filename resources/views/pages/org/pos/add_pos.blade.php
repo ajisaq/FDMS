@@ -77,15 +77,15 @@
                       <div class="row mt-3">
                         <div class="col-12 col-sm-6">
                           <label>Name</label>
-                          <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Cluster name " onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. POS name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Description</label>
-                          <input name="description" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a cluster...." onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input name="description" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                         <div class="col-12 col-sm-12 mt-3 mt-sm-0">
                           <label>Type of service</label>
-                          <input name="service_type" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a cluster...." onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input name="service_type" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                       </div>
                       <div class="button-row d-flex mt-4">
@@ -100,12 +100,17 @@
                       <div class="row mt-3">
                         <div class="col-12">
                           <label>Choose Cluster</label>
-                              <select class="multisteps-form__select form-control" name="cluster" id="choices-category">
+                              <select class="multisteps-form__select form-control cluster_id" name="cluster" id="choices-category">
                                 @foreach ($clusters as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                 @endforeach
                               </select>
                           {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
+                        </div>
+                      </div>
+
+                      <div class="row mt-3">
+                        <div class="col-12" id="data_list"> 
                         </div>
                       </div>
                       <div class="row">
@@ -126,6 +131,32 @@
 
     
 </div>
+@endsection
 
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+            
+	$('.cluster_id').on('change', function() {
+        var req_value = this.value;
+        console.log(req_value);
+        	    $.ajax({
+		
+        	        url:"{{ route('search_tank') }}",
+		
+        	        type:"GET",
+		
+        	        data:{'data':req_value},
+		
+        	        success:function (data) {
+                    console.log(data);
+        	            $('#data_list').html(data);
 
+        	        }
+        	    })
+
+    	});
+});
+</script>
 @endsection

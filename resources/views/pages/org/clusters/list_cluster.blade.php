@@ -85,6 +85,9 @@
                       <a href="#" class="dataTable-sorter">Description</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Type</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Station</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
@@ -98,6 +101,7 @@
                   <tr>
                     <td class="text-sm font-weight-normal">{{$s->name}}</td>
                     <td class="text-sm font-weight-normal">{{$s->description}}</td>
+                    <td class="text-sm font-weight-normal">{{$s->type}}</td>
                     <td class="text-sm font-weight-normal">{{$s->station->name ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td>
                   </tr>

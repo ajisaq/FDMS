@@ -14,7 +14,9 @@ class Cluster extends Model
     protected $fillable = [
         'name',
         'description',
+        'type',
         'station_id',
+        'org_id',
     ];
 
     public function station(): BelongsTo
@@ -30,5 +32,20 @@ class Cluster extends Model
     public function sales(): HasMany
     {
         return $this->hasMany(Sale::class);
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
+    }
+
+    public function tanks(): HasMany
+    {
+        return $this->hasMany(Tank::class);
+    }
+
+    public function others(): HasMany
+    {
+        return $this->hasMany(Other::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cluster;
 use App\Models\Pos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PosController extends Controller
@@ -29,7 +30,7 @@ class PosController extends Controller
     public function index()
     {
 
-        $pos = Pos::all();
+        $pos = Pos::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.pos.list_pos', compact('pos'));
     }
@@ -41,7 +42,7 @@ class PosController extends Controller
      */
     public function create()
     {
-        $clusters = Cluster::all();
+        $clusters = Cluster::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.pos.add_pos', compact('clusters'));
     }
@@ -58,18 +59,35 @@ class PosController extends Controller
             'name' => ['required'],
             'service_type' => ['required'],
             'description' => ['required'],
-            'cluster' => ['required'],           //cluster Id
+            'cluster' => ['required'],
+            'sub_cluster' => ['nullable'],           //cluster Id
         ]);
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
 
+        $cluster = Cluster::find($request->cluster);
+
+        if ($cluster->type == "tanks") {
+            if (!empty($request->sub_cluster)) {
+                # code...
+                $sub_cluster = $request->sub_cluster;
+            }else{
+                return back()->with('error', 'Please select a sub cluster for the pos. Thank you!');
+            }
+        }else{
+            $sub_cluster = $cluster->others;
+            $sub_cluster = $sub_cluster[0]->id;
+        }
+
         $pos = Pos::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'service_type' => $request->service_type,
             'description' => $request->description,
             'cluster_id' => $request->cluster,
+            'sub_cluster_id' => $sub_cluster,
         ]);
 
         if ($pos) {
@@ -88,7 +106,7 @@ class PosController extends Controller
     public function show($id)
     {
         $pos = Pos::find($id);
-        $clusters = Cluster::all();
+        $clusters = Cluster::where('org_id', '=', Auth::user()->org_id)->get();
 
         // return $pos;
         return view('pages.org.pos.info_pos', compact('clusters', 'pos'));
@@ -122,22 +140,35 @@ class PosController extends Controller
             'name' => ['required'],
             'service_type' => ['required'],
             'description' => ['required'],
-            'cluster' => ['required'],
+            // 'cluster' => ['required'],
+            'sub_cluster' => ['nullable'],
         ]);
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
 
-        $pos = Pos::where('id', '=', $id)->update([
+        if(!empty($request->sub_cluster)){
+            $pos = Pos::where('id', '=', $id)->update([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'service_type' => $request->service_type,
             'description' => $request->description,
-            'cluster_id' => $request->cluster,
+            // 'cluster_id' => $request->cluster,
+            'sub_cluster_id' => $request->sub_cluster,
         ]);
+        }else{
+            $pos = Pos::where('id', '=', $id)->update([
+                'org_id' => Auth::user()->org_id,
+                'name' => $request->name,
+                'service_type' => $request->service_type,
+                'description' => $request->description,
+                // 'cluster_id' => $request->cluster,
+            ]);
+        }
 
         if ($pos) {
-            return redirect()->route('show_pos_info', ['id' => $pos->id])->with('success', "Pos is updated, check below info to verify. Thank you!");
+            return redirect()->route('show_pos_info', ['id' => $id])->with('success', "Pos is updated, check below info to verify. Thank you!");
         } else {
             return back()->with('error', "Pos is not updated, Try Again. Thank you!");
         }
@@ -158,5 +189,41 @@ class PosController extends Controller
         } else {
             return back()->with('error', 'Failed to delete Pos, Try again later.');
         }
+    }
+
+    public function search_tank(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = "";
+
+                $cluster = Cluster::find($request->data);
+
+                if ($cluster->type == "tanks") {
+
+                    $data = $cluster->tanks;
+
+                    if (count($data) > 0) {
+                        $output = '<ul class="list-group" style="display: block;">';
+                        $i = 0;
+                        foreach ($data as $row) {
+    
+                            $output .= '<li class="list-group-item"  onclick="' . "$('#load').css('display', 'block');" . '"><div class="form-check"><input class="form-check-input" type="radio" name="sub_cluster" value="'
+                                . $row->id . '" id="flexCheckDefault[' . $i . ']"><label class="form-check-label" for="flexCheckDefault[' . $i . ']">'
+                                . $row->name .
+                                '</label></div></li>';
+                            $i++;
+                        }
+                        $output .= '</ul>';
+                    } else {
+    
+                        $output .= '<li class="list-group-item">' . 'No Customer' . '</li>';
+                    }
+                }else{
+                    $output .= '<li class="list-group-item">' . 'No Sub Clusters' . '</li>';
+                }
+
+
+                return $output;
+            }
     }
 }

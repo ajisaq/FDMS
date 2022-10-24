@@ -67,7 +67,7 @@ class User extends Authenticatable
         return $this->hasMany(Station::class);
     }
 
-    public function organization(): BelongsTo
+    public function org(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'org_id');
     }

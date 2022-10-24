@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class InventoryController extends Controller
@@ -27,7 +28,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::all();
+        $inventories = Inventory::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.inventory.list', compact('inventories'));
     }
@@ -39,8 +40,8 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        $stations = Station::all();
-        $categories = Category::all();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
+        $categories = Category::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.inventory.add', compact('stations', 'categories'));
     }
@@ -68,6 +69,7 @@ class InventoryController extends Controller
         }
 
         $inventory = Inventory::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'unit' => $request->unit,
             'amount' => $request->amount,

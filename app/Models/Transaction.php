@@ -18,6 +18,7 @@ class Transaction extends Model
         'inventory_id',
         'customer_id',
         'user_id',
+        'org_id',
     ];
 
     public function customer(): BelongsTo
@@ -33,5 +34,10 @@ class Transaction extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

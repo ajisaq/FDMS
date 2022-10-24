@@ -16,7 +16,6 @@ class Organization extends Model
         'location',
         'address',
         'contact',
-        // 'user_id',
     ];
 
 
@@ -24,4 +23,5 @@ class Organization extends Model
     {
         return $this->hasMany(User::class);
     }
+
 }

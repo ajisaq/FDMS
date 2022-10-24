@@ -15,11 +15,15 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->string('name');
             $table->string('contact');
             $table->string('email');
             $table->string('phone');
             $table->timestamps();
+            
+            
+            $table->foreign('org_id')->references('id')->on('organizations');
         });
     }
 

@@ -15,10 +15,12 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('station_id');
             $table->string('name');
             $table->timestamps();
-
+            
+            $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('station_id')->references('id')->on('stations');
         });
     }

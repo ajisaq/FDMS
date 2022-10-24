@@ -70,6 +70,32 @@
                     <input class="form-control" type="text" name="description" value="{{$cluster->description}}">
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">type</label>
+                    <input class="form-control" type="text" name="type" value="{{$cluster->type}}" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <?php if ($cluster->type == "tanks") {
+                        $sub_clusters = $cluster->tanks;
+                      } else{
+                          $sub_clusters = $cluster->others;
+                      }
+                  ?>
+                  <label for="example-text-input" class="form-control-label">Name's</label>
+                  @if ($cluster->type == "tanks")
+                  <button onclick="remove_sub()" class="btn btn-secondary btn-sm" style="float: right" type="button">clean</button>
+                  <button onclick="add_sub()" class="btn btn-primary btn-sm" style="float: right" type="button">add</button>
+                  @endif
+                  
+                  <ul class="sub_cluster">
+                    @foreach ($sub_clusters as $sc)  
+                      <li>{{$sc->name}}</li>
+                    @endforeach
+                    {{-- <li class=""> <input type="text"> </li> --}}
+                  </ul>
+                </div>
             </div>
               <hr class="horizontal dark">
               <p class="text-uppercase text-sm">Station</p>
@@ -100,8 +126,35 @@
             
     </div>
 
-    
 </div>
+@endsection
 
+@section('script')
+    <script>
+    // Create a break line element
+    var br = document.createElement("br");
+    var c = 1;
+    function add_sub() {
 
+    // Create an input element for Full Name
+    var FN = document.createElement("input");
+    FN.setAttribute("type", "text");
+    FN.setAttribute("name", "tname["+c+"]");
+    FN.setAttribute("placeholder", "eg. Tank"+c+" name");
+    FN.setAttribute("class", "form-control ddd");
+    FN.setAttribute("id", "dd");
+
+    document.getElementsByClassName("sub_cluster")[0]
+   .appendChild(FN);
+    c=c+1;
+    }
+
+    function remove_sub() {
+      // Get the child element node
+      var child = document.getElementsByClassName("ddd");
+      // Remove the child element from the document
+      child[c-2].parentNode.removeChild(child[c-2]);
+      c=c-1;
+    }
+    </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +59,7 @@ Route::controller(PosController::class)->group(function () {
     Route::get('/pos/{id}/edit', 'edit')->name('show_edit_pos');
     Route::post('/pos/{id}/edit', 'update')->name('update_pos_info');
     Route::post('/pos/{id}/delete', 'destroy')->name('delete_pos_info');
+    Route::get('/pos/tank/by/cluster', 'search_tank')->name('search_tank');
 });
 
 

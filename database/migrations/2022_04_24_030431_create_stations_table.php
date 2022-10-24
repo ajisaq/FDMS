@@ -15,6 +15,7 @@ class CreateStationsTable extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
             // $table->unsignedBigInteger('inventory_id');
             $table->unsignedBigInteger('manager_id');
             $table->unsignedBigInteger('supervisor_id');
@@ -26,8 +27,9 @@ class CreateStationsTable extends Migration
             $table->string('no_of_clusters');
             $table->string('no_of_pos');
             $table->timestamps();
-
+            
             // $table->foreign('inventory_id')->references('id')->on('inventories');
+            $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('manager_id')->references('id')->on('users');
             $table->foreign('supervisor_id')->references('id')->on('users');
         });

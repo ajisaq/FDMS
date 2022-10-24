@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -26,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::where('org_id', '=', Auth::user()->org_id)->get();
 
          return view('pages.org.category.list', compact('categories'));
     }
@@ -61,6 +62,7 @@ class CategoryController extends Controller
         }
 
         $category = Category::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'type' => $request->type,
         ]);
@@ -119,6 +121,7 @@ class CategoryController extends Controller
         }
         
          $category = Category::where('id', '=', $id)->update([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'type' => $request->type,
         ]);

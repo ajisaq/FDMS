@@ -25,6 +25,7 @@ class Station extends Model
         'no_of_pos',
         'supervisor_id',
         'manager_id',
+        'org_id',
     ];
 
     public function manager(): BelongsTo
@@ -55,5 +56,10 @@ class Station extends Model
     public function pos(): HasMany
     {
         return $this->hasMany(Cluster::class);
+    }
+
+    public function org(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class, 'org_id');
     }
 }

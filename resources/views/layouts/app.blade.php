@@ -1,6 +1,6 @@
 <?php 
 
-$organization = Auth::user()->organization()->get(); 
+$organization = Auth::user()->org()->get(); 
 $org = $organization[0];
 ?>
 <!DOCTYPE html>
@@ -23,12 +23,35 @@ $org = $organization[0];
   <link href="{{ asset('/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css?v=2.0.1') }}" rel="stylesheet" />
+<style>
+    .overlay{
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("{{asset('/assets/loader.gif')}}") center no-repeat;
+    }
+    
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading{
+        overflow: hidden;   
+    }
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay{
+        display: block;
+    }
+</style>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
+  <div class="overlay"></div>
     <div class="min-height-200 bg-gradient-info position-absolute w-100"></div>
     @yield('menu')
     <main class="main-content position-relative border-radius-lg ">
       @yield('nav')
+
      
       @yield('content')
         <footer class="footer pt-3  ">
@@ -70,6 +93,7 @@ $org = $organization[0];
 
    <script src="{{ asset('/assets/js/plugins/datatables.js')}}"></script>
    <script src="{{ asset('/assets/js/plugins/chartjs.min.js')}}"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -167,6 +191,16 @@ $org = $organization[0];
       searchable: true,
       fixedHeight: true
     });
+
+    $(document).on({
+        ajaxStart: function(){
+            $("body").addClass("loading"); 
+        },
+        ajaxStop: function(){ 
+            $("body").removeClass("loading"); 
+        }    
+    });
   </script>
+  @yield('script')
 </body>
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalesTable extends Migration
+class CreateOthersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('others', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('cluster_id');
-            $table->unsignedBigInteger('sub_cluster_id');
-            $table->integer('open_stock');
-            $table->integer('close_stock');
+            $table->string('name');
             $table->timestamps();
-            
+
             $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('cluster_id')->references('id')->on('clusters');
         });
@@ -34,6 +32,6 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales');
+        Schema::dropIfExists('others');
     }
 }

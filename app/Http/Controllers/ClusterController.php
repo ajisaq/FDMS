@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cluster;
+use App\Models\Other;
 use App\Models\Station;
+use App\Models\Tank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ClusterController extends Controller
@@ -29,7 +32,7 @@ class ClusterController extends Controller
     public function index()
     {
         //
-        $clusters = Cluster::all();
+        $clusters = Cluster::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.clusters.list_cluster', compact('clusters'));
     }
@@ -41,7 +44,7 @@ class ClusterController extends Controller
      */
     public function create()
     {
-        $stations = Station::all();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.clusters.add_cluster', compact('stations'));
     }
@@ -57,6 +60,8 @@ class ClusterController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'description' => ['required'],
+            'type' => ['required'],
+            'tname' => ['array'],
             'station' => ['required'],           //Station Id
         ]);
 
@@ -65,10 +70,30 @@ class ClusterController extends Controller
         }
 
         $cluster = Cluster::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'description' => $request->description,
+            'type' => $request->type,
             'station_id' => $request->station,
         ]);
+
+        if($request->type == "tanks"){
+            foreach ($request->tname as $t) {
+
+                $sub_cluster = Tank::create([
+                'org_id' => Auth::user()->org_id,
+                'cluster_id' => $cluster->id,
+                'name' => $t,
+                ]);
+            }
+        }else{
+            $sub_cluster = Other::create([
+                'org_id' => Auth::user()->org_id,
+                'cluster_id' => $cluster->id,
+                'name' =>$request->name,
+                ]);
+        }
+
 
         if ($cluster) {
             return redirect()->route('show_cluster_info', ['id' => $cluster->id])->with('success', "Cluster is added, check below info to verify. Thank you!");
@@ -86,7 +111,7 @@ class ClusterController extends Controller
     public function show($id)
     {
         $cluster = Cluster::find($id);
-        $stations = Station::all();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
         // return $cluster;
         return view('pages.org.clusters.info_cluster', compact('stations', 'cluster'));
@@ -120,17 +145,34 @@ class ClusterController extends Controller
             'name' => ['required'],
             'description' => ['required'],
             'station' => ['required'],
+            'tname' => ['nullable'],
         ]);
 
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
+        $c = Cluster::find($id);
+
+        // return $request->all();
 
         $cluster = Cluster::where('id', '=', $id)->update([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'description' => $request->description,
             'station_id' => $request->station,
         ]);
+
+        if($c->type == "tanks"){
+            if(!empty($request->tname)){
+                foreach($request->tname as $t){
+                    $tank = Tank::create([
+                        'org_id' => Auth::user()->org_id,
+                        'cluster_id' => $c->id,
+                        'name' => $t,
+                    ]);
+                }
+            }
+        }
 
         if ($cluster) {
             return redirect()->route('show_cluster_info', ['id' => $id])->with('success', "Cluster is Updated, check below info to verify. Thank you!");

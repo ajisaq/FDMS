@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Description</label>
+                    <label for="example-text-input" class="form-control-label">Type of Service</label>
                     <input class="form-control" type="text" name="service_type" value="{{$pos->service_type}}">
                   </div>
                 </div>
@@ -90,7 +90,7 @@
                 <div class="row mt-3">
                   <div class="col-6 col-md-6">
                     <label>Choose Cluster</label>
-                        <select class="multisteps-form__select form-control" name="cluster" id="choices-category">
+                        <select disabled class="multisteps-form__select form-control" name="cluster" id="choices-category">
                           <option value="{{$pos->cluster->id}}">{{$pos->cluster->name}}</option>
                           @foreach ($clusters as $c)
                               <option value="{{$c->id}}" @selected(old('version') == $c)>
@@ -107,6 +107,28 @@
                       </div>
                     </div>
                 </div>
+                @if ($pos->cluster->type == "tanks") 
+                <div class="row mt-3">
+                  <div class="col-6 col-md-6">
+                    <label>Sub Clusters</label>
+                        <select class="multisteps-form__select form-control" name="sub_cluster" id="choices-category">
+                          <option value="{{$pos->tank->id}}">{{$pos->tank->name}}</option>
+                          @foreach ($pos->cluster->tanks as $t)
+                              <option value="{{$t->id}}" @selected(old('version') == $t)>
+                                {{$t->name}}
+                              </option>
+                          @endforeach
+                        </select>
+                  </div>
+
+                  {{-- <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">station</label>
+                        <input class="form-control" type="text" disabled value="{{$pos->cluster->station->name ?? "Not specified"}}">
+                      </div>
+                    </div> --}}
+                </div>
+                @endif
               
             </div>
           </div>

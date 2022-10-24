@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DeviceController extends Controller
@@ -28,7 +29,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Device::all();
+        $devices = Device::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.device.list_device', compact('devices'));
     }
@@ -40,7 +41,7 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        $stations = Station::all();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
         return view('pages.org.device.add_device', compact('stations'));
     }
@@ -63,6 +64,7 @@ class DeviceController extends Controller
         }
 
         $device = Device::create([
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'station_id' => $request->station,
         ]);
@@ -83,7 +85,7 @@ class DeviceController extends Controller
     public function show($id)
     {
         $device = Device::find($id);
-        $stations = Station::all();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
         // return $device;
         return view('pages.org.device.info_device', compact('stations', 'device'));
@@ -122,7 +124,8 @@ class DeviceController extends Controller
             return back()->with($validator->errors());
         }
 
-        $device = Device::where('id', '=', $id)->update([
+        $device = Device::where('id', '=', $id)->update([ 
+            'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'station_id' => $request->station,
         ]);
