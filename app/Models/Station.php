@@ -21,9 +21,9 @@ class Station extends Model
         'location',
         'address',
         'contact',
-        'no_of_clusters',
-        'no_of_pos',
-        'supervisor_id',
+        // 'no_of_clusters',
+        // 'no_of_pos',
+        'active',
         'manager_id',
         'org_id',
     ];
@@ -31,6 +31,11 @@ class Station extends Model
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'manager_id', 'id');
+    }
+
+    public function loc(): BelongsTo
+    {
+        return $this->belongsTo(OrgLocation::class, 'location', 'id');
     }
 
     public function supervisor(): BelongsTo

@@ -21,7 +21,12 @@ class Organization extends Model
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'org_id', 'id');
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(OrgLocation::class, 'org_id', 'id');
     }
 
 }

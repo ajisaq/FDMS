@@ -78,12 +78,12 @@
                     <input class="form-control" type="text" name="service_type" value="{{$pos->service_type}}">
                   </div>
                 </div>
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Description</label>
                     <input class="form-control" type="text" name="description" value="{{$pos->description}}">
                   </div>
-                </div>
+                </div> --}}
             </div>
               <hr class="horizontal dark">
               <p class="text-uppercase text-sm">Cluster</p>

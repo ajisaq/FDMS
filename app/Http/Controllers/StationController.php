@@ -43,10 +43,10 @@ class StationController extends Controller
         // $managers = User::where('role_id', '=', 4)->get();
 
         // this is just for testing only:
-        $supervisors = User::where("org_id", Auth::user()->org_id)->get();
-        $managers = $supervisors;
+        $managers = User::where(["org_id"=> Auth::user()->org_id, 'role_id'=>4])->get();
+        // $managers = $supervisors;
 
-        return view('pages.org.stations.add_station', compact('supervisors', 'managers'));
+        return view('pages.org.stations.add_station', compact('managers'));
     }
 
     /**
@@ -62,9 +62,9 @@ class StationController extends Controller
             'location' => ['required'],
             'address' => ['nullable'],
             'contact' => ['nullable'],
-            'no_of_clusters' => ['required'],
-            'no_of_pos' => ['required'],
-            'supervisor' => ['required'],
+            // 'no_of_clusters' => ['required'],
+            // 'no_of_pos' => ['required'],
+            // 'supervisor' => ['required'],
             'manager' => ['required'],
         ]);
 
@@ -78,10 +78,10 @@ class StationController extends Controller
             'location' => $request->location,
             'address' => $request->address,
             'contact' => $request->contact,
-            'no_of_clusters' => $request->no_of_clusters,
-            'supervisor_id' => $request->supervisor,
+            // 'no_of_clusters' => $request->no_of_clusters,
+            // 'supervisor_id' => $request->supervisor,
             'manager_id' => $request->manager,
-            'no_of_pos' => $request->no_of_pos,
+            // 'no_of_pos' => $request->no_of_pos,
         ]);
 
         if ($station) {
@@ -102,9 +102,9 @@ class StationController extends Controller
         $station = Station::find($id);
 
         // return $station;
-        $supervisors = User::where("org_id", Auth::user()->org_id)->get();
-        $managers = $supervisors;
-        return view('pages.org.stations.info_station', compact('station', 'supervisors', 'managers'));
+        $managers = User::where(["org_id"=> Auth::user()->org_id, 'role_id'=>4])->get();
+        
+        return view('pages.org.stations.info_station', compact('station', 'managers'));
     }
 
     /**
@@ -141,9 +141,9 @@ class StationController extends Controller
             'location' => ['required'],
             'address' => ['nullable'],
             'contact' => ['nullable'],
-            'no_of_clusters' => ['required'],
-            'no_of_pos' => ['required'],
-            'supervisor' => ['required'],
+            // 'no_of_clusters' => ['required'],
+            // 'no_of_pos' => ['required'],
+            // 'supervisor' => ['required'],
             'manager' => ['required'],
         ]);
 
@@ -157,10 +157,10 @@ class StationController extends Controller
             'location' => $request->location,
             'address' => $request->address,
             'contact' => $request->contact,
-            'no_of_clusters' => $request->no_of_clusters,
-            'supervisor_id' => $request->supervisor,
+            // 'no_of_clusters' => $request->no_of_clusters,
+            // 'supervisor_id' => $request->supervisor,
             'manager_id' => $request->manager,
-            'no_of_pos' => $request->no_of_pos,
+            // 'no_of_pos' => $request->no_of_pos,
         ]);
 
         if ($station) {

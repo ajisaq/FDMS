@@ -13,15 +13,21 @@ class Cluster extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        // 'description',
         'type',
         'station_id',
+        'supervisor_id',
         'org_id',
     ];
 
     public function station(): BelongsTo
     {
         return $this->belongsTo(Station::class, 'station_id', 'id');
+    }
+    
+    public function supervisor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'supervisor_id', 'id');
     }
 
     public function pos(): HasMany

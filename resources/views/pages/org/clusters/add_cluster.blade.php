@@ -57,7 +57,8 @@
                     <span>1. cluster Info</span>
                   </button>
                   <button class="multisteps-form__progress-btn" type="button" title="What type of cluster?">2. Type of</button>
-                  <button class="multisteps-form__progress-btn" type="button" title="Add Station Info to the cluster">3. Station</button>
+                  <button class="multisteps-form__progress-btn" type="button" title="Add Station Info to the cluster">4. Station</button>
+                  <button class="multisteps-form__progress-btn" type="button" title="Supervisor">3. Supevisor</button>
                 </div>
               </div>
             </div>
@@ -71,14 +72,14 @@
                     <h5 class="font-weight-bolder">Information</h5>
                     <div class="multisteps-form__content">
                       <div class="row mt-3">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-12">
                           <label>Name</label>
                           <input required name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Cluster name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
-                        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                        {{-- <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Description</label>
                           <input required name="description" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a cluster...." onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
+                        </div> --}}
                       </div>
                       <div class="button-row d-flex mt-4">
                         <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
@@ -94,12 +95,12 @@
                         <div class="col-12 col-sm-9">
                           <label>Type</label>
                             <select required class="multisteps-form__select form-control" name="type" id="type">
-                                    <option value="tanks">Tank(s)</option>
+                                    <option value="tanks">With Sub-Cluster</option>
                                     <option value="others">Other(s)</option>
                             </select>
                         </div>
                         <div class="col-12 col-sm-3 mt-3 mt-sm-0" id="show_input">
-                          <label>...<small>(add a dynamic sub tanks.)</small></label>
+                          <label>...<small>(add a dynamic sub.)</small></label>
                           <button onClick="GFG_Fun()" id="add_field" class="btn bg-gradient-secondary mb-0 multisteps-form__select form-control" type="button" title="Add">Add sub</button>
                         </div>
                       </div>
@@ -116,6 +117,7 @@
                     </div>
                   </div>
 
+                  
                   <!--single form panel station-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Station</h5>
@@ -134,12 +136,38 @@
                       <div class="row">
                         <div class="button-row d-flex mt-4 col-12">
                           <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
+                          <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <!--single form panel-->
+                  <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                    <h5 class="font-weight-bolder">Supervisor</h5>
+                    <div class="multisteps-form__content">
+                      <div class="row mt-3">
+                        <div class="col-12">
+                          <label>Choose station supervisor</label>
+                              <select class="multisteps-form__select form-control" name="supervisor" id="choices-category">
+                                @foreach ($supervisors as $supervisor)
+                                    <option value="{{$supervisor->id}}">{{$supervisor->name}}</option>
+                                @endforeach
+                              </select>
+                          {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="button-row d-flex mt-4 col-12">
+                          <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
                           <button class="btn bg-gradient-dark ms-auto mb-0" type="submit" title="Send">Add</button>
                           {{-- <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button> --}}
                         </div>
                       </div>
                     </div>
                   </div>
+
                 </form>
               </div>
             </div>

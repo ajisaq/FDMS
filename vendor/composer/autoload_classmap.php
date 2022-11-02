@@ -38,6 +38,8 @@ return array(
     'App\\Models\\Customer' => $baseDir . '/app/Models/Customer.php',
     'App\\Models\\Device' => $baseDir . '/app/Models/Device.php',
     'App\\Models\\Inventory' => $baseDir . '/app/Models/Inventory.php',
+    'App\\Models\\Location' => $baseDir . '/app/Models/Location.php',
+    'App\\Models\\OrgLocation' => $baseDir . '/app/Models/OrgLocation.php',
     'App\\Models\\Organization' => $baseDir . '/app/Models/Organization.php',
     'App\\Models\\Other' => $baseDir . '/app/Models/Other.php',
     'App\\Models\\Pos' => $baseDir . '/app/Models/Pos.php',

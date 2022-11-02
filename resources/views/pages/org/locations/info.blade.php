@@ -15,21 +15,17 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> Station</span>
+                      <span class="text-xs text-secondary"> Locations</span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
-                      </a>
-                      |
-                    <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">POS </span>
+                        <span class="text-xs text-secondary">List </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">POS</h6>
-                <p> List of Pos's</p>
+                <h6 class="font-weight-bolder mb-0">Locations</h6>
+                <p> List of Locations</p>
                 <div>
-                    <a href="{{route('show_add_pos')}}" class="btn btn-default border-radius-xs">add</a>
+                    <a href="{{route('show_add_location')}}" class="btn btn-default border-radius-xs">Add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -52,9 +48,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">POS</h5>
+              <h5 class="mb-0">Locations</h5>
               <p class="text-sm mb-0">
-                Below are the list of POS.
+                Below are the list of locations.
               </p>
             </div>
             <div class="table-responsive">
@@ -78,37 +74,40 @@
                   <table class="table dataTable-table" id="datatable-search">
                 <thead class="thead-light">
                   <tr>
+                    {{-- <th data-sortable="" style="width: 36.9369%;">
+                      <a href="#" class="dataTable-sorter">S/N</a>
+                    </th> --}}
                     <th data-sortable="" style="width: 36.9369%;">
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
-                    <th data-sortable="" style="width: 51.1261%;">
-                      <a href="#" class="dataTable-sorter">Description</a>
-                    </th>
-                    <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Services</a>
-                    </th>
-                    <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Cluster</a>
-                    </th>
+                   
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($pos) > 0)
-                  @foreach ($pos as $p)
+                  @if (count($locations) > 0)
+                  <?php $i = 1; ?>
+                  @foreach ($locations as $l)
                   <tr>
-                    <td class="text-sm font-weight-normal">{{$p->name}}</td>
-                    {{-- <td class="text-sm font-weight-normal">{{$p->description}}</td> --}}
-                    <td class="text-sm font-weight-normal">{{$p->service_type}}</td>
-                    <td class="text-sm font-weight-normal">{{$p->cluster->name ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal"> <a href="{{route('show_pos_info', ['id' => $p->id])}}" class="btn btn-primary">Open</a></td>
+                    <td class="text-sm font-weight-normal">{{$l->location->name}}</td>
+                    <td class="text-sm font-weight-normal"> 
+                      <a onclick="event.preventDefault();
+                          document.getElementById('delete-form[{{$i}}]').submit();" 
+                          class="btn btn-warning">
+                        Delete
+                      </a>
+                      <form id="delete-form[{{$i}}]" action="{{route('delete_location', ['id' => $l->id])}}" method="POST" class="d-none">
+                          @csrf
+                      </form>
+                    </td>
                   </tr>
+                  <?php $i++ ?>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_pos')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="3" style="text-align: center;">No locations added yet. want to add? <a href="{{route('show_add_location')}}">Click here</a> </td>
                   </tr>
                   @endif
                   </tbody>

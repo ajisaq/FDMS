@@ -123,7 +123,16 @@
                             <label for="location" class="col-md-4 col-form-label text-md-end">{{ __('Organization Location') }}</label>
 
                             <div class="col-md-6">
-                                <input id="location" type="text" class="form-control @error('o_location') is-invalid @enderror" name="o_location" value="{{ old('o_location') }}" required autocomplete="location" autofocus>
+                                <?php $locations = \App\Models\Location::all();?>
+                                <select class="multisteps-form__select form-control" name="o_location">
+                                    <option disabled selected>Select State</option>
+                                    @foreach ($locations as $l)
+                                        <option value="{{$l->name}}" @selected(old('o_location') == $l)>
+                                          {{$l->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{-- <input id="location" type="text" class="form-control @error('o_location') is-invalid @enderror" name="o_location" value="{{ old('o_location') }}" required autocomplete="location" autofocus> --}}
 
                                 @error('o_location')
                                     <span class="invalid-feedback" role="alert">

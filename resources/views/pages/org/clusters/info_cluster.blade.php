@@ -64,12 +64,12 @@
                     <input class="form-control" type="text" name="name" value="{{$cluster->name}}" >
                   </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Description</label>
                     <input class="form-control" type="text" name="description" value="{{$cluster->description}}">
                   </div>
-                </div>
+                </div> --}}
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">type</label>
@@ -100,7 +100,7 @@
               <hr class="horizontal dark">
               <p class="text-uppercase text-sm">Station</p>
                 <div class="row mt-3">
-                  <div class="col-6 col-md-6">
+                  <div class="col-6 col-md-4">
                     <label>Choose station</label>
                         <select class="multisteps-form__select form-control" name="station" id="choices-category">
                           <option value="{{$cluster->station->id}}">{{$cluster->station->name}}</option>
@@ -112,7 +112,21 @@
                         </select>
                     {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Supervisor</label>
+                        {{-- <input class="form-control" type="text" disabled value="{{$cluster->supervisor->name ?? "Not specified"}}"> --}}
+                        <select class="multisteps-form__select form-control" name="supervisor" id="choices-category">
+                          <option value="{{$cluster->supervisor->id}}">{{$cluster->supervisor->name ?? "Not specified"}}</option>
+                          @foreach ($supervisors as $supervisor)
+                              <option value="{{$supervisor->id}}" @selected(old('version') == $version)>
+                                {{$supervisor->name}}
+                              </option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">station manager</label>
                         <input class="form-control" type="text" disabled value="{{$cluster->station->manager->name ?? "Not specified"}}">

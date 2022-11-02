@@ -79,11 +79,11 @@
                           <label>Name</label>
                           <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. POS name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
-                        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                        {{-- <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Description</label>
                           <input name="description" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
-                        <div class="col-12 col-sm-12 mt-3 mt-sm-0">
+                        </div> --}}
+                        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Type of service</label>
                           <input name="service_type" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
@@ -106,7 +106,6 @@
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                 @endforeach
                               </select>
-                          {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
                         </div>
                       </div>
 

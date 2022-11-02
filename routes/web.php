@@ -7,6 +7,8 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -109,3 +111,20 @@ Route::controller(CustomerController::class)->group(function () {
     Route::post('/customer/{id}/delete', 'destroy')->name('delete_customer_info');
 });
 
+
+// Location routes
+Route::controller(LocationController::class)->group(function () {
+    Route::get('/location/list', 'index')->name('list_locations');
+    Route::get('/location/add', 'create')->name('show_add_location');
+    Route::post('/location/add', 'store')->name('store_location');
+    Route::post('/location/{id}/delete', 'destroy')->name('delete_location');
+});
+
+// Category routes
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user/list', 'index')->name('list_users');
+    Route::get('/user/create', 'show_register')->name('add_new_user');
+    Route::post('/user/create', 'store')->name('store_user');
+    // Route::get('/location/add', 'create')->name('show_add_location');
+    // Route::post('/location/{id}/delete', 'destroy')->name('delete_location');
+});

@@ -6,6 +6,7 @@ use App\Models\Cluster;
 use App\Models\Other;
 use App\Models\Station;
 use App\Models\Tank;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -46,7 +47,9 @@ class ClusterController extends Controller
     {
         $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
-        return view('pages.org.clusters.add_cluster', compact('stations'));
+        $supervisors = User::where(['org_id'=> Auth::user()->org_id, 'role_id'=>3])->get();
+
+        return view('pages.org.clusters.add_cluster', compact('stations', 'supervisors'));
     }
 
     /**
@@ -59,10 +62,10 @@ class ClusterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'description' => ['required'],
             'type' => ['required'],
             'tname' => ['array'],
             'station' => ['required'],           //Station Id
+            'supervisor' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -72,9 +75,9 @@ class ClusterController extends Controller
         $cluster = Cluster::create([
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
-            'description' => $request->description,
             'type' => $request->type,
             'station_id' => $request->station,
+            'supervisor_id'=> $request->supervisor,
         ]);
 
         if($request->type == "tanks"){
@@ -113,8 +116,9 @@ class ClusterController extends Controller
         $cluster = Cluster::find($id);
         $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
-        // return $cluster;
-        return view('pages.org.clusters.info_cluster', compact('stations', 'cluster'));
+        $supervisors = User::where(['org_id' => Auth::user()->org_id, 'role_id'=>3])->get(); //supervisors
+
+        return view('pages.org.clusters.info_cluster', compact('stations', 'cluster', 'supervisors'));
     }
 
     /**
@@ -143,9 +147,9 @@ class ClusterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'description' => ['required'],
             'station' => ['required'],
             'tname' => ['nullable'],
+            'supervisor' => ['nullable']
         ]);
 
         if ($validator->fails()) {
@@ -158,8 +162,8 @@ class ClusterController extends Controller
         $cluster = Cluster::where('id', '=', $id)->update([
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
-            'description' => $request->description,
             'station_id' => $request->station,
+            'supervisor_id' => $request->supervisor,
         ]);
 
         if($c->type == "tanks"){

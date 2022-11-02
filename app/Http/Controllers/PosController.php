@@ -58,7 +58,6 @@ class PosController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'service_type' => ['required'],
-            'description' => ['required'],
             'cluster' => ['required'],
             'sub_cluster' => ['nullable'],           //cluster Id
         ]);
@@ -85,7 +84,6 @@ class PosController extends Controller
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'service_type' => $request->service_type,
-            'description' => $request->description,
             'cluster_id' => $request->cluster,
             'sub_cluster_id' => $sub_cluster,
         ]);
@@ -139,7 +137,6 @@ class PosController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'service_type' => ['required'],
-            'description' => ['required'],
             // 'cluster' => ['required'],
             'sub_cluster' => ['nullable'],
         ]);
@@ -153,7 +150,6 @@ class PosController extends Controller
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'service_type' => $request->service_type,
-            'description' => $request->description,
             // 'cluster_id' => $request->cluster,
             'sub_cluster_id' => $request->sub_cluster,
         ]);
@@ -162,7 +158,6 @@ class PosController extends Controller
                 'org_id' => Auth::user()->org_id,
                 'name' => $request->name,
                 'service_type' => $request->service_type,
-                'description' => $request->description,
                 // 'cluster_id' => $request->cluster,
             ]);
         }

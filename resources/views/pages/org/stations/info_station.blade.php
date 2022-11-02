@@ -79,19 +79,16 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Location</label>
-                    <input class="form-control" type="text" name="location" value="{{$station->location}}">
+                    <select class="multisteps-form__select form-control" name="location" required>
+                        <option value="{{$station->loc->id}}">{{$station->loc->location->name}}</option>
+                        @foreach (Auth::user()->org->locations as $l)
+                            <option value="{{$l->id}}" @selected(old('location') == $l)>
+                              {{$l->location->name}}
+                            </option>
+                        @endforeach
+                    </select>
                   </div>
                 </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-16 col-sm-6">
-                <label>Number Of Clusters</label>
-                <input name="no_of_clusters" value="{{$station->no_of_clusters}}" class="multisteps-form__input form-control" type="text" placeholder="eg. 50" onfocus="focused(this)" onfocusout="defocused(this)">
-              </div>
-              <div class="col-6 col-sm-6 mt-3 mt-sm-0">
-                <label>Number Of POS</label>
-                <input name="no_of_pos" value="{{$station->no_of_pos}}" class="multisteps-form__input form-control" type="text" placeholder="eg. 100" onfocus="focused(this)" onfocusout="defocused(this)">
-              </div>
             </div>
             <hr class="horizontal dark">
             <p class="text-uppercase text-sm">Contact Information</p>
@@ -116,33 +113,57 @@
                 </div>
               </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">About me</p>
+              <p class="text-uppercase text-sm">Staff's</p>
+                
                 <div class="row mt-3">
-                  <div class="col-12">
-                    <label>Choose station supervisor</label>
-                        <select class="multisteps-form__select form-control" name="supervisor" id="choices-category">
-                          <option value="{{$station->supervisor->id}}">{{$station->supervisor->name}}</option>
-                          @foreach ($supervisors as $supervisor)
-                              <option value="{{$supervisor->id}}" @selected(old('version') == $version)>
-                                {{$supervisor->name}}
-                              </option>
+                  <div class="col-6">
+                    <label>Choose station manager</label>
+                        <select class="multisteps-form__select form-control" name="manager" id="choices-category">
+                           <option value="{{$station->manager->id}}">{{$station->manager->name}}</option>
+                          @foreach ($managers as $manager)
+                              <option value="{{$manager->id}}">{{$manager->name}}</option>
                           @endforeach
                         </select>
-                    {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
+                  </div>
+                  <div class="col-6">
+                    <label>Choose station manager</label>
+                        <ul>
+                          @foreach ($managers as $manager)
+                              <li>{{$manager->name}}</li>
+                          @endforeach
+                        </ul>
                   </div>
                 </div>
-                <div class="row mt-3">
-                        <div class="col-12">
-                          <label>Choose station manager</label>
-                              <select class="multisteps-form__select form-control" name="manager" id="choices-category">
-                                 <option value="{{$station->manager->id}}">{{$station->manager->name}}</option>
-                                @foreach ($managers as $manager)
-                                    <option value="{{$manager->id}}">{{$manager->name}}</option>
-                                @endforeach
-                              </select>
-                          {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
-                        </div>
-                      </div>
+
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">clusters</p>
+              {{-- @if (count($station->clusters) > 0)
+              @foreach ($station->clusters as $c)
+              <div class="row mt-3">
+                <div class="col-6">
+                  <label>cluster Info</label>
+                      <input disabled class="form-control" type="text"  value="{{$c->name ?? "Not specified"}}">
+                      <span>{{$c->supervisor->name}}</span>
+                </div>
+                @if ($c->type == 'tanks')
+                <div class="col-6">
+                  <label>sub cluster</label>
+                    <ul>
+                        @foreach ($c->tanks as $sub)
+                            <li>{{$sub->name}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+              </div>
+              @endforeach
+              @else
+              <div class="row">
+                <div class="col-12" align="center">
+                  <span> No cluster found for this station. Want to create one? <a href="#">Click here</a></span>
+                </div>
+              </div>
+              @endif --}}
               
             </div>
           </div>

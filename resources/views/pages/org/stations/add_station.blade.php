@@ -64,8 +64,8 @@
                   <button class="multisteps-form__progress-btn js-active" type="button" title="Station Info">
                     <span>1. Station Info</span>
                   </button>
-                  <button class="multisteps-form__progress-btn" type="button" title="Others">2.Othes</button>
-                  <button class="multisteps-form__progress-btn" type="button" title="Supervisor">3. Superisor</button>
+                  {{-- <button class="multisteps-form__progress-btn" type="button" title="Others">2.Others</button> --}}
+                  {{-- <button class="multisteps-form__progress-btn" type="button" title="Supervisor">3. Superisor</button> --}}
                   <button class="multisteps-form__progress-btn" type="button" title="manager">4.Manager</button>
 
                 </div>
@@ -83,11 +83,19 @@
                       <div class="row mt-3">
                         <div class="col-12 col-sm-6">
                           <label>Name</label>
-                          <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Station name " onfocus="focused(this)" onfocusout="defocused(this)">
+                          <input required name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. Station name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Location</label>
-                          <input name="location" class="multisteps-form__input form-control" type="text" placeholder="eg. Abuja" onfocus="focused(this)" onfocusout="defocused(this)">
+                          <select class="multisteps-form__select form-control" name="location" required>
+                              <option disabled selected>Select State</option>
+                              @foreach (Auth::user()->org->locations as $l)
+                                  <option value="{{$l->id}}" @selected(old('location') == $l)>
+                                    {{$l->location->name}}
+                                  </option>
+                              @endforeach
+                          </select>
+                          {{-- <input name="location" class="multisteps-form__input form-control" type="text" placeholder="eg. Abuja" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
                         </div>
                       </div>
                       <div class="row mt-3">
@@ -105,7 +113,7 @@
                       </div>
                     </div>
                   </div>
-                  <!--single form panel-->
+                  {{-- <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Others</h5>
                     <div class="multisteps-form__content">
@@ -124,8 +132,8 @@
                         <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
                       </div>
                     </div>
-                  </div>
-                  <!--single form panel-->
+                  </div> --}}
+                  {{-- <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Supervisor</h5>
                     <div class="multisteps-form__content">
@@ -137,7 +145,6 @@
                                     <option value="{{$supervisor->id}}">{{$supervisor->name}}</option>
                                 @endforeach
                               </select>
-                          {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
                         </div>
                       </div>
                       <div class="row">
@@ -147,7 +154,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white h-100" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Manager</h5>

@@ -13,7 +13,7 @@ class Pos extends Model
     protected $fillable = [
         'name',
         'service_type',
-        'description',
+        // 'description',
         'cluster_id',
         'sub_cluster_id',
         'org_id',

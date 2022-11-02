@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -62,9 +63,14 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function stations(): HasMany
+    public function manager_station(): HasOne
     {
-        return $this->hasMany(Station::class);
+        return $this->hasOne(Station::class, 'manager_id', 'id');
+    }
+
+    public function supervisor_cluster(): HasOne
+    {
+        return $this->hasOne(Cluster::class, 'supervisor_id', 'id');
     }
 
     public function org(): BelongsTo

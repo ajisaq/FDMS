@@ -23,7 +23,7 @@
                   <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                     <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                   </div>
-                  <span class="nav-link-text ms-1"><b>Station</b></span>
+                  <span class="nav-link-text ms-1"><b>Configuration</b></span>
                 </a>
                 <div class="collapse " id="station">
                   <ul class="nav ms-4">
@@ -49,6 +49,19 @@
                         <a class="nav-link " href="{{route('list_devices')}}">
                             <span class="sidenav-mini-icon"> d </span>
                             <span class="sidenav-normal"> Device </span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{{route('list_locations')}}">
+                            <span class="sidenav-mini-icon"> d </span>
+                            <span class="sidenav-normal"> Locations </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{{route('list_users')}}">
+                            <span class="sidenav-mini-icon"> d </span>
+                            <span class="sidenav-normal"> Users </span>
                         </a>
                     </li>
                   </ul>
