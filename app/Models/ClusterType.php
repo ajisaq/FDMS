@@ -19,4 +19,6 @@ class ClusterType extends Model
     {
         return $this->hasMany(Cluster::class, 'cluster_type_id', 'id');
     }
+    
+    
 }

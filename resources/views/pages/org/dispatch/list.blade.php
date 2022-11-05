@@ -26,7 +26,7 @@
                 <p> List of All Supplies</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('add_new_dispatch')}}" class="btn btn-default border-radius-xs">Open Dispatch</a>
+                    <a href="{{route('add_new_dispatch')}}" class="btn btn-default border-radius-xs">New Supply</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -84,6 +84,9 @@
                     <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">Dispatch Company</a>
                     </th>
+                    <th data-sortable="" style="width: 51.1261%;">
+                      <a href="#" class="dataTable-sorter">Dispatch Location</a>
+                    </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Product</a>
                     </th>
@@ -107,7 +110,8 @@
                   <tr>
                     <td class="text-sm font-weight-normal">{{$d->ref_id}}</td>
                     <td class="text-sm font-weight-normal">{{$d->dispatcher_name}}</td>
-                    <td class="text-sm font-weight-normal">{{$d->dispatch_company}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->location->location->name}}</td>
                     <td class="text-sm font-weight-normal">{{$d->inventory->name}}</td>
                     <td class="text-sm font-weight-normal">{{$d->station->name ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal"><span class="badge badge-dot me-4">
@@ -173,6 +177,9 @@
                     <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">Dispatch Company</a>
                     </th>
+                    <th data-sortable="" style="width: 51.1261%;">
+                      <a href="#" class="dataTable-sorter">Dispatch Location</a>
+                    </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Product</a>
                     </th>
@@ -202,7 +209,8 @@
                   <tr>
                     <td class="text-sm font-weight-normal">{{$d->ref_id}}</td>
                     <td class="text-sm font-weight-normal">{{$d->dispatcher_name}}</td>
-                    <td class="text-sm font-weight-normal">{{$d->dispatch_company}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->location->location->name}}</td>
                     <td class="text-sm font-weight-normal">{{$d->inventory->name}}</td>
                     <td class="text-sm font-weight-normal">{{$d->station->name ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal">{{$d->manager->name ?? "!Not specified"}}</td>

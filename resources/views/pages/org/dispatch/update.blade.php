@@ -22,7 +22,7 @@
                         <span class="text-xs text-secondary">Update</span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Update Supply</h6>
+                <h6 class="font-weight-bolder mb-0">Recieve Supply</h6>
                 <p> Confirm Delivery</p>
                 <div> 
                   <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
@@ -49,7 +49,7 @@
 
 <div class="card mt-4" id="basic-info">
   <div class="card-header">
-    <h5>Update Dispatch Info</h5>
+    <h5> Supply Info</h5>
   </div>
   <div class="card-body pt-0">
     <form action="{{route('update_dispatch', ['id'=>$supply->id])}}" method="POST">
@@ -66,21 +66,17 @@
       <div class="col-6">
         <label class="form-label">Dispatch Company</label>
         <div class="input-group">
-          <input disabled name="{{$supply->dispatch_company}}" class="form-control" type="text" placeholder="Necodes"
+          <input disabled value="{{$supply->d_company->name}}" class="form-control" type="text" placeholder="Necodes"
             required="required">
         </div>
       </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
       <div class="col-sm-6 col-6">
         <label class="form-label mt-4">Station</label>
         <select disabled class="form-control station" name="station" id="station">
           <option value="{{$supply->station->id}}">{{$supply->station->name}}</option>
-          {{-- @if (count($stations) > 0)
-          @foreach ($stations as $s)
-          <option value="{{$s->id}}">{{$s->name}}</option>
-          @endforeach
-          @endif --}}
+         
         </select>
       </div>
       <div class="col-sm-6 col-6">
@@ -89,10 +85,30 @@
           <option value="{{$supply->inventory->id}}" selected>{{$supply->inventory->name}}</option>
         </select>
       </div>
+    </div> --}}
+    <div class="row">
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Location <small>(*1)</small></label>
+        <select class="form-control " disabled>
+          <option>{{$supply->station->loc->location->name}}</option>          
+        </select>
+      </div>
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Station <small>(*2)</small></label>
+        <select class="form-control" name="station" disabled>
+          <option value="{{$supply->station->id}}">{{$supply->station->name}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Product <small>(*4)</small></label>
+        <select class="form-control" disabled>
+          <option value="{{$supply->inventory->id}}" selected>{{$supply->inventory->name}}</option>
+        </select>
+      </div>
     </div>
     <div class="row">
       <div class="col-4">
-        <label class="form-label mt-4">Quantity</label>
+        <label class="form-label mt-4">Dispatch Quantity</label>
         <div class="input-group">
           <input disabled id="q" value="{{$supply->quantity_dispatched}}" class="form-control" type="number" placeholder="45000">
         </div>
@@ -125,7 +141,7 @@
         <label class="form-label mt-4">Remark</label>
         <div class="input-group">
           <textarea id="t" name="remark" class="form-control" 
-            placeholder="ABC123YZ"></textarea>
+            placeholder="eg. I like the Rider...."></textarea>
         </div>
       </div>
       <div class="col-4">

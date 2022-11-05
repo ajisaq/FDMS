@@ -19,15 +19,15 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Inventory </span>
+                        <span class="text-xs text-secondary">Product </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
                         <span class="text-xs text-secondary">Add </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Inventory</h6>
-                <p> Add new inventory</p>
+                <h6 class="font-weight-bolder mb-0">Product</h6>
+                <p> Add new Product</p>
                 <div> 
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
@@ -53,7 +53,7 @@
               <div class="col-12 col-lg-8 mx-auto mt-4 mb-sm-5 mb-3">
                 <div class="multisteps-form__progress">
                   <button class="multisteps-form__progress-btn js-active" type="button" title="Station Info">
-                    <span>1. Inventory Info</span>
+                    <span>1. Product Info</span>
                   </button>
                   <button class="multisteps-form__progress-btn" type="button" title="Supervisor">2. Station & Cartegory</button>
 
@@ -110,12 +110,18 @@
                       <div class="row mt-3">
                         <div class="col-12">
                           <label>Choose station</label>
-                              <select required class="multisteps-form__select form-control" name="station" id="choices-category">
-                                    {{-- <option value="{{$station->id}}">{{$station->name}}</option> --}}
-                                    @foreach ($stations as $station)
-                                      <option value="{{$station->id}}">{{$station->name}}</option>
-                                    @endforeach
-                              </select>
+                          <select required class="multisteps-form__select form-control station" name="station" id="choices-category">
+                                <option disabled selected>Select station</option>
+                                @foreach ($stations as $station)
+                                  <option value="{{$station->id}}">{{$station->name}}</option>
+                                @endforeach
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label>Select Cluster</label>
+                          <select required class="multisteps-form__select form-control cluster" name="cluster" id="cluster">
+                                <option disabled selected>Select cluster</option>
+                          </select>
                         </div>
                       </div>
                        <div class="row mt-3">
@@ -188,4 +194,33 @@
 </div>
 
 
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+            
+	$('.station').on('change', function() {
+        var req_value = this.value;
+        console.log(req_value);
+        	    $.ajax({
+		
+        	        url:"{{ route('get_cluster_by_station', ['id'=> "req_value"]) }}",
+		
+        	        type:"GET",
+		
+        	        data:{'data':req_value},
+		
+        	        success:function (data) {
+                    console.log(data);
+        	            $('#cluster').html(data);
+                      $('#inventory').removeAttr('disabled');
+
+        	        }
+        	    })
+
+    	});
+});
+</script>
 @endsection

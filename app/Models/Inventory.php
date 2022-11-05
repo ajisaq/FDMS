@@ -19,6 +19,7 @@ class Inventory extends Model
         'with_payer_name',
         'unit',
         'station_id',
+        'cluster_id',
         'category_id',
         'org_id',
     ];
@@ -26,6 +27,11 @@ class Inventory extends Model
     public function station(): BelongsTo
     {
         return $this->belongsTo(Station::class, 'station_id', 'id');
+    }
+
+    public function cluster(): BelongsTo
+    {
+        return $this->belongsTo(cluster::class, 'cluster_id', 'id');
     }
 
     public function category(): BelongsTo

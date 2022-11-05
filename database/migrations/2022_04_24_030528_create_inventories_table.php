@@ -17,6 +17,7 @@ class CreateInventoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('station_id');
+            $table->unsignedBigInteger('cluster_id');
             $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->float('amount');
@@ -27,6 +28,7 @@ class CreateInventoriesTable extends Migration
             
             $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('station_id')->references('id')->on('stations');
+            $table->foreign('cluster_id')->references('id')->on('clusters');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

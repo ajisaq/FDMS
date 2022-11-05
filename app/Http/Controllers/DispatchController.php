@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dispatch;
+use App\Models\DispatchCompany;
 use App\Models\Inventory;
+use App\Models\OrgLocation;
 use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,8 +45,10 @@ class DispatchController extends Controller
     public function create()
     {
         $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
+        $d_companies = DispatchCompany::where('org_id', '=', Auth::user()->org_id)->get();
+        $locations = OrgLocation::where('org_id', '=', Auth::user()->org_id)->get();
 
-        return view('pages.org.dispatch.add', compact('stations'));
+        return view('pages.org.dispatch.add', compact('stations', 'd_companies', 'locations'));
     }
 
     /**
@@ -81,7 +85,7 @@ class DispatchController extends Controller
             'inventory_id' => $request->inventory,
             'quantity_dispatched' => $request->quantity_dispatched,
             'v_plate_number' => $request->v_plate_number,
-            'dispatch_company' => $request->dispatch_company,
+            'd_company_id' => $request->dispatch_company,
             'ref_id' => $ref,
             'station_id' => $request->station,
             'dispatch_time' => $request->dispatch_time, 
@@ -101,7 +105,7 @@ class DispatchController extends Controller
      * @param  \App\Models\Dispatch  $dispatch
      * @return \Illuminate\Http\Response
      */
-    public function show(Dispatch $dispatch)
+    public function show($id)
     {
         //
     }
@@ -166,9 +170,15 @@ class DispatchController extends Controller
      * @param  \App\Models\Dispatch  $dispatch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dispatch $dispatch)
+    public function destroy($id)
     {
-        //
+        $dispatch = Dispatch::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->destroy();
+
+        if ($dispatch) {
+            return redirect()->route('list_cluster_types')->with('success', 'Dispatch is deleted.');
+        } else {
+            return back()->with('error', 'Failed to delete dispatch, Try again later.');
+        }
     }
 
     

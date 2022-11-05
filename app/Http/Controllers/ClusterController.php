@@ -237,4 +237,30 @@ class ClusterController extends Controller
             return back()->with('error', 'Failed to delete cluster, Try again later.');
         }
     }
+
+    public function cluster_by_station(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $output = "";
+
+            $clusters = cluster::where(['org_id'=> Auth::user()->org_id, 'station_id'=>$request->data])->get();
+
+            $data = $clusters;
+
+            if (count($data) > 0) {
+                $output .= '<option disabled selected>Select Cluster</option>';
+                foreach ($data as $row) {
+                    $output .= '<option value="'.$row->id.'">'.$row->cluster_type->name.'</option>';
+                }
+            } else {
+
+                $output .= '<option selected disabled>No product found in station</option>';
+            }
+
+
+            return $output;
+        }else{
+            abort(404);
+        }
+    }
 }

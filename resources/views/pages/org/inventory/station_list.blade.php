@@ -19,7 +19,7 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> Inventories</span>
+                      <span class="text-xs text-secondary"> Products</span>
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
@@ -27,7 +27,7 @@
                       </a>
                 </div>
                 <h6 class="font-weight-bolder mb-0">Station ({{$station->name}})</h6>
-                <p> List of Inventories</p>
+                <p> List of Products</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
@@ -52,9 +52,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">{{$station->name}} inventries</h5>
+              <h5 class="mb-0">{{$station->name}} Products</h5>
               <p class="text-sm mb-0">
-                Below are the list of Inventories.
+                Below are the list of Products from {{$station->name}}.
               </p>
             </div>
             <div class="table-responsive">
@@ -108,7 +108,7 @@
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="3" style="text-align: center;">NO Items yet. want to create Items? <a href="{{route('show_add_inventory', ['id' => $station->id])}}">Click here</a> </td>
+                    <td class="text-sm font-weight-normal" colspan="3" style="text-align: center;">No products yet. want to create items? <a href="{{route('show_add_inventory', ['id' => $station->id])}}">Click here</a> </td>
                   </tr>
                   @endif
                   </tbody>

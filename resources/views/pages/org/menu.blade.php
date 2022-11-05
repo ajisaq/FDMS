@@ -70,6 +70,12 @@
                             <span class="sidenav-normal">Config Cluster Types</span>
                         </a>
                     </li> 
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{{route('list_d_companies')}}">
+                            <span class="sidenav-mini-icon"> DC </span>
+                            <span class="sidenav-normal">Dispatch Companies</span>
+                        </a>
+                    </li> 
                   </ul>
                 </div>
             </li> 
@@ -141,7 +147,7 @@
                   <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                     <i class="ni ni-bag-17 text-primary text-sm opacity-10"></i>
                   </div>
-                  <span class="nav-link-text ms-1"><b>Inventories</b></span>
+                  <span class="nav-link-text ms-1"><b>Products</b></span>
                 </a>
             </li>
 
@@ -150,7 +156,7 @@
                   <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                     <i class="ni ni-single-copy-04 text-primary text-sm opacity-10"></i>
                   </div>
-                  <span class="nav-link-text ms-1"><b>Category</b></span>
+                  <span class="nav-link-text ms-1"><b>Product Categories</b></span>
                 </a>
             </li>
 

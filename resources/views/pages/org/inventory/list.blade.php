@@ -22,11 +22,11 @@
                         <span class="text-xs text-secondary">List </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Inventories</h6>
-                <p> List of Inventories</p>
+                <h6 class="font-weight-bolder mb-0">Products</h6>
+                <p> List of Products</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
+                    <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Product</a>
                     {{--<button type="button" class="btn btn-info border-radius-xs">Info</button>
                     <button type="button" class="btn btn-success border-radius-xs">Success</button>
                     <button type="button" class="btn btn-danger border-radius-xs">Danger</button>
@@ -47,9 +47,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">Inventries</h5>
+              <h5 class="mb-0">Products</h5>
               <p class="text-sm mb-0">
-                Below are the list of Inventories. 
+                Below are the list of Products. 
               </p>
             </div>
             <div class="table-responsive">
@@ -103,7 +103,7 @@
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="3" style="text-align: center;">NO Items yet. want to create Items? Goto Station and create one!!! {{--<a href="{{route('show_add_device')}}">Click here</a> --}} </td>
+                    <td class="text-sm font-weight-normal" colspan="3" style="text-align: center;">No Products yet. want to create items? Goto Station and create one!!! {{--<a href="{{route('show_add_device')}}">Click here</a> --}} </td>
                   </tr>
                   @endif
                   </tbody>

@@ -215,4 +215,31 @@ class StationController extends Controller
             // return back()->with('success', 'Station is Activated.');
         }
     }
+
+    public function station_by_location(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $output = "";
+
+            $stations = Station::where(['org_id'=> Auth::user()->org_id, 'location'=>$request->data])->get();
+
+            $data = $stations;
+            // return $data;
+
+            if (count($data) > 0) {
+                $output .= '<option disabled selected>Select Station</option>';
+                foreach ($data as $row) {
+                    $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                }
+            } else {
+
+                $output .= '<option selected disabled>No station at that location</option>';
+            }
+
+
+            return $output;
+        }else{
+            abort(404);
+        }
+    }
 }

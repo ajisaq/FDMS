@@ -59,6 +59,7 @@ class InventoryController extends Controller
             'unit' => ['required'],
             'amount' => ['required'],
             'station' => ['required'],
+            'cluster' => ['required'],
             'category' => ['required'],
             'w_p_n' => ['required'],
             'w_q' => ['required'],
@@ -74,13 +75,14 @@ class InventoryController extends Controller
             'unit' => $request->unit,
             'amount' => $request->amount,
             'station_id' => $request->station,
+            'cluster_id' => $request->cluster,
             'category_id' => $request->category,
             'with_quantity' =>$request->w_q,
             'with_payer_name' => $request->w_p_n,
         ]);
 
         if ($inventory) {
-            return redirect()->route('show_station_info', ['id' => $request->station])->with('success', "Inventory is added, check below info to verify. Thank you!");
+            return redirect()->route('list_inventories', ['id' => $request->station])->with('success', "Inventory is added, check below info to verify. Thank you!");
         } else {
             return back()->with('error', "Failed!, Inventory is not added, Try Again. Thank you!");
         }
@@ -155,6 +157,30 @@ class InventoryController extends Controller
             } else {
 
                 $output .= '<option selected disabled>No product found in station</option>';
+            }
+
+
+                return $output;
+            }
+    }
+
+    public function inventory_by_cluster(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $output = "";
+
+            $inventories = Inventory::where(['org_id'=> Auth::user()->org_id, 'cluster_id'=>$request->data])->get();
+
+            $data = $inventories;
+
+            if (count($data) > 0) {
+                $output .= '<option disabled selected>Select Inventories</option>';
+                foreach ($data as $row) {
+                    $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                }
+            } else {
+
+                $output .= '<option selected disabled>No product found in this cluster</option>';
             }
 
 

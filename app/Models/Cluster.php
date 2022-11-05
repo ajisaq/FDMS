@@ -30,6 +30,7 @@ class Cluster extends Model
     {
         return $this->belongsTo(User::class, 'supervisor_id', 'id');
     }
+    
 
     public function cluster_type(): BelongsTo
     {
@@ -44,6 +45,11 @@ class Cluster extends Model
     public function sales(): HasMany
     {
         return $this->hasMany(Sale::class);
+    }
+
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class, 'cluster_id', 'id');
     }
 
     public function org(): BelongsTo

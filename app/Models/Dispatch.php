@@ -14,6 +14,7 @@ class Dispatch extends Model
         'org_id',
         'dispatcher_name',
         'inventory_id',
+        'd_company_id',
         'quantity_dispatched',
         'v_plate_number',
         'dispatch_company',
@@ -40,5 +41,10 @@ class Dispatch extends Model
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'manager_id', 'id');
+    }
+
+    public function d_company(): BelongsTo
+    {
+        return $this->belongsTo(DispatchCompany::class, 'd_company_id', 'id');
     }
 }

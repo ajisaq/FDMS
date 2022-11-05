@@ -71,8 +71,14 @@
       <div class="col-6">
         <label class="form-label">Dispatch Company</label>
         <div class="input-group">
-          <input id="lastName" name="dispatch_company" class="form-control" type="text" placeholder="Necodes"
-            required="required">
+          <select class="form-control company" name="dispatch_company">
+            <option disabled selected>Select Company</option>
+            @if (count($d_companies) > 0)
+            @foreach ($d_companies as $d)
+            <option value="{{$d->id}}">{{$d->name}}</option>
+            @endforeach
+            @endif
+          </select>
         </div>
       </div>
       @error('dispatch_company')
@@ -82,32 +88,39 @@
       @enderror
     </div>
     <div class="row">
-      <div class="col-sm-6 col-6">
-        <label class="form-label mt-4">Station</label>
-        <select class="form-control station" name="station" id="station">
-          <option disabled selected>Select Station</option>
-          @if (count($stations) > 0)
-          @foreach ($stations as $s)
-          <option value="{{$s->id}}">{{$s->name}}</option>
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Location <small>(*1)</small></label>
+        <select class="form-control location" id="location">
+          <option disabled selected>Select To Location</option>
+          @if (count($locations) > 0)
+          @foreach ($locations as $l)
+          <option value="{{$l->id}}">{{$l->location->name}}</option>
           @endforeach
           @endif
         </select>
-        @error('station')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-      @enderror
       </div>
-      <div class="col-sm-6 col-6">
-        <label class="form-label mt-4">Product</label>
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Station <small>(*2)</small></label>
+        <select class="form-control station" name="station" id="station" disabled>
+          <option disabled selected>Select Station</option>
+          {{-- @if (count($stations) > 0)
+          @foreach ($stations as $s)
+          <option value="{{$s->id}}">{{$s->name}}</option>
+          @endforeach
+          @endif --}}
+        </select>
+      </div>
+      <div class="col-sm-4 col-6">
+        <label class="form-label mt-4">Cluster <small>(*3)</small></label>
+        <select class="form-control cluster" name="cluster" id="cluster" disabled>
+          <option disabled selected>Select Product</option>
+        </select>
+      </div>
+      <div class="col-sm-12 col-6">
+        <label class="form-label mt-4">Product <small>(*4)</small></label>
         <select class="form-control inventory" name="inventory" id="inventory" disabled>
           <option disabled selected>Select Product</option>
         </select>
-        @error('inventory')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-      @enderror
       </div>
     </div>
     <div class="row">
@@ -165,13 +178,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+
+  $('.location').on('change', function() {
+    var req_value = this.value;
+    console.log(req_value);
+    	    $.ajax({
+
+    	        url:"{{ route('get_stations_by_location', ['id'=> "req_value"]) }}",
+
+    	        type:"GET",
+
+    	        data:{'data':req_value},
+
+    	        success:function (data) {
+                console.log(data);
+    	            $('.station').html(data);
+                  $('.station').removeAttr('disabled');
+                  $('.cluster').attr('disabled', 'disabled');
+                  $('.inventory').attr('disabled', 'disabled');
+    	        }
+    	    });
+  });
             
 	$('.station').on('change', function() {
         var req_value = this.value;
         console.log(req_value);
         	    $.ajax({
 		
-        	        url:"{{ route('get_inventory_by_station', ['id'=> "req_value"]) }}",
+        	        url:"{{ route('get_cluster_by_station', ['id'=> "req_value"]) }}",
 		
         	        type:"GET",
 		
@@ -179,11 +213,31 @@ $(document).ready(function () {
 		
         	        success:function (data) {
                     console.log(data);
-        	            $('#inventory').html(data);
-                      $('#inventory').removeAttr('disabled');
+        	            $('.cluster').html(data);
+                      $('.cluster').removeAttr('disabled');
+                      $('.inventory').attr('disabled', 'disabled');
+        	        }
+        	    });
+    	});
+
+  $('.cluster').on('change', function() {
+        var req_value = this.value;
+        console.log(req_value);
+        	    $.ajax({
+		
+        	        url:"{{ route('get_inventory_by_cluster', ['id'=> "req_value"]) }}",
+		
+        	        type:"GET",
+		
+        	        data:{'data':req_value},
+		
+        	        success:function (data) {
+                    console.log(data);
+        	            $('.inventory').html(data);
+                      $('.inventory').removeAttr('disabled');
 
         	        }
-        	    })
+        	    });
 
     	});
 });

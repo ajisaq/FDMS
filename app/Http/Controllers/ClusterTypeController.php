@@ -129,7 +129,7 @@ class ClusterTypeController extends Controller
      */
     public function destroy($id)
     {
-        $cluster_type = ClusterType::where('id', '=', $id)->destroy();
+        $cluster_type = ClusterType::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->destroy();
 
         if ($cluster_type) {
             return redirect()->route('list_cluster_types')->with('success', 'cluster type is deleted successfuly.');

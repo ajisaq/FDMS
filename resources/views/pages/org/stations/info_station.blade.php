@@ -223,7 +223,7 @@
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
                   <h6 class="mb-3 text-sm">{{$ps->inventory->name}}</h6>
-                  <span class="mb-1 text-xs">Company Name: <span class="text-dark font-weight-bold ms-sm-2">{{$ps->dispatch_company}}</span></span>
+                  <span class="mb-1 text-xs">Company Name: <span class="text-dark font-weight-bold ms-sm-2">{{$ps->d_company->name}}</span></span>
                   <span class="mb-1 text-xs">Driver: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->dispatcher_name}}</span></span>
                   <span class="mb-1 text-xs">Plate Number: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->v_plate_number}}</span></span>
                   <span class="mb-1 text-xs">Quantity Dispatched: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->quantity_dispatched}} {{$ps->inventory->unit}}</span></span>
@@ -233,7 +233,7 @@
                   {{-- <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
                       class="far fa-trash-alt me-2"></i>Delete</a> --}}
                   <a class="btn btn-link text-dark px-3 mb-0" href="{{route('show_update_dispatch', ['id'=>$ps->id])}}"><i class="fas fa-pencil-alt text-dark me-2"
-                      aria-hidden="true"></i>Update</a>
+                      aria-hidden="true"></i>Recieve Supply</a>
                 </div>
               </li>
               @endforeach
