@@ -1525,6 +1525,8 @@ var argon = {
     }); // end am4core.ready()
   },
 
+
+
   // Sweet Alerts
 
   showSwal: function(type) {
@@ -1654,8 +1656,35 @@ var argon = {
     } else if (type == 'auto-close') {
       let timerInterval
       Swal.fire({
-        title: 'Auto close alert!',
+        title: 'Loading...',
         html: 'I will close in <b></b> milliseconds.',
+        timer: 2500,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+          timerInterval = setInterval(() => {
+            const content = Swal.getHtmlContainer()
+            if (content) {
+              const b = content.querySelector('b')
+              if (b) {
+                b.textContent = Swal.getTimerLeft()
+              }
+            }
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {}
+      })
+
+    }else if (type == 'loading-page') {
+      let timerInterval
+      Swal.fire({
+        title: 'Loading...',
+        html: 'I will stop in <b></b> milliseconds.',
         timer: 2000,
         timerProgressBar: true,
         didOpen: () => {

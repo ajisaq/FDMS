@@ -33,7 +33,7 @@
                 <h6 class="font-weight-bolder mb-0">POS</h6>
                 <p> Add new point of sale</p>
                 <div> 
-                    <a href="{{route('list_pos')}}" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -103,7 +103,7 @@
                               <select class="multisteps-form__select form-control cluster_id" name="cluster" id="choices-category">
                                 <option disabled selected>--Select</option>
                                 @foreach ($clusters as $c)
-                                    <option value="{{$c->id}}">{{$c->name}}</option>
+                                    <option value="{{$c->id}}">{{$c->cluster_type->name}}</option>
                                 @endforeach
                               </select>
                         </div>

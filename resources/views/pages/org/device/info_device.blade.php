@@ -29,7 +29,7 @@
                 <h6 class="font-weight-bolder mb-0">Device</h6>
                 <p>Device Info</p>
                 <div>
-                    <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>

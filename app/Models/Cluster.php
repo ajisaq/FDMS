@@ -12,11 +12,12 @@ class Cluster extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        // 'name',
         // 'description',
         'type',
         'station_id',
         'supervisor_id',
+        'cluster_type_id',
         'org_id',
     ];
 
@@ -28,6 +29,11 @@ class Cluster extends Model
     public function supervisor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'supervisor_id', 'id');
+    }
+
+    public function cluster_type(): BelongsTo
+    {
+        return $this->belongsTo(ClusterType::class, 'cluster_type_id', 'id');
     }
 
     public function pos(): HasMany

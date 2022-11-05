@@ -26,11 +26,11 @@
                         <span class="text-xs text-secondary">Info </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Clusters</h6>
-                <p> List of clusters</p>
+                <h6 class="font-weight-bolder mb-0">{{$station->name}} Clusters</h6>
+                <p> List of clusters at {{$station->name}}</p>
                 <div>
-                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('show_add_cluster')}}" class="btn btn-default border-radius-xs">add</a>
+                  <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
+                    <a href="{{route('add_station_cluster', ['id' => $station->id])}}" class="btn btn-default border-radius-xs">add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>

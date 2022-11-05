@@ -29,15 +29,12 @@
                       <a href="#" class="cursor-pointer text-secondary">
                         <span class="text-xs text-secondary">Dashboard </span>
                       </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
-                      </a>
                 </div>
                 <h6 class="font-weight-bolder mb-0">Station</h6>
                 <p> Add new station</p>
                 <div>
-                    <a href="{{route('list_stations')}}" class="btn btn-default border-radius-xs">Stations</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
+                    
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -113,48 +110,7 @@
                       </div>
                     </div>
                   </div>
-                  {{-- <!--single form panel-->
-                  <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
-                    <h5 class="font-weight-bolder">Others</h5>
-                    <div class="multisteps-form__content">
-                      <div class="row mt-3">
-                        <div class="col-12 col-sm-6">
-                          <label>Number Of Clusters</label>
-                          <input name="no_of_clusters" class="multisteps-form__input form-control" type="text" placeholder="eg. 50" onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
-                        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                          <label>Number Of POS</label>
-                          <input name="no_of_pos" class="multisteps-form__input form-control" type="text" placeholder="eg. 100" onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
-                      </div>
-                      <div class="button-row d-flex mt-4">
-                        <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
-                        <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
-                      </div>
-                    </div>
-                  </div> --}}
-                  {{-- <!--single form panel-->
-                  <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
-                    <h5 class="font-weight-bolder">Supervisor</h5>
-                    <div class="multisteps-form__content">
-                      <div class="row mt-3">
-                        <div class="col-12">
-                          <label>Choose station supervisor</label>
-                              <select class="multisteps-form__select form-control" name="supervisor" id="choices-category">
-                                @foreach ($supervisors as $supervisor)
-                                    <option value="{{$supervisor->id}}">{{$supervisor->name}}</option>
-                                @endforeach
-                              </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="button-row d-flex mt-4 col-12">
-                          <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
-                          <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> --}}
+                  
                   <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white h-100" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Manager</h5>
@@ -164,8 +120,11 @@
                         <div class="col-12">
                           <label>Choose station manager</label>
                               <select class="multisteps-form__select form-control" name="manager" id="choices-category">
+                                <option disabled selected >Select Manager</option>
                                 @foreach ($managers as $manager)
-                                    <option value="{{$manager->id}}">{{$manager->name}}</option>
+                                  @if (empty($manager->manager_station))
+                                  <option value="{{$manager->id}}">{{$manager->name}}</option>
+                                  @endif
                                 @endforeach
                               </select>
                           {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}

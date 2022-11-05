@@ -17,14 +17,16 @@ class CreateClustersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('station_id');
-            $table->unsignedBigInteger('supervisor_id');
-            $table->string('name');
+            $table->unsignedBigInteger('cluster_type_id');
+            $table->unsignedBigInteger('supervisor_id')->nullable();
+            // $table->string('name');
             // $table->string('description');
             $table->string('type');
             $table->timestamps();
             
             $table->foreign('org_id')->references('id')->on('organizations');
             $table->foreign('station_id')->references('id')->on('stations');
+            $table->foreign('cluster_type_id')->references('id')->on('cluster_types');
             $table->foreign('supervisor_id')->references('id')->on('users');
         });
     }

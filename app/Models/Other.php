@@ -36,4 +36,9 @@ class Other extends Model
     {
         return $this->hasMany(Pos::class, 'sub_cluster_id', 'id');
     }
+
+    public function cluster_type(): BelongsTo
+    {
+        return $this->belongsTo(ClusterType::class, 'name', 'id');
+    }
 }

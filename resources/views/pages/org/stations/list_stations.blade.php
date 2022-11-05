@@ -95,12 +95,7 @@
                     <th data-sortable="" style="width: 30.8559%;">
                       <a href="#" class="dataTable-sorter">contact</a>
                     </th>
-                    <th data-sortable="" style="width: 15.0901%;">
-                      <a href="#" class="dataTable-sorter">Number of clusters</a>
-                    </th>
-                    <th data-sortable="" style="width: 27.4775%;">
-                      <a href="#" class="dataTable-sorter">Number os pos</a>
-                    </th>
+                    
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Address</a>
                     </th>
@@ -114,10 +109,8 @@
                   @foreach ($stations as $s)
                   <tr>
                     <td class="text-sm font-weight-normal">{{$s->name}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->location}}</td>
+                    <td class="text-sm font-weight-normal">{{$s->loc->location->name}}</td>
                     <td class="text-sm font-weight-normal">{{$s->contact ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->no_of_clusters}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->no_of_pos}}</td>
                     <td class="text-sm font-weight-normal">{{$s->address ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal">
                       <a href="{{route('show_station_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a>

@@ -27,9 +27,9 @@
                       </a>
                 </div>
                 <h6 class="font-weight-bolder mb-0">Cluster</h6>
-                <p> Add new Cluster</p>
+                <p> Add new Cluster to {{$station->name}}</p>
                 <div> 
-                  <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -57,7 +57,6 @@
                     <span>1. cluster Info</span>
                   </button>
                   <button class="multisteps-form__progress-btn" type="button" title="What type of cluster?">2. Category Type</button>
-                  <button class="multisteps-form__progress-btn" type="button" title="Add Station Info to the cluster">4. Station</button>
                   <button class="multisteps-form__progress-btn" type="button" title="Supervisor">3. Supevisor</button>
                 </div>
               </div>
@@ -120,32 +119,9 @@
                     </div>
                   </div>
 
+                  <input type="hidden" name="station" value="{{$station->id}}">
                   
-                  <!--single form panel station-->
-                  <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
-                    <h5 class="font-weight-bolder">Station</h5>
-                    <div class="multisteps-form__content">
-                      <div class="row mt-3">
-                        <div class="col-12">
-                          <label>Choose station</label>
-                              <select required class="multisteps-form__select form-control" name="station" id="choices-category">
-                                @foreach ($stations as $station)
-                                    <option value="{{$station->id}}">{{$station->name}}</option>
-                                @endforeach
-                              </select>
-                          {{-- <input class="multisteps-form__input form-control" type="text" placeholder="@argon" onfocus="focused(this)" onfocusout="defocused(this)"> --}}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="button-row d-flex mt-4 col-12">
-                          <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
-                          <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-
+                  
                   <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Supervisor</h5>

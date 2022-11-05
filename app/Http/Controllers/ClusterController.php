@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cluster;
+use App\Models\ClusterType;
 use App\Models\Other;
 use App\Models\Station;
 use App\Models\Tank;
@@ -39,6 +40,19 @@ class ClusterController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show_station_cluster($id)
+    {
+        //
+        $clusters = Cluster::where(['org_id'=> Auth::user()->org_id, 'station_id' => $id])->get();
+
+        return view('pages.org.clusters.list_cluster', compact('clusters'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -49,7 +63,27 @@ class ClusterController extends Controller
 
         $supervisors = User::where(['org_id'=> Auth::user()->org_id, 'role_id'=>3])->get();
 
-        return view('pages.org.clusters.add_cluster', compact('stations', 'supervisors'));
+        $cluster_types = ClusterType::where(['org_id'=> Auth::user()->org_id])->get();
+
+        return view('pages.org.clusters.add_cluster', compact('stations', 'supervisors', 'cluster_types'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create_station_cluster($id)
+    { 
+
+        $station = Station::where(['org_id' => Auth::user()->org_id, 'id' => $id])->get();
+        $station = $station[0];
+
+        $supervisors = User::where(['org_id'=> Auth::user()->org_id, 'role_id'=>3])->get();
+
+        $cluster_types = ClusterType::where(['org_id'=> Auth::user()->org_id])->get();
+
+        return view('pages.org.clusters.add_station_cluster', compact('station', 'supervisors', 'cluster_types'));
     }
 
     /**
@@ -71,10 +105,10 @@ class ClusterController extends Controller
         if ($validator->fails()) {
             return back()->with($validator->errors());
         }
-
+        
         $cluster = Cluster::create([
             'org_id' => Auth::user()->org_id,
-            'name' => $request->name,
+            'cluster_type_id' => $request->name,
             'type' => $request->type,
             'station_id' => $request->station,
             'supervisor_id'=> $request->supervisor,
@@ -118,7 +152,9 @@ class ClusterController extends Controller
 
         $supervisors = User::where(['org_id' => Auth::user()->org_id, 'role_id'=>3])->get(); //supervisors
 
-        return view('pages.org.clusters.info_cluster', compact('stations', 'cluster', 'supervisors'));
+        $cluster_types = ClusterType::where(['org_id'=> Auth::user()->org_id])->get();
+
+        return view('pages.org.clusters.info_cluster', compact('stations', 'cluster', 'supervisors', 'cluster_types'));
     }
 
     /**
@@ -161,7 +197,7 @@ class ClusterController extends Controller
 
         $cluster = Cluster::where('id', '=', $id)->update([
             'org_id' => Auth::user()->org_id,
-            'name' => $request->name,
+            'cluster_type_id' => $request->name,
             'station_id' => $request->station,
             'supervisor_id' => $request->supervisor,
         ]);

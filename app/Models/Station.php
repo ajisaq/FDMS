@@ -45,7 +45,7 @@ class Station extends Model
 
     public function inventories(): HasMany
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(Inventory::class, 'station_id', 'id');
     }
 
     public function devices(): HasMany
@@ -55,7 +55,7 @@ class Station extends Model
 
     public function clusters(): HasMany
     {
-        return $this->hasMany(Cluster::class, 'no_');
+        return $this->hasMany(Cluster::class, 'station_id', 'id');
     }
 
     public function pos(): HasMany
@@ -66,5 +66,10 @@ class Station extends Model
     public function org(): BelongsTo
     {
         return $this->belongsTo(Organization::class, 'org_id');
+    }
+
+    public function supplies(): HasMany
+    {
+        return $this->hasMany(Dispatch::class, 'station_id', 'id');
     }
 }

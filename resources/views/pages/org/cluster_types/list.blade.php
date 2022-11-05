@@ -23,14 +23,14 @@
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Info </span>
+                        <span class="text-xs text-secondary">Type </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Clusters</h6>
-                <p> List of clusters</p>
+                <h6 class="font-weight-bolder mb-0">Cluster Types</h6>
+                <p> List of cluster Types</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('show_add_cluster')}}" class="btn btn-default border-radius-xs">add</a>
+                    <a href="{{route('show_add_cluster_type')}}" class="btn btn-default border-radius-xs">add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -53,9 +53,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">clusters</h5>
+              <h5 class="mb-0">Cluster Types</h5>
               <p class="text-sm mb-0">
-                Below are the list of clusters.
+                Below are the Types
               </p>
             </div>
             <div class="table-responsive">
@@ -82,34 +82,55 @@
                     <th data-sortable="" style="width: 36.9369%;">
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
-                    {{-- <th data-sortable="" style="width: 51.1261%;">
-                      <a href="#" class="dataTable-sorter">Description</a>
-                    </th> --}}
-                    <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Type</a>
-                    </th>
-                    <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Station</a>
-                    </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($clusters) > 0)
-                  @foreach ($clusters as $s)
+                  @if (count($cluster_types) > 0)
+                  <?php $i =1; ?>
+                  @foreach ($cluster_types as $c)
                   <tr>
-                    <td class="text-sm font-weight-normal">{{$s->cluster_type->name ?? "Not Found"}}</td>
-                    {{-- <td class="text-sm font-weight-normal">{{$s->description}}</td> --}}
-                    <td class="text-sm font-weight-normal">{{$s->type}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->station->name ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td>
+                    <td class="text-sm font-weight-normal">{{$c->name}}</td>
+                    <td class="text-sm font-weight-normal">
+                       {{-- <a href="#" class="btn btn-primary">Open</a> --}}
+                       <button type="button" class="btn btn-primary bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal">Open</button>
+                      </td>
+
                   </tr>
+                  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h6 class="modal-title" id="modal-title-default">Cluster Type</h6>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                          </button>
+                        </div>
+                        <form action="">
+                          <div class="modal-body">
+                            <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                <label>Name</label>
+                                <input required name="name" value="{{$c->name}}" class="multisteps-form__input form-control" type="text" placeholder="eg. Cluster type name " onfocus="focused(this)" onfocusout="defocused(this)">
+                              </div>
+                            </div>
+                            {{-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p> --}}
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-primary">Update</button>
+                            <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Delete</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                   <?php $i++; ?>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_cluster')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO cluster types yet. create type? <a href="{{route('show_add_cluster_type')}}">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Stock extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'quantity',
         'expiry_date',
@@ -17,7 +17,7 @@ class Stock extends Model
         'inventory_id',
         'org_id',
     ];
-
+    
     public function inventory(): BelongsTo
     {
         return $this->belongsTo(Inventory::class, 'inventory_id', 'id');

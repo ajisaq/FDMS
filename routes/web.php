@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClusterTypeController;
+use App\Http\Controllers\DispatchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,8 +41,18 @@ Route::controller(StationController::class)->group(function () {
     Route::get('/stations/{id}/edit', 'edit')->name('show_edit_station');
     Route::post('/stations/{id}/edit', 'update')->name('update_station_info');
     Route::post('/stations/{id}/delete', 'destroy')->name('delete_station_info');
+    Route::get('/stations/{id}/activate', 'activation')->name('activation_station');
 });
- 
+
+// Cluster Types routes
+Route::controller(ClusterTypeController::class)->group(function () {
+    Route::get('/cluster-type/list', 'index')->name('list_cluster_types');
+    Route::get('/cluster-type/add', 'create')->name('show_add_cluster_type');
+    Route::post('/cluster-type/add', 'store')->name('store_cluster_type');
+    Route::post('/cluster-type/{id}/edit', 'update')->name('update_cluster_type');
+    Route::post('/cluster-type/{id}/delete', 'destroy')->name('delete_cluster_type');
+});
+
 // Clusters routes
 Route::controller(ClusterController::class)->group(function () {
     Route::get('/clusters/list', 'index')->name('list_clusters');
@@ -49,6 +61,8 @@ Route::controller(ClusterController::class)->group(function () {
     Route::get('/clusters/{id}/info', 'show')->name('show_cluster_info');
     Route::get('/clusters/{id}/edit', 'edit')->name('show_edit_cluster');
     Route::post('/clusters/{id}/edit', 'update')->name('update_cluster_info');
+    Route::get('/station/{id}/cluster/list', 'show_station_cluster')->name('list_station_clusters');
+    Route::get('/staion/{id}/cluster/add', 'create_station_cluster')->name('add_station_cluster');
     Route::post('/clusters/{id}/delete', 'destroy')->name('delete_cluster_info');
 });
 
@@ -83,7 +97,7 @@ Route::controller(InventoryController::class)->group(function () {
     Route::get('stations/{id}/inventory/list', 'station_inventories')->name('list_station_inventories');
     Route::get('/inventory/add', 'create')->name('show_add_inventory');
     Route::post('/inventory/add', 'store')->name('store_inventory');
-    // Route::get('/inventory/{id}/info', 'show')->name('show_device_info');
+    Route::get('/inventory/station/{id}', 'inventory_by_station')->name('get_inventory_by_station');
     // Route::get('/inventory/{id}/edit', 'edit')->name('show_edit_device');
     // Route::post('/inventory/{id}/edit', 'update')->name('update_device_info');
     // Route::post('/inventory/{id}/delete', 'destroy')->name('delete_device_info');
@@ -127,4 +141,14 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/user/create', 'store')->name('store_user');
     // Route::get('/location/add', 'create')->name('show_add_location');
     // Route::post('/location/{id}/delete', 'destroy')->name('delete_location');
+});
+
+// Category routes
+Route::controller(DispatchController::class)->group(function () {
+    Route::get('/supplies', 'index')->name('supplies');
+    Route::get('/supplies/open/dispatch', 'create')->name('add_new_dispatch');
+    Route::post('/supplies/open/dispatch', 'store')->name('store_dispatch');
+    Route::get('/supplies/update/{id}/dispatch', 'edit')->name('show_update_dispatch');
+    Route::post('/supplies/update/{id}/dispatch', 'update')->name('update_dispatch');
+    // Route::post('/location/{id}/delete', 'destroy')->name('delete_dispatch');
 });

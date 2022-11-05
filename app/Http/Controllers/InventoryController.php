@@ -137,4 +137,28 @@ class InventoryController extends Controller
 
          return view('pages.org.inventory.station_list', compact('station'));
     }
+
+
+    public function inventory_by_station(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $output = "";
+
+            $inventories = Inventory::where(['org_id'=> Auth::user()->org_id, 'station_id'=>$request->data])->get();
+
+            $data = $inventories;
+
+            if (count($data) > 0) {
+                foreach ($data as $row) {
+                    $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+                }
+            } else {
+
+                $output .= '<option selected disabled>No product found in station</option>';
+            }
+
+
+                return $output;
+            }
+    }
 }

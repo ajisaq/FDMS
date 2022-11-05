@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dispatch;
 use App\Models\Station;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -103,8 +104,10 @@ class StationController extends Controller
 
         // return $station;
         $managers = User::where(["org_id"=> Auth::user()->org_id, 'role_id'=>4])->get();
+
+        $pending_supplies = Dispatch::where(['org_id'=>Auth::user()->org_id, 'station_id'=>$station->id, 'status'=>0])->get();
         
-        return view('pages.org.stations.info_station', compact('station', 'managers'));
+        return view('pages.org.stations.info_station', compact('station', 'managers', 'pending_supplies'));
     }
 
     /**
@@ -164,7 +167,7 @@ class StationController extends Controller
         ]);
 
         if ($station) {
-            return redirect()->route('show_station_info', ['id' => $id])->with('success', "station is added, check below info to verify. Thank you!");
+            return redirect()->route('show_station_info', ['id' => $id])->with('success', "station info is updated, check below to verify. Thank you!");
         } else {
             return back()->with('error', "Station is not added, Try Again. Thank you!");
         }
@@ -184,6 +187,32 @@ class StationController extends Controller
             return redirect()->route('list_stations')->with('success', 'Station is deleted successfully.');
         } else {
             return back()->with('error', 'Failed to delete station, Try again later.');
+        }
+    }
+
+    /**
+     * Activate the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function activation($id)
+    {
+        
+        $station = Station::where('id', '=', $id)->get()[0];
+
+        if ($station->active == 1) {
+            $update = Station::where('id', '=', $id)->update([
+                'active' => 0,
+            ]);
+            return 'Station has been Deactivated.';
+            // return redirect()->route('list_stations')->with('error', 'Station has been Deactivated.');
+        } else {
+            $update = Station::where('id', '=', $id)->update([
+                'active' => 1,
+            ]);
+            return 'Station is Activated.';
+            // return back()->with('success', 'Station is Activated.');
         }
     }
 }

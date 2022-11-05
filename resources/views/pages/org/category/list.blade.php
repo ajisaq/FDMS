@@ -25,6 +25,7 @@
                 <h6 class="font-weight-bolder mb-0">Categories</h6>
                 <p> List of Categories</p>
                 <div>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     <a href="{{route('show_add_category')}}" class="btn btn-default border-radius-xs">Add</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>

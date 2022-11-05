@@ -15,18 +15,18 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> User</span>
+                      <span class="text-xs text-secondary"> Supply</span>
                     </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">list </span>
+                        <span class="text-xs text-secondary">Info </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Users</h6>
-                <p> List of all Users</p>
+                <h6 class="font-weight-bolder mb-0">Supplies</h6>
+                <p> List of All Supplies</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
-                    <a href="{{route('add_new_user')}}" class="btn btn-default border-radius-xs">add</a>
+                    <a href="{{route('add_new_dispatch')}}" class="btn btn-default border-radius-xs">Open Dispatch</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -45,13 +45,13 @@
     </div>
 
     <div class="row mt-4">
-      <div class="col-lg-6">
+      <div class="col-lg-6 mb-3">
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">Managers</h5>
+              <h5 class="mb-0">Pending Supplies</h5>
               <p class="text-sm mb-0">
-                Below are the list of Managers.
+                Below are the list of dispatches that are on the way.
               </p>
             </div>
             <div class="table-responsive">
@@ -75,33 +75,52 @@
                   <table class="table dataTable-table" id="datatable-search">
                 <thead class="thead-light">
                   <tr>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">ID</a>
+                    </th>
                     <th data-sortable="" style="width: 36.9369%;">
-                      <a href="#" class="dataTable-sorter">Name</a>
+                      <a href="#" class="dataTable-sorter">Driver</a>
                     </th>
                     <th data-sortable="" style="width: 51.1261%;">
-                      <a href="#" class="dataTable-sorter">Phone</a>
+                      <a href="#" class="dataTable-sorter">Dispatch Company</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Station</a>
+                      <a href="#" class="dataTable-sorter">Product</a>
                     </th>
-                    {{-- <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Station<small><br>(To be delivered)</small></a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Status</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Date</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
-                    </th> --}}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($managers) > 0)
-                  @foreach ($managers as $m)
+                  @if (count($p_dispatches) > 0)
+                  @foreach ($p_dispatches as $d)
                   <tr>
-                    <td class="text-sm font-weight-normal">{{$m->name}}</td>
-                    <td class="text-sm font-weight-normal">{{$m->phone}}</td>
-                    <td class="text-sm font-weight-normal">{{$m->manager_station->name ?? "!Not specified"}}</td>
-                    {{-- <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td> --}}
+                    <td class="text-sm font-weight-normal">{{$d->ref_id}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatcher_name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatch_company}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->inventory->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->station->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal"><span class="badge badge-dot me-4">
+                        <i class="bg-dark"></i>
+                        <span class="text-dark text-xs">{{$d->status == 1 ? 'Arrived':'On the way'}}</span></span>
+                    </td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatch_time}}</td>
+                    <td class="text-sm font-weight-normal"> <a href="#" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">Manager not added yet. create create? <a href="{{route('add_new_user')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">No supply found. Want to add one? <a href="#">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>
@@ -114,14 +133,15 @@
     </div>
   </div>
 
-  <div class="col-lg-6">
+  {{-- Arrived Arived ones --}}
+  <div class="col-lg-6 mb-3">
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">Supervisors</h5>
+              <h5 class="mb-0">successful Supplies </h5>
               <p class="text-sm mb-0">
-                Below are the list of all supervisors.
-              </p>
+                Below are the list of dispatches that has arrived and was confirmed.
+              </p>  
             </div>
             <div class="table-responsive">
               <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-height fixed-columns">
@@ -144,46 +164,71 @@
                   <table class="table dataTable-table" id="datatable-search">
                 <thead class="thead-light">
                   <tr>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">ID</a>
+                    </th>
                     <th data-sortable="" style="width: 36.9369%;">
-                      <a href="#" class="dataTable-sorter">Name</a>
+                      <a href="#" class="dataTable-sorter">Driver</a>
                     </th>
                     <th data-sortable="" style="width: 51.1261%;">
-                      <a href="#" class="dataTable-sorter">phone</a>
+                      <a href="#" class="dataTable-sorter">Dispatch Company</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Station</a>
+                      <a href="#" class="dataTable-sorter">Product</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">cluster</a>
+                      <a href="#" class="dataTable-sorter">Station<small><br>(Delivered)</small></a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Comfirmed by<small><br>(station manager)</small></a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Status</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Dispatch Date</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Recieved Date</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Action</a>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  @if (count($supervisors) > 0)
-                  @foreach ($supervisors as $s)
+                  @if (count($a_dispatches) > 0)
+                  @foreach ($a_dispatches as $d)
                   <tr>
-                    <td class="text-sm font-weight-normal">{{$s->name}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->phone}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->supervisor_cluster->station->name ?? "!Not specified"}}</td>
-                    <td class="text-sm font-weight-normal">{{$s->supervisor_cluster->name ?? "!not specified"}}</td>
-                    {{-- <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td> --}}
+                    <td class="text-sm font-weight-normal">{{$d->ref_id}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatcher_name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatch_company}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->inventory->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->station->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->manager->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal"><span class="badge badge-dot me-4">
+                        <i class="bg-info"></i>
+                        <span class="text-dark text-xs">{{$d->status == 1 ? 'Arrived':'On the way'}}</span></span>
+                    </td>
+                    <td class="text-sm font-weight-normal">{{$d->dispatch_time}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->arival_time}}</td>
+                    <td class="text-sm font-weight-normal"> <a href="#" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO supervisor yet? <a href="{{route('add_new_user')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">You don't any successful supply.</td>
                   </tr>
                   @endif
                   </tbody>
               </table>
             </div>
           </div>
-       
+
       </div>
 
     </div>
   </div>
-
 
 </div>
 

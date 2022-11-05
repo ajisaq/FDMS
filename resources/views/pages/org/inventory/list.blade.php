@@ -25,7 +25,7 @@
                 <h6 class="font-weight-bolder mb-0">Inventories</h6>
                 <p> List of Inventories</p>
                 <div>
-                    <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
                     {{--<button type="button" class="btn btn-info border-radius-xs">Info</button>
                     <button type="button" class="btn btn-success border-radius-xs">Success</button>

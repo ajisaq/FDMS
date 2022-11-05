@@ -25,7 +25,7 @@
                 <h6 class="font-weight-bolder mb-0">Cluster</h6>
                 <p>Cluster Info</p>
                 <div>
-                    <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
                     <button type="button" class="btn btn-secondary border-radius-xs">Secondary</button>
                     <button type="button" class="btn btn-info border-radius-xs">Info</button>
@@ -60,8 +60,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Name</label>
-                    <input class="form-control" type="text" name="name" value="{{$cluster->name}}" >
+                    <label for="example-text-input" class="form-control-label">Type</label>
+                    <select required class="multisteps-form__select form-control" name="name" id="choices-category">
+                            <option value="{{$cluster->cluster_type->id}}" selected>{{$cluster->cluster_type->name}}</option>
+                            @foreach ($cluster_types as $ct)
+                                <option value="{{$ct->id}}">{{$ct->name}}</option>
+                            @endforeach
+                          </select>
+                    {{-- <input class="form-control" type="text" name="name" value="{{$cluster->cluster_type->name}}" > --}}
                   </div>
                 </div>
                 {{-- <div class="col-md-6">
@@ -72,7 +78,7 @@
                 </div> --}}
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">type</label>
+                    <label for="example-text-input" class="form-control-label">Category</label>
                     <input class="form-control" type="text" name="type" value="{{$cluster->type}}" disabled>
                   </div>
                 </div>
@@ -87,14 +93,21 @@
                   @if ($cluster->type == "tanks")
                   <button onclick="remove_sub()" class="btn btn-secondary btn-sm" style="float: right" type="button">clean</button>
                   <button onclick="add_sub()" class="btn btn-primary btn-sm" style="float: right" type="button">add</button>
-                  @endif
-                  
                   <ul class="sub_cluster">
                     @foreach ($sub_clusters as $sc)  
                       <li>{{$sc->name}}</li>
                     @endforeach
                     {{-- <li class=""> <input type="text"> </li> --}}
                   </ul>
+                  @else
+                  <ul class="sub_cluster">
+                    @foreach ($sub_clusters as $sc)  
+                      <li>{{$sc->cluster_type->name}}</li>
+                    @endforeach
+                    {{-- <li class=""> <input type="text"> </li> --}}
+                  </ul>
+                  @endif
+                  
                 </div>
             </div>
               <hr class="horizontal dark">

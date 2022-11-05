@@ -37,9 +37,11 @@
                 <h6 class="font-weight-bolder mb-0">Station</h6>
                 <p> Edit station</p>
                 <div>
-                    <a href="{{back()}}" class="btn btn-default border-radius-xs">Back</a>
+                    <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
-                    <a href="{{route('list_station_inventories', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">List Inventories</a>
+                    <a href="{{route('list_station_inventories', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">Inventories</a>
+                    <a href="{{route('add_station_cluster', ['id' => $station->id])}}" class="btn btn-primary border-radius-xs">Add Clusters</a>
+                    <a href="{{route('list_station_clusters', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">Clusters</a>
                     {{-- <button type="button" class="btn btn-info border-radius-xs">Info</button>
                     <button type="button" class="btn btn-success border-radius-xs">Success</button>
                     <button type="button" class="btn btn-danger border-radius-xs">Danger</button>
@@ -55,6 +57,7 @@
      
     </div>
 <br>
+@include('layouts.flash')
 
 <div class="row">
     <div class="col-lg-12">
@@ -64,7 +67,35 @@
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
                 <p class="mb-0">Station Profile</p>
-                <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                  <i class="ni ni-button-power mb-0 mx-2 btn-tooltip" 
+                  data-bs-toggle="tooltip" 
+                  data-bs-placement="top" 
+                  id="active"
+                  title="{{$station->active == 1 ? 'Deactivate Station' : 'Activate Station'}}" 
+                  data-container="body" data-animation="true" style="font-size: 18px;" 
+                  {{-- onclick="argon.showSwal('auto-close');" --}}
+                   ></i>
+                
+                  @if ($station->active == 1)
+                    <span class="badge bg-gradient-success" id="ac">Active</span>
+                  @else
+                    <span class="badge bg-gradient-warning" id="inac">Inactive</span>
+                  @endif
+                  <button type="button" class="btn btn-dark btn-sm m-1" data-bs-toggle="modal" data-bs-target="#pendingSupply">
+                    <span>Supplies on the way</span>
+                    <span class="badge badge-primary">{{count($pending_supplies)}}</span>
+                  </button>
+
+                  {{-- @if ($supply_history)
+                  <a href="" class="btn btn-dark btn-sm m-1">
+                    <span>Supply History</span>
+                  </a>
+                  @endif --}}
+
+                  <span class="badge bg-gradient-success d-none" id="ac">Active</span>
+                  <span class="badge bg-gradient-warning d-none" id="inac">Inactive</span>
+                  <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                
               </div>
             </div>
             <div class="card-body">
@@ -137,12 +168,12 @@
 
               <hr class="horizontal dark">
               <p class="text-uppercase text-sm">clusters</p>
-              {{-- @if (count($station->clusters) > 0)
+              @if (count($station->clusters) > 0)
               @foreach ($station->clusters as $c)
               <div class="row mt-3">
                 <div class="col-6">
                   <label>cluster Info</label>
-                      <input disabled class="form-control" type="text"  value="{{$c->name ?? "Not specified"}}">
+                      <input disabled class="form-control" type="text"  value="{{$c->cluster_type->name ?? "Not specified"}}">
                       <span>{{$c->supervisor->name}}</span>
                 </div>
                 @if ($c->type == 'tanks')
@@ -156,6 +187,7 @@
                 </div>
                 @endif
               </div>
+              <hr class="horizontal dark">
               @endforeach
               @else
               <div class="row">
@@ -163,16 +195,87 @@
                   <span> No cluster found for this station. Want to create one? <a href="#">Click here</a></span>
                 </div>
               </div>
-              @endif --}}
+              @endif
               
             </div>
           </div>
         </form>
             
-    </div>
-
-    
+    </div>    
 </div>
 
+<!-- Modal pending supplies -->
+<div class="modal fade" id="pendingSupply" tabindex="-1" role="dialog" aria-labelledby="pendingSupplyLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pending Supplies ({{count($pending_supplies)}})</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body pt-4 p-3">
+            <ul class="list-group">
+              @if (count($pending_supplies) > 0)
+              @foreach ($pending_supplies as $ps)    
+              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex flex-column">
+                  <h6 class="mb-3 text-sm">{{$ps->inventory->name}}</h6>
+                  <span class="mb-1 text-xs">Company Name: <span class="text-dark font-weight-bold ms-sm-2">{{$ps->dispatch_company}}</span></span>
+                  <span class="mb-1 text-xs">Driver: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->dispatcher_name}}</span></span>
+                  <span class="mb-1 text-xs">Plate Number: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->v_plate_number}}</span></span>
+                  <span class="mb-1 text-xs">Quantity Dispatched: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->quantity_dispatched}} {{$ps->inventory->unit}}</span></span>
+                  <span class="mb-1 text-xs">Dispatch Date: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->dispatch_time}}</span></span>
+                </div>
+                <div class="ms-auto text-end">
+                  {{-- <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
+                      class="far fa-trash-alt me-2"></i>Delete</a> --}}
+                  <a class="btn btn-link text-dark px-3 mb-0" href="{{route('show_update_dispatch', ['id'=>$ps->id])}}"><i class="fas fa-pencil-alt text-dark me-2"
+                      aria-hidden="true"></i>Update</a>
+                </div>
+              </li>
+              @endforeach
+              @else 
+              <li class="list-group-item border-0 bg-gray-100 border-radius-lg">
+                {{-- <div class="d-flex flex-column" style="text-align: center;"> --}}
+                  <h6 class="text-sm">No Supply found on the way.</h6>
+                  {{-- <span class="mb-1 text-xs">Dispatch Date: <span class="text-dark ms-sm-2 font-weight-bold">{{$ps->dispatch_time}}</span></span> --}}
+                {{-- </div> --}}
+              </li>
+              @endif
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+            
+	$('#active').on('click', function() {
+        var req_value = {{$station->id}};
+        argon.showSwal('auto-close');
+        console.log(req_value);
+        	    $.ajax({
+        	        url:"{{ route('activation_station', ['id' => $station->id]) }}",
+        	        type:"GET",
+        	        data:{'data':req_value},
+        	        success:function (data) {
+                    location.reload();
+        	        }
+        	    })
+    	});
+});
+</script>
 @endsection
