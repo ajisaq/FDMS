@@ -139,7 +139,7 @@ class DispatchCompanyController extends Controller
      */
     public function destroy($id)
     {
-         $d_company = DispatchCompany::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->destroy();
+         $d_company = DispatchCompany::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->delete();
 
         if ($d_company) {
             return redirect()->route('list_cluster_types')->with('success', 'Dispatch company is deleted.');

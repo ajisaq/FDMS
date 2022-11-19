@@ -85,9 +85,9 @@
                     <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">Station</a>
                     </th>
-                    {{-- <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
-                    </th> --}}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,7 +98,7 @@
                     <td class="text-sm font-weight-normal">{{$i->amount}}</td>
                     <td class="text-sm font-weight-normal">{{$i->unit}}</td>
                     <td class="text-sm font-weight-normal">{{$i->station->name}}</td>
-                    {{-- <td class="text-sm font-weight-normal"> <a href="{{route('show_device_info', ['id' => $d->id])}}" class="btn btn-primary">Open</a></td> --}}
+                    <td class="text-sm font-weight-normal"> <a href="{{route('show_inventory_info', ['id' => $i->id])}}" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else

@@ -147,7 +147,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::where('id', '=', $id)->destroy();
+        $customer = Customer::where('id', '=', $id)->delete();
 
         if ($customer) {
             return redirect()->route('list_customers')->with('success', 'customer is deleted successfully.');

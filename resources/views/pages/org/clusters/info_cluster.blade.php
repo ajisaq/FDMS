@@ -19,11 +19,11 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">Cluster</h6>
-                <p>Cluster Info</p>
+                <h6 class="font-weight-bolder mb-0">Business Point</h6>
+                <p>Business Point Info</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
@@ -51,12 +51,12 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">Cluster Info</p>
+                <p class="mb-0">Business Point Info</p>
                 <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
               </div>
             </div>
             <div class="card-body">
-              <p class="text-uppercase text-sm">Cluster Information</p>
+              <p class="text-uppercase text-sm">Business Point Information</p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">

@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClusterTypeController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\DispatchCompanyController;
+use App\Http\Controllers\StationDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -104,9 +105,9 @@ Route::controller(InventoryController::class)->group(function () {
     Route::post('/inventory/add', 'store')->name('store_inventory');
     Route::get('/inventory/station/{id}', 'inventory_by_station')->name('get_inventory_by_station');
     Route::get('/inventory/cluster/{id}', 'inventory_by_cluster')->name('get_inventory_by_cluster');
-    // Route::get('/inventory/{id}/edit', 'edit')->name('show_edit_device');
-    // Route::post('/inventory/{id}/edit', 'update')->name('update_device_info');
-    // Route::post('/inventory/{id}/delete', 'destroy')->name('delete_device_info');
+    Route::get('/inventory/{id}/show', 'show')->name('show_inventory_info');
+    Route::post('/inventory/{id}/edit', 'update')->name('update_inventory_info');
+    Route::post('/inventory/{id}/delete', 'destroy')->name('delete_inventory_info'); 
 });
 
 // Category routes
@@ -166,4 +167,21 @@ Route::controller(DispatchCompanyController::class)->group(function () {
     Route::post('/dispatch-company/add', 'store')->name('store_d_company');
     Route::post('/dispatch-company/{id}/edit', 'update')->name('update_d_company');
     Route::post('/dispatch-company/{id}/delete', 'destroy')->name('delete_d_company');
+});
+
+
+
+// Station Dashboard
+Route::controller(StationDashboardController::class)->group(function () {
+    Route::get('/station/dashboard', 'index')->name('station_dashboard');
+    Route::post('/stations/open/{id}', 'open_station')->name('open_station');
+    Route::post('/stations/close/{id}', 'close_station')->name('close_station');
+    // Route::post('/stations/add', 'store')->name('store_station');
+    // Route::get('/stations/{id}/info', 'show')->name('show_station_info');
+    // Route::get('/stations/{id}/edit', 'edit')->name('show_edit_station');
+    // Route::post('/stations/{id}/edit', 'update')->name('update_station_info');
+    // Route::post('/stations/{id}/delete', 'destroy')->name('delete_station_info');
+    // Route::get('/stations/{id}/activate', 'activation')->name('activation_station');
+
+    // Route::get('/station/location/{id}', 'station_by_location')->name('get_stations_by_location');
 });

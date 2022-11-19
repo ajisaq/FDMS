@@ -45,7 +45,7 @@
                     <li class="nav-item ">
                         <a class="nav-link " href="{{route('list_clusters')}}">
                             <span class="sidenav-mini-icon"> C </span>
-                            <span class="sidenav-normal"> Clusters </span>
+                            <span class="sidenav-normal"> Business Point </span>
                         </a>
                     </li>  
                     <li class="nav-item ">

@@ -229,7 +229,7 @@ class ClusterController extends Controller
      */
     public function destroy($id)
     {
-        $cluster = Cluster::where('id', '=', $id)->destroy();
+        $cluster = Cluster::where('id', '=', $id)->delete();
 
         if ($cluster) {
             return redirect()->route('list_clusters')->with('success', 'cluster is deleted successfully.');

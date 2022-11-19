@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePosTable extends Migration
+class CreateOCClustersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreatePosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pos', function (Blueprint $table) {
+        Schema::create('o_c_clusters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('org_id');
+            $table->string('action');
             $table->unsignedBigInteger('cluster_id');
-            $table->unsignedBigInteger('sub_cluster_id');
-            $table->string('name');
-            // $table->string('service_type');
-            // $table->string('description');
+            $table->unsignedBigInteger('c_sub_id');
+            $table->unsignedBigInteger('o_c_station_id');
+            $table->string('m_reading')->nullable();
+            $table->string('time');
             $table->timestamps();
-            
-            $table->foreign('org_id')->references('id')->on('organizations');
+
             $table->foreign('cluster_id')->references('id')->on('clusters');
+            $table->foreign('o_c_station_id')->references('id')->on('o_c_stations');
         });
     }
 
@@ -35,6 +35,6 @@ class CreatePosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pos');
+        Schema::dropIfExists('o_c_clusters');
     }
 }

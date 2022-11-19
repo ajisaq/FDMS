@@ -19,7 +19,7 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
@@ -66,18 +66,18 @@
             <div class="card-body">
               <p class="text-uppercase text-sm">POS Information</p>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Name</label>
                     <input class="form-control" type="text" name="name" value="{{$pos->name}}" >
                   </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Type of Service</label>
                     <input class="form-control" type="text" name="service_type" value="{{$pos->service_type}}">
                   </div>
-                </div>
+                </div> --}}
                 {{-- <div class="col-md-12">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Description</label>
@@ -86,12 +86,12 @@
                 </div> --}}
             </div>
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">Cluster</p>
+              <p class="text-uppercase text-sm">Business Point</p>
                 <div class="row mt-3">
                   <div class="col-6 col-md-6">
                     <label>Choose Cluster</label>
                         <select disabled class="multisteps-form__select form-control" name="cluster" id="choices-category">
-                          <option value="{{$pos->cluster->id}}">{{$pos->cluster->name}}</option>
+                          <option value="{{$pos->cluster->id}}">{{$pos->cluster->cluster_type->name}}</option>
                           @foreach ($clusters as $c)
                               <option value="{{$c->id}}" @selected(old('version') == $c)>
                                 {{$c->name}}
@@ -110,7 +110,7 @@
                 @if ($pos->cluster->type == "tanks") 
                 <div class="row mt-3">
                   <div class="col-6 col-md-6">
-                    <label>Sub Clusters</label>
+                    <label>Sub Clusters <small>(Business Point)</small></label>
                         <select class="multisteps-form__select form-control" name="sub_cluster" id="choices-category">
                           <option value="{{$pos->tank->id}}">{{$pos->tank->name}}</option>
                           @foreach ($pos->cluster->tanks as $t)

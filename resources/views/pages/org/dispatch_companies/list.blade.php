@@ -103,20 +103,20 @@
                     <td class="text-sm font-weight-normal">{{$d->phone ?? "Not Specified!"}}</td>
                     <td class="text-sm font-weight-normal">
                        {{-- <a href="#" class="btn btn-primary">Open</a> --}}
-                       <button type="button" class="btn btn-primary bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal">Open</button>
+                       <button type="button" class="btn btn-primary bg-gradient-primary mb-3" data-bs-toggle="modal<?php echo $i;?>" data-bs-target="#modal<?php echo $i;?>">Open</button>
                       </td>
 
                   </tr>
-                  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-                    <div class="modal-dialog modal- modal-dialog-centered" role="document">
+                  <div class="modal fade" id="modal<?php echo $i;?>" tabindex="-1" role="dialog" aria-labelledby="modal<?php echo $i;?>" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h6 class="modal-title" id="modal-title-default">Company Info</h6>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                          <button type="button" class="btn-close" data-bs-dismiss="modal<?php echo $i;?>" aria-label="Close">
                             <span aria-hidden="true">X</span>
                           </button>
                         </div>
-                        <form action="">
+                        <form action="{{route('update_d_company', ['id'=>$d->id])}}" method="POST">
                           <div class="modal-body">
                             <div class="row mt-3">
                               <div class="col-12 col-sm-12">
@@ -145,14 +145,17 @@
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-primary">Update</button>
-                            <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Delete</button>
+                            <button type="submit" class="btn bg-gradient-primary">Update</button>
+                            <button type="button" class="btn btn-link  ml-auto" onclick="event.preventDefault(); document.getElementById('delete_company<?php echo $i; ?>').submit();">Delete</button>
                           </div>
+                        </form>
+                        <form action="{{route('delete_d_company', ['id'=>$d->id])}}" method="POST" id="delete_company<?php echo $i; ?>">
+                          @csrf
                         </form>
                       </div>
                     </div>
                   </div>
-                   <?php $i++; ?>
+                   <?php $i = $i+1; ?>
                   @endforeach
                   @else
                   <tr>

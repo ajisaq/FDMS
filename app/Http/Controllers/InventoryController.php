@@ -96,7 +96,11 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
+        $categories = Category::where('org_id', '=', Auth::user()->org_id)->get();
+        $inventory = Inventory::where(['org_id'=> Auth::user()->org_id, 'id'=>$id])->get()[0];
+
+        return view('pages.org.inventory.info', compact('stations', 'categories', 'inventory'));
     }
 
     /**
@@ -119,7 +123,38 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required'],
+            'unit' => ['required'],
+            'amount' => ['required'],
+            // 'station' => ['required'],
+            // 'cluster' => ['required'],
+            'category' => ['required'],
+            'w_p_n' => ['required'],
+            'w_q' => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with($validator->errors());
+        }
+
+        $inventory = Inventory::where('id', $id)->update([
+            // 'org_id' => Auth::user()->org_id,
+            'name' => $request->name,
+            'unit' => $request->unit,
+            'amount' => $request->amount,
+            // 'station_id' => $request->station,
+            // 'cluster_id' => $request->cluster,
+            'category_id' => $request->category,
+            'with_quantity' =>$request->w_q,
+            'with_payer_name' => $request->w_p_n,
+        ]);
+
+        if ($inventory) {
+            return back()->with('success', "Inventory is updates, check below info to verify. Thank you!");
+        } else {
+            return back()->with('error', "Failed to update Inventory, Try Again. Thank you!");
+        }
     }
 
     /**
@@ -130,7 +165,13 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inventory = Inventory::where('id', '=', $id)->delete();
+
+        if ($inventory) {
+            return back()->with('success', 'Product is deleted successfully.');
+        } else {
+            return back()->with('error', 'Failed to delete product, Try again later.');
+        }
     }
 
     public function station_inventories($id)

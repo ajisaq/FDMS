@@ -19,7 +19,7 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
@@ -60,7 +60,8 @@
                   <button class="multisteps-form__progress-btn js-active" type="button" title="Station Info">
                     <span>1. POS Info</span>
                   </button>
-                  <button class="multisteps-form__progress-btn" type="button" title="Supervisor">2. Cluster</button>
+                  <button class="multisteps-form__progress-btn" type="button" title="Station">2. Station</button>
+                  <button class="multisteps-form__progress-btn" type="button" title="Supervisor">3. Business Point</button>
 
                 </div>
               </div>
@@ -75,7 +76,7 @@
                     <h5 class="font-weight-bolder">Information</h5>
                     <div class="multisteps-form__content">
                       <div class="row mt-3">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-12">
                           <label>Name</label>
                           <input name="name" class="multisteps-form__input form-control" type="text" placeholder="eg. POS name " onfocus="focused(this)" onfocusout="defocused(this)">
                         </div>
@@ -83,28 +84,51 @@
                           <label>Description</label>
                           <input name="description" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
                         </div> --}}
-                        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                        {{-- <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                           <label>Type of service</label>
                           <input name="service_type" class="multisteps-form__input form-control" type="text" placeholder="eg. This is a POS...." onfocus="focused(this)" onfocusout="defocused(this)">
-                        </div>
+                        </div> --}}
                       </div>
                       <div class="button-row d-flex mt-4">
                         <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
                       </div>
                     </div>
                   </div>
+
+                   <!--single form panel-->
+                  <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                    <h5 class="font-weight-bolder">Station</h5>
+                    <div class="multisteps-form__content">
+                      <div class="row mt-3">
+                        <div class="col-12">
+                          <label>Select Station</label>
+                              <select class="multisteps-form__select form-control station_id" name="station" id="choices-station">
+                                <option disabled selected>--Select</option>
+                                @foreach ($stations as $s)
+                                    <option value="{{$s->id}}">{{$s->name}}</option>
+                                @endforeach
+                              </select>
+                        </div>
+                      </div>
+                      <div class="button-row d-flex mt-4">
+                         <button class="btn bg-gradient-secondary mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
+                        <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+                      </div>
+                    </div>
+                  </div>
+
                   <!--single form panel-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                     <h5 class="font-weight-bolder">Cluster</h5>
                     <div class="multisteps-form__content">
                       <div class="row mt-3">
                         <div class="col-12">
-                          <label>Choose Cluster</label>
+                          <label>Select Business Point</label>
                               <select class="multisteps-form__select form-control cluster_id" name="cluster" id="choices-category">
                                 <option disabled selected>--Select</option>
-                                @foreach ($clusters as $c)
+                                {{-- @foreach ($clusters as $c)
                                     <option value="{{$c->id}}">{{$c->cluster_type->name}}</option>
-                                @endforeach
+                                @endforeach --}}
                               </select>
                         </div>
                       </div>
@@ -152,6 +176,26 @@ $(document).ready(function () {
         	        success:function (data) {
                     console.log(data);
         	            $('#data_list').html(data);
+
+        	        }
+        	    })
+
+    	});
+
+      $('.station_id').on('change', function() {
+        var req_value = this.value;
+        console.log(req_value);
+        	    $.ajax({
+		
+        	        url:"{{ route('get_cluster_by_station', ['id'=>"+req_value+"]) }}",
+		
+        	        type:"GET",
+		
+        	        data:{'data':req_value},
+		
+        	        success:function (data) {
+                    console.log(data);
+        	            $('.cluster_id').html(data);
 
         	        }
         	    })

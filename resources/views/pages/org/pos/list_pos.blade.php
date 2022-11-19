@@ -19,7 +19,7 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
@@ -81,14 +81,14 @@
                     <th data-sortable="" style="width: 36.9369%;">
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
-                    <th data-sortable="" style="width: 51.1261%;">
+                    {{-- <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">Description</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Services</a>
-                    </th>
+                    </th> --}}
                     <th data-sortable="" style="width: 24.3243%;">
-                      <a href="#" class="dataTable-sorter">Cluster</a>
+                      <a href="#" class="dataTable-sorter">Business Point</a>
                     </th>
                     <th data-sortable="" style="width: 24.3243%;">
                       <a href="#" class="dataTable-sorter">Action</a>
@@ -101,14 +101,14 @@
                   <tr>
                     <td class="text-sm font-weight-normal">{{$p->name}}</td>
                     {{-- <td class="text-sm font-weight-normal">{{$p->description}}</td> --}}
-                    <td class="text-sm font-weight-normal">{{$p->service_type}}</td>
+                    {{-- <td class="text-sm font-weight-normal">{{$p->service_type}}</td> --}}
                     <td class="text-sm font-weight-normal">{{$p->cluster->name ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal"> <a href="{{route('show_pos_info', ['id' => $p->id])}}" class="btn btn-primary">Open</a></td>
                   </tr>
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_pos')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO Pos yet. create Pos? <a href="{{route('show_add_pos')}}">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>

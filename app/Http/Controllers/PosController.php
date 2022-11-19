@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cluster;
 use App\Models\Pos;
+use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -43,8 +44,9 @@ class PosController extends Controller
     public function create()
     {
         $clusters = Cluster::where('org_id', '=', Auth::user()->org_id)->get();
+        $stations = Station::where('org_id', '=', Auth::user()->org_id)->get();
 
-        return view('pages.org.pos.add_pos', compact('clusters'));
+        return view('pages.org.pos.add_pos', compact('clusters', 'stations'));
     }
 
     /**
@@ -57,7 +59,7 @@ class PosController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'service_type' => ['required'],
+            // 'service_type' => ['required'],
             'cluster' => ['required'],
             'sub_cluster' => ['nullable'],           //cluster Id
         ]);
@@ -83,7 +85,7 @@ class PosController extends Controller
         $pos = Pos::create([
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
-            'service_type' => $request->service_type,
+            // 'service_type' => $request->service_type,
             'cluster_id' => $request->cluster,
             'sub_cluster_id' => $sub_cluster,
         ]);
@@ -136,7 +138,7 @@ class PosController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'service_type' => ['required'],
+            // 'service_type' => ['required'],
             // 'cluster' => ['required'],
             'sub_cluster' => ['nullable'],
         ]);
@@ -149,7 +151,7 @@ class PosController extends Controller
             $pos = Pos::where('id', '=', $id)->update([
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
-            'service_type' => $request->service_type,
+            // 'service_type' => $request->service_type,
             // 'cluster_id' => $request->cluster,
             'sub_cluster_id' => $request->sub_cluster,
         ]);
@@ -157,7 +159,7 @@ class PosController extends Controller
             $pos = Pos::where('id', '=', $id)->update([
                 'org_id' => Auth::user()->org_id,
                 'name' => $request->name,
-                'service_type' => $request->service_type,
+                // 'service_type' => $request->service_type,
                 // 'cluster_id' => $request->cluster,
             ]);
         }
@@ -177,7 +179,7 @@ class PosController extends Controller
      */
     public function destroy($id)
     {
-        $pos = Pos::where('id', '=', $id)->destroy();
+        $pos = Pos::where('id', '=', $id)->delete();
 
         if ($pos) {
             return redirect()->route('list_pos')->with('success', 'Pos is deleted successfully.');

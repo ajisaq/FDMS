@@ -18,51 +18,79 @@
           </div>
         </div>
         <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a href="../../pages/authentication/signin/illustration.html" class="nav-link text-white font-weight-bold px-0" target="_blank">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
-            </a>
-          </li>
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
-              <div class="sidenav-toggler-inner">
-                <i class="sidenav-toggler-line bg-white"></i>
-                <i class="sidenav-toggler-line bg-white"></i>
-                <i class="sidenav-toggler-line bg-white"></i>
-              </div>
-            </a>
-          </li>
-          <li class="nav-item px-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white p-0">
-              <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-            </a>
-          </li>
-          <li class="nav-item dropdown pe-2 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-bell cursor-pointer"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-              <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
-                  <div class="d-flex py-1">
-                    <div class="my-auto">
-                      <img src="{{ asset('/assets/img/team-2.jpg')}}" class="avatar avatar-sm  me-3 " alt="user image">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold">New message</span> from Laur
-                      </h6>
-                      <p class="text-xs text-secondary mb-0">
-                        <i class="fa fa-clock me-1"></i>
-                        13 minutes ago
-                      </p>
-                    </div>
+          @guest
+              @if (Route::has('login'))
+                  <li class="nav-item d-flex align-items-center">
+                    <a href="{{ route('login') }}" class="nav-link text-white font-weight-bold px-0">
+                      <i class="fa fa-user me-sm-1"></i>
+                      <span class="d-sm-inline d-none">Sign In</span>
+                    </a>
+                  </li>
+              @endif
+              @if (Route::has('register'))
+                  <li class="nav-item d-flex align-items-center">
+                    <a href="{{ route('register') }}" class="nav-link text-white font-weight-bold px-0">
+                      <i class="fa fa-user me-sm-1"></i>
+                      <span class="d-sm-inline d-none">Sign Up</span>
+                    </a>
+                  </li>
+              @endif
+          @else
+              <li class="nav-item dropdown d-flex align-items-center">
+                  <a id="navbarDropdown" class="nav-link dropdown-toggle text-white p-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                      {{ Auth::user()->name }}
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                         onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
+                          {{ __('Logout') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                      </form>
+                  </div>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
                   </div>
                 </a>
               </li>
-            </ul>
-          </li>
+              <li class="nav-item px-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white p-0">
+                  <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                </a>
+              </li>
+              <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bell cursor-pointer"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="my-auto">
+                          <img src="{{ asset('/assets/img/team-2.jpg')}}" class="avatar avatar-sm  me-3 " alt="user image">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            <span class="font-weight-bold">New message</span> from Laur
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            13 minutes ago
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+          @endguest
         </ul>
       </div>
     </div>

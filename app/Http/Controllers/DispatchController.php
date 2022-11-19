@@ -172,7 +172,7 @@ class DispatchController extends Controller
      */
     public function destroy($id)
     {
-        $dispatch = Dispatch::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->destroy();
+        $dispatch = Dispatch::where(['org_id'=> Auth::user()->org_id, 'id'=> $id])->delete();
 
         if ($dispatch) {
             return redirect()->route('list_cluster_types')->with('success', 'Dispatch is deleted.');

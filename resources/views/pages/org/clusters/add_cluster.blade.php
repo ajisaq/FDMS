@@ -19,7 +19,7 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
@@ -27,7 +27,7 @@
                       </a>
                 </div>
                 <h6 class="font-weight-bolder mb-0">Cluster</h6>
-                <p> Add new Cluster</p>
+                <p> Add new Business Point</p>
                 <div> 
                   <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     {{-- <button type="button" class="btn btn-primary border-radius-xs">Primary</button>
@@ -54,7 +54,7 @@
               <div class="col-12 col-lg-8 mx-auto mt-4 mb-sm-5 mb-3">
                 <div class="multisteps-form__progress">
                   <button class="multisteps-form__progress-btn js-active" type="button" title="Add Cluster Info">
-                    <span>1. cluster Info</span>
+                    <span>1. Business Point Info</span>
                   </button>
                   <button class="multisteps-form__progress-btn" type="button" title="What type of cluster?">2. Category Type</button>
                   <button class="multisteps-form__progress-btn" type="button" title="Add Station Info to the cluster">4. Station</button>
@@ -75,7 +75,7 @@
                         <div class="col-12 col-sm-12">
                           <label>Type:</label>
                           <select required class="multisteps-form__select form-control" name="name" id="choices-category">
-                            <option disabled selected>Select Type of cluster</option>
+                            <option disabled selected>Select Type of Business Point</option>
                             @foreach ($cluster_types as $ct)
                                 <option value="{{$ct->id}}">{{$ct->name}}</option>
                             @endforeach
@@ -92,7 +92,7 @@
 
                   <!--single form panel type of-->
                   <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
-                    <h5 class="font-weight-bolder">Cluster category type</h5>
+                    <h5 class="font-weight-bolder">Business Point category type</h5>
                     <div class="multisteps-form__content">
                       <div class="row mt-3">
                         <div class="col-12 col-sm-9">

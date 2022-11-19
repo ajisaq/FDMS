@@ -51,11 +51,11 @@
         <div class="multisteps-form">
             <div class="row">
               <div class="col-12 col-lg-8 mx-auto mt-4 mb-sm-5 mb-3">
-                <div class="multisteps-form__progress">
+                {{-- <div class="multisteps-form__progress">
                   <button class="multisteps-form__progress-btn js-active" type="button" title="Add Cluster Info">
                     <span>1. cluster Type</span>
                   </button>
-                </div>
+                </div> --}}
               </div>
             </div>
             <!--form panels-->

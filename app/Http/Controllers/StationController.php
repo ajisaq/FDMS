@@ -181,7 +181,7 @@ class StationController extends Controller
      */
     public function destroy($id)
     {
-        $station = Station::where('id', '=', $id)->destroy();
+        $station = Station::where('id', '=', $id)->delete();
 
         if ($station) {
             return redirect()->route('list_stations')->with('success', 'Station is deleted successfully.');

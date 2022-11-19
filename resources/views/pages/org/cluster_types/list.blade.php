@@ -95,20 +95,21 @@
                     <td class="text-sm font-weight-normal">{{$c->name}}</td>
                     <td class="text-sm font-weight-normal">
                        {{-- <a href="#" class="btn btn-primary">Open</a> --}}
-                       <button type="button" class="btn btn-primary bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal">Open</button>
+                       <button type="button" class="btn btn-primary bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal<?php echo $i; ?>">Open</button>
                       </td>
 
                   </tr>
-                  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                  <div class="modal fade" id="modal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="modal<?php echo $i; ?>" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h6 class="modal-title" id="modal-title-default">Cluster Type</h6>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                          <button type="button" class="btn-close" data-bs-dismiss="modal<?php echo $i; ?>" aria-label="Close">
                             <span aria-hidden="true">X</span>
                           </button>
                         </div>
-                        <form action="">
+                        <form action="{{route('update_cluster_type', ['id'=>$c->id])}}" method="POST">
+                          @csrf
                           <div class="modal-body">
                             <div class="row mt-3">
                               <div class="col-12 col-sm-12">
@@ -116,17 +117,19 @@
                                 <input required name="name" value="{{$c->name}}" class="multisteps-form__input form-control" type="text" placeholder="eg. Cluster type name " onfocus="focused(this)" onfocusout="defocused(this)">
                               </div>
                             </div>
-                            {{-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p> --}}
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-primary">Update</button>
-                            <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Delete</button>
+                            <button type="submit" class="btn bg-gradient-primary">Update</button>
+                            <button type="button" class="btn btn-link  ml-auto" onclick="event.preventDefault(); document.getElementById('delete_cluster<?php echo $i; ?>').submit();">Delete</button>
                           </div>
+                        </form>
+                        <form action="{{route('delete_cluster_type', ['id'=>$c->id])}}" method="POST" id="delete_cluster<?php echo $i; ?>">
+                          @csrf
                         </form>
                       </div>
                     </div>
                   </div>
-                   <?php $i++; ?>
+                   <?php $i = $i+1; ?>
                   @endforeach
                   @else
                   <tr>

@@ -15,19 +15,11 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                      <span class="text-xs text-secondary"> Page</span>
-                    </a>
-                    |
-                    <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
+                        <span class="text-xs text-secondary">Station </span>
                       </a>
                       |
                       <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary"> Page</span>
-                      </a>
-                      |
-                      <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Dashboard </span>
+                        <span class="text-xs text-secondary">Info </span>
                       </a>
                       |
                       <a href="#" class="cursor-pointer text-secondary">
@@ -35,13 +27,13 @@
                       </a>
                 </div>
                 <h6 class="font-weight-bolder mb-0">Station</h6>
-                <p> Edit station</p>
+                <p> Info station</p>
                 <div>
                     <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
                     <a href="{{route('show_add_inventory')}}" class="btn btn-primary border-radius-xs">Add Inventory</a>
                     <a href="{{route('list_station_inventories', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">Inventories</a>
-                    <a href="{{route('add_station_cluster', ['id' => $station->id])}}" class="btn btn-primary border-radius-xs">Add Clusters</a>
-                    <a href="{{route('list_station_clusters', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">Clusters</a>
+                    <a href="{{route('add_station_cluster', ['id' => $station->id])}}" class="btn btn-primary border-radius-xs">Add Business Point</a>
+                    <a href="{{route('list_station_clusters', ['id' => $station->id])}}" class="btn btn-secondary border-radius-xs">Business Point</a>
                     {{-- <button type="button" class="btn btn-info border-radius-xs">Info</button>
                     <button type="button" class="btn btn-success border-radius-xs">Success</button>
                     <button type="button" class="btn btn-danger border-radius-xs">Danger</button>
@@ -167,7 +159,7 @@
                 </div>
 
               <hr class="horizontal dark">
-              <p class="text-uppercase text-sm">clusters</p>
+              <p class="text-uppercase text-sm">Business Points</p>
               @if (count($station->clusters) > 0)
               @foreach ($station->clusters as $c)
               <div class="row mt-3">
@@ -192,7 +184,7 @@
               @else
               <div class="row">
                 <div class="col-12" align="center">
-                  <span> No cluster found for this station. Want to create one? <a href="#">Click here</a></span>
+                  <span> No Business Point found for this station. Want to create one? <a href="{{route('add_station_cluster', ['id' => $station->id])}}">Click here</a></span>
                 </div>
               </div>
               @endif

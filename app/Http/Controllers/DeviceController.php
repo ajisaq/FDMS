@@ -145,7 +145,7 @@ class DeviceController extends Controller
      */
     public function destroy($id)
     {
-        $device = Device::where('id', '=', $id)->destroy();
+        $device = Device::where('id', '=', $id)->delete();
 
         if ($device) {
             return redirect()->route('list_devices')->with('success', 'device is deleted successfully.');

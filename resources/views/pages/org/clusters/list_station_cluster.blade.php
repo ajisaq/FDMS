@@ -19,14 +19,14 @@
                     </a>
                     |
                     <a href="#" class="cursor-pointer text-secondary">
-                        <span class="text-xs text-secondary">Cluster </span>
+                        <span class="text-xs text-secondary">Business Point </span>
                       </a>
                       |
                     <a href="#" class="cursor-pointer text-secondary">
                         <span class="text-xs text-secondary">Info </span>
                       </a>
                 </div>
-                <h6 class="font-weight-bolder mb-0">{{$station->name}} Clusters</h6>
+                <h6 class="font-weight-bolder mb-0">{{$station->name}} Business Points</h6>
                 <p> List of clusters at {{$station->name}}</p>
                 <div>
                   <a onclick="history.back()" class="btn btn-default border-radius-xs">Back</a>
@@ -53,9 +53,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-              <h5 class="mb-0">clusters</h5>
+              <h5 class="mb-0">Business Point</h5>
               <p class="text-sm mb-0">
-                Below are the list of clusters.
+                Below are the list of Business Point at {{$station->name}}.
               </p>
             </div>
             <div class="table-responsive">
@@ -109,7 +109,7 @@
                   @endforeach
                   @else
                   <tr>
-                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO clusters yet. create clusters? <a href="{{route('show_add_cluster')}}">Click here</a></td>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">NO Business Point found yet. create clusters? <a href="{{route('show_add_cluster')}}">Click here</a></td>
                   </tr>
                   @endif
                   </tbody>

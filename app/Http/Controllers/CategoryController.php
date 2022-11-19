@@ -142,7 +142,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::where('id', '=', $id)->destroy();
+        $category = Category::where('id', '=', $id)->delete();
 
         if ($category) {
             return redirect()->route('list_categories')->with('success', 'category is deleted successfully.');
