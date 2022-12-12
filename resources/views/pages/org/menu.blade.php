@@ -98,7 +98,7 @@
                 <div class="collapse " id="sales">
                   <ul class="nav ms-4">
                     <li class="nav-item ">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" href="{{route('list_stocks')}}">
                         <span class="sidenav-mini-icon"> S </span>
                         <span class="sidenav-normal"> Stocks </span>
                       </a>

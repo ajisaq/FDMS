@@ -23,7 +23,7 @@ $org = $organization[0];
   <link href="{{ asset('/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <link href="{{asset('/assets/vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
   <script src="{{asset('/assets/js/plugins/sweetalert.min.js')}}"></script>
-  <script src="{{asset('/assets/js/plugins/datatables.js')}}"></script>
+  {{-- <script src="{{asset('/assets/js/plugins/datatables.js')}}"></script> --}}
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css?v=2.0.1') }}" rel="stylesheet" />
 <style>
@@ -83,6 +83,8 @@ $org = $organization[0];
   <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+
+  <script src="{{ asset('/assets/js/plugins/datatables.js')}}"></script>
 
   <script src="{{ asset('/assets/js/plugins/dragula/dragula.min.js') }}"></script>
   <script src="{{ asset('/assets/js/plugins/jkanban/jkanban.js') }}"></script>

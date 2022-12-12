@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inventory extends Model
 {
@@ -31,7 +32,7 @@ class Inventory extends Model
 
     public function cluster(): BelongsTo
     {
-        return $this->belongsTo(cluster::class, 'cluster_id', 'id');
+        return $this->belongsTo(Cluster::class, 'cluster_id', 'id');
     }
 
     public function category(): BelongsTo
@@ -44,9 +45,9 @@ class Inventory extends Model
         return $this->belongsToMany(Device::class);
     }
 
-    public function stocks(): HasMany
+    public function stock(): HasOne
     {
-        return $this->hasMany(Stock::class);
+        return $this->hasOne(Stock::class, "inventory_id", "id");
     }
 
     public function transactions(): HasMany

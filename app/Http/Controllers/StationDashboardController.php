@@ -40,7 +40,11 @@ class StationDashboardController extends Controller
             $ocstations = OCStation::where(['station_id'=> $station->id])->get();
             $ocstation = OCStation::where(['station_id'=> $station->id])->latest()->first();
 
-            return view('pages.station.index', compact("station", "pending_supplies", "ocstations", "ocstation"));
+            // get todays audit
+            $today = date("Y-m-d");
+            $ocstation_audit = OCStation::where(['station_id'=> $station->id])->whereBetween('created_at', [$today." 00:00:00", $today." 23:59:59"])->get();
+
+            return view('pages.station.index', compact("station", "pending_supplies", "ocstations", "ocstation", "ocstation_audit"));
         }else{
             return back()->with('error', 'Station is not found');
         }
