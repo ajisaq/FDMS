@@ -63,16 +63,37 @@ class DeviceController extends Controller
             return back()->with($validator->errors());
         }
 
+        $rand_num = random_int(1000000000, 9999999999);
+
         $device = Device::create([
             'org_id' => Auth::user()->org_id,
             'name' => $request->name,
             'station_id' => $request->station,
         ]);
 
+        Device::where('id', '=', $device->id)->update([
+            'mac_number' => $rand_num,
+        ]);
+
         if ($device) {
             return redirect()->route('show_device_info', ['id' => $device->id])->with('success', "Device is created, check below info to verify. Thank you!");
         } else {
             return back()->with('error', "Device is not added, Try Again. Thank you!");
+        }
+    }
+    
+    public function reset_device(Device $device)
+    {
+        $rand_um = random_int(1000000000, 9999999999);
+
+        $up = Device::where('id', '=', $device->id)->update([
+            'mac_number' => $rand_um,
+        ]);
+        if ($up) {
+            # code...
+            return back()->with('success', 'The ' . $device->name . ' Device key reset is successful');
+        }else{
+            return back()->with('error', 'Failed, Try Again.');
         }
     }
 

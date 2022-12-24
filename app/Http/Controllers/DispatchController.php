@@ -7,6 +7,7 @@ use App\Models\DispatchCompany;
 use App\Models\Inventory;
 use App\Models\OrgLocation;
 use App\Models\Station;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -158,6 +159,24 @@ class DispatchController extends Controller
         $sup = Dispatch::find($id);
 
         if ($update) {
+
+            $stock = Stock::where(['inventory_id'=>$sup->inventory_id])->get();
+
+            if (count($stock)>0) {
+                $sq = $stock[0]->quantity+$request->quantity_recieved;
+
+                $ss = Stock::where(['id'=>$stock[0]->id])->update([
+                    'quantity'=>$sq,
+                ]);
+            }else{
+                $ss = Stock::create([
+                    "org_id"=>Auth::user()->org->id,
+                    "inventory_id"=>$sup->inventory_id,
+                    "quantity"=>$request->quantity_recieved,
+                    "status"=>"Stocked",
+                    "expiry_date"=>date("Y-m-d", strtotime("+10 week")),
+                ]);
+            }
             return redirect()->route('show_station_info', ['id'=>$sup->station->id])->with('success', "You have successfully confirm your supply delivery from ".$sup->dispatch_company.". Thank you!");
         }else{
             return back()->with('error', "Failed, Try Again. Thank you!");

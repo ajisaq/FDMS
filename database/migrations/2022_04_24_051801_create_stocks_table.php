@@ -18,7 +18,7 @@ class CreateStocksTable extends Migration
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('inventory_id');
             $table->float('quantity');
-            $table->string('expiry_date');
+            $table->string('expiry_date')->nullable();
             $table->string('status');
             $table->timestamps();
             
