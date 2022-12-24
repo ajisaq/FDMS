@@ -126,7 +126,7 @@ class DeviceController extends Controller
         $api = Api::where('api_user', '=', $request->api_user)->get();
         if (count($api) > 0) {
             if ($api[0]->api_key == $request->api_key) {
-                $d = Device::where('mac_number', '=', $request->device_id)->get();
+                $d = Device::where('id', '=', $request->device_id)->get();
 
                 if (count($d)>0) {
 
