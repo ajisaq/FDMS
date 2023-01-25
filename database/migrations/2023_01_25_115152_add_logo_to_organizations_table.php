@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApisTable extends Migration
+class AddLogoToOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateApisTable extends Migration
      */
     public function up()
     {
-        Schema::create('apis', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('organizations', function (Blueprint $table) {
+            $table->string('logo')->nullable()->after('name');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateApisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apis');
+        Schema::table('organizations', function (Blueprint $table) {
+            //
+        });
     }
 }
