@@ -15,6 +15,8 @@ use App\Http\Controllers\DispatchCompanyController;
 use App\Http\Controllers\StationDashboardController;
 use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +33,25 @@ use Illuminate\Support\Facades\Route;
 
 // Auth routes
 Auth::routes();
+
+Route::get('storage/logo/{filename}', function ($filename)
+{
+    $path = storage_path('app/public/logo/' . $filename);
+
+    if (!File::exists($path)) {
+        // return "The following path not found ". $path;
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
+
 
 // Home route
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
