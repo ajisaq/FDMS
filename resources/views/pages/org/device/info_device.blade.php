@@ -47,7 +47,7 @@
      
     </div>
 <br>
-
+@include('layouts.flash')
 <div class="row">
     <div class="col-lg-12">
         <form class="multisteps-form__form mb-8" style="height: 406px;" action="{{route('update_device_info', ['id'=>$device->id])}}" method="post">
@@ -55,8 +55,11 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0 text-uppercase">device Info</p>
-                <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                <p class="mb-0 text-uppercase">device Info <b>({{$device->mac_number}})</b></p>
+                <div class="ms-auto">
+                  <a href="{{route('show_reset_device', ['device'=>$device->id])}}" class="btn btn-secondary btn-sm ms-auto" type="submit">Reset</a>
+                  <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                </div>
               </div>
             </div>
             <div class="card-body">

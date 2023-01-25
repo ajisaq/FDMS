@@ -91,6 +91,7 @@ Route::controller(DeviceController::class)->group(function () {
     Route::get('/devices/list', 'index')->name('list_devices');
     Route::get('/devices/add', 'create')->name('show_add_device');
     Route::post('/devices/add', 'store')->name('store_device');
+    Route::get('/devices/{device}/reset', 'reset_device')->name('show_reset_device');
     Route::get('/devices/{id}/info', 'show')->name('show_device_info');
     Route::get('/devices/{id}/edit', 'edit')->name('show_edit_device');
     Route::post('/devices/{id}/edit', 'update')->name('update_device_info');
