@@ -530,6 +530,7 @@ class ComposerStaticInit7ca5a5f20ff86ce08065016ac2af990d
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Api\\AgentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AgentController.php',
         'App\\Http\\Controllers\\Api\\DeviceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/DeviceController.php',
+        'App\\Http\\Controllers\\Api\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/TransactionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

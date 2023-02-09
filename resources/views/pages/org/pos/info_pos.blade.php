@@ -59,13 +59,28 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">POS Info</p>
-                <button class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                <p class="mb-0">POS Info <span class="form-check form-switch ms-auto" style="margin-left: 5px;">
+                      <input class="form-check-input pump-state" {{$pos->state==1 ? 'checked=""':""}} type="checkbox" id="pump_state">
+                </span></p>
+                {{-- <div style="float: right;" class="mb-0"> --}}
+                  <button style="float: right;" class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
+                {{-- </div> --}}
               </div>
             </div>
             <div class="card-body">
-              <p class="text-uppercase text-sm">POS Information</p>
+              <p class="text-uppercase text-sm d-flex">POS Information
+                @if ($pos->device_control_id==null)
+                <span class="badge bg-gradient-danger ml-3" style="margin-left: 5px" id="inac">Not Connected</span>
+                @else
+                @if ($pos->state == 1)
+                <span class="badge bg-gradient-success ml-3" style="margin-left: 5px" id="ac">Active</span>
+                @else
+                <span class="badge bg-gradient-warning ml-3" style="margin-left: 5px" id="inac">Inactive</span>
+                @endif
+                @endif  
+              </p>
               <div class="row">
+                
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Name</label>
@@ -107,8 +122,8 @@
                       </div>
                     </div>
                 </div>
-                @if ($pos->cluster->type == "tanks") 
                 <div class="row mt-3">
+                  @if ($pos->cluster->type == "tanks") 
                   <div class="col-6 col-md-6">
                     <label>Sub Clusters <small>(Business Point)</small></label>
                         <select class="multisteps-form__select form-control" name="sub_cluster" id="choices-category">
@@ -119,8 +134,19 @@
                               </option>
                           @endforeach
                         </select>
-                  </div>
+                      </div>
+                      @endif
 
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Device Controller Id</label>
+                        @if ($pos->device_control_id != null)
+                          <input class="form-control" name="controller_id" type="text" value="{{$pos->device_control_id}}">
+                        @else
+                          <input class="form-control" name="controller_id" type="text" value="">
+                        @endif
+                      </div>
+                    </div>
                   {{-- <div class="col-md-6">
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">station</label>
@@ -128,16 +154,40 @@
                       </div>
                     </div> --}}
                 </div>
-                @endif
               
             </div>
           </div>
         </form>
             
     </div>
-
-    
 </div>
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+            
+	$('.pump-state').change( function() {
+        var req_value = $(this).prop('checked') == true ? 1 : 0; 
+        console.log(req_value);
+        	  $.ajax({
+	
+        	      url:"{{ route('update_pump_state') }}",
+	
+        	      type:"GET",
+	
+        	      data:{'data':req_value, 'controller':'{{$pos->device_control_id ?? "no"}}'},
+	
+        	      success:function (data) {
+                  // console.log(data);
+        	        //   $('#data_list').html(data);
+                  location.reload();
+        	      }
+        	  })
+    	});
 
 
+});
+</script>
 @endsection

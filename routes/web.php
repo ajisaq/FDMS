@@ -83,6 +83,7 @@ Route::controller(PosController::class)->group(function () {
     Route::post('/pos/{id}/edit', 'update')->name('update_pos_info');
     Route::post('/pos/{id}/delete', 'destroy')->name('delete_pos_info');
     Route::get('/pos/tank/by/cluster', 'search_tank')->name('search_tank');
+    Route::get('/pos/Update/pump/state', 'update_pump')->name('update_pump_state');
 });
 
 

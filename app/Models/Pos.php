@@ -17,6 +17,9 @@ class Pos extends Model
         'cluster_id',
         'sub_cluster_id',
         'org_id',
+        'device_control_id',
+        'state',
+        'flow',
     ];
 
     public function cluster(): BelongsTo

@@ -7,7 +7,9 @@ use App\Models\Pos;
 use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class PosController extends Controller
 {
@@ -141,6 +143,7 @@ class PosController extends Controller
             // 'service_type' => ['required'],
             // 'cluster' => ['required'],
             'sub_cluster' => ['nullable'],
+            'controller_id' => ['nullable']
         ]);
 
         if ($validator->fails()) {
@@ -154,6 +157,7 @@ class PosController extends Controller
             // 'service_type' => $request->service_type,
             // 'cluster_id' => $request->cluster,
             'sub_cluster_id' => $request->sub_cluster,
+            'device_control_id'=>$request->controller_id,
         ]);
         }else{
             $pos = Pos::where('id', '=', $id)->update([
@@ -161,6 +165,7 @@ class PosController extends Controller
                 'name' => $request->name,
                 // 'service_type' => $request->service_type,
                 // 'cluster_id' => $request->cluster,
+                'device_control_id'=>$request->controller_id,
             ]);
         }
 
@@ -222,5 +227,32 @@ class PosController extends Controller
 
                 return $output;
             }
+    }
+
+
+    public function update_pump(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $state = $request->data;
+            $controller = $request->controller;
+            if ($controller=="no") {
+                return false;
+            }else{
+                $response = Http::get('http://35.178.174.64:3000/'.$controller, [
+                    's' => $state,
+                ]);
+                if ($response) {
+                    $pos = Pos::where('device_control_id', $controller)->update([
+                        'flow'=> $response['current_status']['rate'],
+                        'state'=>  $state //$response['current_status']['switch'],
+                    ]);
+                    return $response['current_status'];
+                }else{ 
+                    return false;
+                }
+            }
+
+        }
     }
 }
