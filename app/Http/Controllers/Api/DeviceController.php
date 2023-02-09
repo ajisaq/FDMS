@@ -40,10 +40,12 @@ class DeviceController extends Controller
 
                 if ($d_u) {
 
-                    $device = Device::where('id', '=', $d[0]->id)->with('org')->get();
+                    $device = Device::where('id', '=', $d[0]->id)->with('org')->with('station')->get();
 
                     $org_cat = Category::where('org_id', '=', $device[0]->org_id)->get();
-
+                    if($device[0]->org->logo == Null){
+                        $device[0]->org->logo = url('/storage/logo/default.jpg');
+                    }
                     $category = [];
 
                     foreach ($org_cat as $oc) {
@@ -56,7 +58,7 @@ class DeviceController extends Controller
 
                         // $i->item_cart->id = $i->id;
                         $item = $i;
-
+ 
                         if ($item->with_quantity == 1) {
                             $item->with_quantity = true;
                         } else {
@@ -130,10 +132,14 @@ class DeviceController extends Controller
 
                 if (count($d)>0) {
 
-                    $device = Device::where('id', '=', $d[0]->id)->with('org')->get();
+                    $device = Device::where('id', '=', $d[0]->id)->with('org')->with('station')->get();
 
                     $org_cat = Category::where('org_id', '=', $device[0]->org_id)->get();
 
+                    if($device[0]->org->logo == Null){
+                        $device[0]->org->logo = url('/storage/logo/default.jpg');
+                    }
+                    
                     $category = [];
 
                     foreach ($org_cat as $oc) {
