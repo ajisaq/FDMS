@@ -170,19 +170,29 @@ $(document).ready(function () {
             
 	$('.pump-state').change( function() {
         var req_value = $(this).prop('checked') == true ? 1 : 0; 
-        console.log(req_value);
+        // console.log(req_value);
         	  $.ajax({
-	
         	      url:"{{ route('update_pump_state') }}",
-	
         	      type:"GET",
-	
         	      data:{'data':req_value, 'controller':'{{$pos->device_control_id ?? "no"}}'},
-	
         	      success:function (data) {
-                  // console.log(data);
-        	        //   $('#data_list').html(data);
-                  location.reload();
+                  // if succeeded
+                  setTimeout(
+                  function() 
+                  {
+                    $.ajax({
+        	              url:"{{ route('update_pos_pump') }}",
+        	              type:"GET",
+        	              data:{'data':'{{$pos->device_control_id ?? "no"}}'},
+        	              success:function (data) {
+                          setTimeout(
+                          function() 
+                          {
+                            location.reload();
+                          }, 2000);
+        	              }
+        	          });
+                  }, 15000);
         	      }
         	  })
     	});
