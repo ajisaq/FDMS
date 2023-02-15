@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('inventory_id');
+            $table->unsignedBigInteger('station_id');
             $table->unsignedBigInteger('user_id');
             $table->string('type');
             $table->string('ref');

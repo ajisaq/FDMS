@@ -16,6 +16,7 @@ class Transaction extends Model
         'amount',
         'quantity',
         'inventory_id',
+        'station_id',
         'customer_id',
         'user_id',
         'org_id',
@@ -29,6 +30,11 @@ class Transaction extends Model
     public function inventory(): BelongsTo
     {
         return $this->belongsTo(Inventory::class, 'inventory_id', 'id');
+    }
+
+    public function station(): BelongsTo
+    {
+        return $this->belongsTo(Station::class, 'station_id', 'id');
     }
 
     public function user(): BelongsTo

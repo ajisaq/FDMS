@@ -72,4 +72,9 @@ class Station extends Model
     {
         return $this->hasMany(Dispatch::class, 'station_id', 'id');
     }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'station_id', 'id');
+    }
 }

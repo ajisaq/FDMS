@@ -72,7 +72,7 @@
                   </div>
                 </div>
                 <div class="col-6 col-md-6">
-                    <label>Choose Cluster</label>
+                    <label>Change Stations</label>
                         <select class="multisteps-form__select form-control" name="station" id="choices-category">
                           <option value="{{$device->station->id}}">{{$device->station->name}}</option>
                           @foreach ($stations as $s)

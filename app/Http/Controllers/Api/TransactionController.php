@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Api;
 use App\Models\Device;
+use App\Models\Inventory;
 use App\Models\Stock;
 use App\Models\Transaction;
 use App\Models\User;
@@ -55,6 +56,7 @@ class TransactionController extends Controller
                     return response()->json($res);
                 } else {
                     $stock = Stock::where(['inventory_id'=>$request->item_id])->get();
+                    
                     if (count($stock)>0) {
                         if ($stock[0]->quantity > $request->quantity) {
                             // create transaction for sale
@@ -66,9 +68,14 @@ class TransactionController extends Controller
                                 'customer_id' => $request->customer_id,
                                 'quantity' => $request->quantity,
                                 'amount' => $request->amount,
+                                'station_id'=>$stock[0]->inventory->station->id,
                                 'ref' => $request->ref_id,
                                 'type' => "sale",
                             ]);
+                            Transaction::where('id', $transaction->id)->update([
+                                'station_id'=>$stock[0]->inventory->station->id,
+                            ]);
+
         
                             if ($transaction) {
 

@@ -44,7 +44,7 @@ class DeviceController extends Controller
 
                     $org_cat = Category::where('org_id', '=', $device[0]->org_id)->get();
                     if($device[0]->org->logo == Null){
-                        $device[0]->org->logo = url('/storage/logo/default.jpg');
+                        $device[0]->org->logo = url('/storage/logo/default.png');
                     }
                     $category = [];
 
@@ -137,7 +137,7 @@ class DeviceController extends Controller
                     $org_cat = Category::where('org_id', '=', $device[0]->org_id)->get();
 
                     if($device[0]->org->logo == Null){
-                        $device[0]->org->logo = url('/storage/logo/default.jpg');
+                        $device[0]->org->logo = url('/storage/logo/default.png');
                     }
                     
                     $category = [];
