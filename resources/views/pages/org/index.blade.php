@@ -166,7 +166,7 @@
                       @if ($ocs) 
                         <span class="badge badge-dot me-4">
                         <i class="bg-dark"></i>
-                        <span class="text-dark text-xs">{{$ocs->action == 1 ? 'Opened':'Closed'}}</span>
+                        <span class="text-dark text-xs">{{$ocs->action == 1 ? 'Open':'Close'}}</span>
                         </span>
                       @else
                         {{"Null"}}
