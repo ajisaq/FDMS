@@ -238,7 +238,7 @@ class PosController extends Controller
             if ($controller=="no") {
                 return false;
             }else{
-                $response = Http::get('http://35.178.174.64:3000/'.$controller, [
+                $response = Http::get('http://35.178.174.64/s'.$controller, [
                     's' => $state,
                 ]);
                 if ($response) {
@@ -262,7 +262,7 @@ class PosController extends Controller
             if ($controller=="no") {
                 return false;
             } else {
-                $response = Http::get('http://35.178.174.64:3000/'.$controller);
+                $response = Http::get('http://35.178.174.64/'.$controller);
                 if ($response) {
                     Pos::where('device_control_id', $controller)->update([
                         'flow'=> $response['current_status']['rate'],
