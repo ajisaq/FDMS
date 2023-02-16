@@ -303,7 +303,7 @@
                         <i class="bg-info"></i>
                         <span class="text-dark text-xs">{{$d->status == 1 ? 'Arrived':'On the way'}}</span></span>
                     </td>
-                    <td class="text-sm font-weight-normal">{{$d->arival_time ?? "Not Confirmed"}}</td>
+                    <td class="text-sm font-weight-normal">{{date('d M, y', strtotime($d->arival_time)) ?? "Not Confirmed"}}</td>
                   </tr>
                   @endforeach
                   @else
