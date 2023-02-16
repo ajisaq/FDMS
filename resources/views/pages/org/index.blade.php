@@ -170,7 +170,7 @@
       
       <div class="row mt-4">
         {{-- Station open and close status --}}
-      <div class="col-lg-7">
+      <div class="col-lg-6">
         <div class="card">
           <div class="card-header pb-0 p-3">
             <h6 class="mb-0">Station Operation Status</h6>
@@ -250,7 +250,99 @@
         </div>
       </div>
 
-      <div class="col-lg-5">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header pb-0 p-3">
+            <h6 class="mb-0">Recent Supplies</h6>
+          </div>
+          <div class="card-body p-3">
+            <div class="table-responsive">
+              <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-height fixed-columns">
+                
+                  <div class="dataTable-container" >
+                  <table class="table dataTable-table" id="datatable-search">
+                <thead class="thead-light">
+                  <tr>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">ID</a>
+                    </th>
+                    <th data-sortable="" style="width: 51.1261%;">
+                      <a href="#" class="dataTable-sorter">Dispatch Company</a>
+                    </th>
+                    <th data-sortable="" style="width: 51.1261%;">
+                      <a href="#" class="dataTable-sorter">From</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Product</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Station</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Manager<small><br>(phone)</small></a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Status</a>
+                    </th>
+                    <th data-sortable="" style="width: 24.3243%;">
+                      <a href="#" class="dataTable-sorter">Recieved Date</a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @if (count($supplies) > 0)
+                  @foreach ($supplies as $d)
+                  <tr>
+                    <td class="text-sm font-weight-normal">{{$d->ref_id}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->d_company->location->location->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->inventory->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->station->name ?? "!Not specified"}}</td>
+                    <td class="text-sm font-weight-normal">{{$d->manager->name ?? "!Not specified"}}({{$d->manager->phone ?? "null"}})</td>
+                    <td class="text-sm font-weight-normal"><span class="badge badge-dot me-4">
+                        <i class="bg-info"></i>
+                        <span class="text-dark text-xs">{{$d->status == 1 ? 'Arrived':'On the way'}}</span></span>
+                    </td>
+                    <td class="text-sm font-weight-normal">{{$d->arival_time ?? "Not Confirmed"}}</td>
+                  </tr>
+                  @endforeach
+                  @else
+                  <tr>
+                    <td class="text-sm font-weight-normal" colspan="5" style="text-align: center;">You don't supplies.</td>
+                  </tr>
+                  @endif
+                  </tbody>
+              </table>
+            </div>
+          </div>
+
+      </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+{{-- 
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <div class="card h-100 border-radius-xs">
+          <div class="card-header pb-0 p-3">
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-0">Page</h6>
+            </div>
+          </div>
+          <div class="card-body p-3">
+            <div class="chart">
+             <h1>Content</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> --}}
+
+    {{-- <div class="col-lg-6">
         <div class="card">
           <div class="card-header pb-0 p-3">
             <h6 class="mb-0">Recent Supplies</h6>
@@ -331,27 +423,6 @@
             </ul>
           </div>
         </div>
-      </div>
-
-
-    </div>
-
-{{-- 
-    <div class="row mt-4">
-      <div class="col-lg-12">
-        <div class="card h-100 border-radius-xs">
-          <div class="card-header pb-0 p-3">
-            <div class="d-flex justify-content-between">
-              <h6 class="mb-0">Page</h6>
-            </div>
-          </div>
-          <div class="card-body p-3">
-            <div class="chart">
-             <h1>Content</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> --}}
+      </div> --}}
 
 @endsection

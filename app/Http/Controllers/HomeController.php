@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dispatch;
 use App\Models\Station;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -45,13 +46,18 @@ class HomeController extends Controller
         $transaction = Transaction::where('org_id', Auth::user()->org_id)->whereBetween('created_at', [$start.'-00-00-00', $end.'-23-59-59'])->get();
         $revenue=0;
         $litres=0;
-        foreach ($transaction as $key => $t) {
-            $revenue= $revenue + $t->amount;
-            $litres= $litres + $t->quantity;
+        if (count($transaction)>0) {
+            # code...
+            foreach ($transaction as $key => $t) {
+                $revenue= $revenue + $t->amount;
+                $litres= $litres + $t->quantity;
+            }
         }
 
         $stations = Station::where('org_id', Auth::user()->org_id)->get();
 
-        return view('pages.org.index', compact('revenue', 'litres', 'transaction', 'sale_summary_date', 'stations'));
+        $supplies = Dispatch::where(['org_id'=>Auth::user()->org_id])->get();
+
+        return view('pages.org.index', compact('revenue', 'litres', 'transaction', 'sale_summary_date', 'stations', 'supplies'));
     }
 }
