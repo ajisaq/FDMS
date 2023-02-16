@@ -52,6 +52,8 @@ class StationDashboardController extends Controller
 
     public function open_station(Request $request, $id)
     {   
+        // return $request->all();
+
         $validator = Validator::make($request->all(), [
             'time' => ['required'],
             'cluster' => ['required'],
@@ -80,16 +82,18 @@ class StationDashboardController extends Controller
         if ($create_ocstation) {
             foreach ($request->cluster as $key => $c) {
                 $cluster = Cluster::find($c);
-    
-                foreach ($request->sub_cluster[$c] as $k => $sc) {
-                    $create_occluster = OCCluster::create([
-                        'action' => 1,
-                        'o_c_station_id' => $create_ocstation->id,
-                        'cluster_id' => $cluster->id,
-                        'c_sub_id' => $sc,
-                        'm_reading'=> $request->meter_r[$c][$sc],
-                        'time'=>$time,
-                    ]);
+                if (array_key_exists($c,$request->sub_cluster)) {
+                    # code...
+                    foreach ($request->sub_cluster[$c] as $k => $sc) {
+                        $create_occluster = OCCluster::create([
+                            'action' => 1,
+                            'o_c_station_id' => $create_ocstation->id,
+                            'cluster_id' => $cluster->id,
+                            'c_sub_id' => $sc,
+                            'm_reading'=> $request->meter_r[$c][$sc],
+                            'time'=>$time,
+                        ]);
+                    }
                 }
     
             }

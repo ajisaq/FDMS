@@ -10,10 +10,10 @@
             <div class="row">
               <div class="col-7 text-start">
                 <p class="text-sm mb-1 text-uppercase font-weight-bold">Avg. Revenue</p>
-                <h5 class="font-weight-bolder mb-0">
-                  NGN {{number_format($revenue,'2')}}
+                <h5 class="font-weight-bolder mb-0" style="font-size: 15px">
+                  ₦ {{number_format($revenue,'2')}}
                 </h5>
-                <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">+55% <span class="font-weight-normal text-secondary">since last month</span></span>
+                <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">+₦ 130055 <span class="font-weight-normal text-secondary"> last month</span></span>
               </div>
               <div class="col-5">
                 <div class="dropdown text-end">
@@ -37,8 +37,8 @@
             <div class="row">
               <div class="col-7 text-start">
                 <p class="text-sm mb-1 text-uppercase font-weight-bold">Litres Sold</p>
-                <h5 class="font-weight-bolder mb-0">
-                  {{$litres}}
+                <h5 class="font-weight-bolder mb-0" style="font-size: 15px">
+                  {{number_format($litres,'2')}} Ltrs
                 </h5>
                 <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">+12% <span class="font-weight-normal text-secondary">since last month</span></span>
               </div>
@@ -64,10 +64,10 @@
             <div class="row">
               <div class="col-7 text-start">
                 <p class="text-sm mb-1 text-uppercase font-weight-bold">No. Customers</p>
-                <h5 class="font-weight-bolder mb-0">
-                  {{count($transaction)}}
+                <h5 class="font-weight-bolder mb-0" style="font-size: 15px">
+                  {{number_format(count($transaction),'2')}}
                 </h5>
-                <span class="font-weight-normal text-secondary text-sm"><span class="font-weight-bolder">+$213</span>last month</span>
+                <span class="font-weight-normal text-secondary text-sm"><span class="font-weight-bolder">+20</span> last month</span>
               </div>
               <div class="col-5">
                 <div class="dropdown text-end">
@@ -336,7 +336,7 @@
 
     </div>
 
-
+{{-- 
     <div class="row mt-4">
       <div class="col-lg-12">
         <div class="card h-100 border-radius-xs">
@@ -352,6 +352,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 @endsection

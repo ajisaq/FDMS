@@ -78,6 +78,9 @@
                     <th data-sortable="" style="width: 36.9369%;">
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
+                    <th data-sortable="" style="width: 36.9369%;">
+                      <a href="#" class="dataTable-sorter">User Name</a>
+                    </th>
                     <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">Phone</a>
                     </th>
@@ -94,6 +97,7 @@
                   @foreach ($managers as $m)
                   <tr>
                     <td class="text-sm font-weight-normal">{{$m->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$m->username}}</td>
                     <td class="text-sm font-weight-normal">{{$m->phone}}</td>
                     <td class="text-sm font-weight-normal">{{$m->manager_station->name ?? "!Not specified"}}</td>
                     {{-- <td class="text-sm font-weight-normal"> <a href="{{route('show_cluster_info', ['id' => $s->id])}}" class="btn btn-primary">Open</a></td> --}}
@@ -147,6 +151,9 @@
                     <th data-sortable="" style="width: 36.9369%;">
                       <a href="#" class="dataTable-sorter">Name</a>
                     </th>
+                    <th data-sortable="" style="width: 36.9369%;">
+                      <a href="#" class="dataTable-sorter">User Name</a>
+                    </th>
                     <th data-sortable="" style="width: 51.1261%;">
                       <a href="#" class="dataTable-sorter">phone</a>
                     </th>
@@ -163,6 +170,7 @@
                   @foreach ($supervisors as $s)
                   <tr>
                     <td class="text-sm font-weight-normal">{{$s->name}}</td>
+                    <td class="text-sm font-weight-normal">{{$s->username}}</td>
                     <td class="text-sm font-weight-normal">{{$s->phone}}</td>
                     <td class="text-sm font-weight-normal">{{$s->supervisor_cluster->station->name ?? "!Not specified"}}</td>
                     <td class="text-sm font-weight-normal">{{$s->supervisor_cluster->name ?? "!not specified"}}</td>
