@@ -49,8 +49,8 @@ class HomeController extends Controller
         if (count($transaction)>0) {
             # code...
             foreach ($transaction as $key => $t) {
-                $revenue= $revenue + $t->amount;
-                $litres= $litres + $t->quantity;
+                $revenue = $revenue + $t->amount;
+                $litres = $litres + $t->quantity;
             }
         }
 

@@ -9,7 +9,7 @@
           <div class="card-body p-3 position-relative">
             <div class="row">
               <div class="col-7 text-start">
-                <p class="text-sm mb-1 text-uppercase font-weight-bold">Avg. Revenue</p>
+                <p class="text-sm mb-1 text-uppercase font-weight-bold">Revenue</p>
                 <h5 class="font-weight-bolder mb-0" style="font-size: 15px">
                   ₦ {{number_format($revenue,'2')}}
                 </h5>
@@ -87,8 +87,8 @@
       </div>
     </div>
 
-
-    <div class="row mt-4">
+{{-- Sales overview --}}
+    {{-- <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card z-index-2 h-100">
             <div class="card-header pb-0 pt-3 bg-transparent">
@@ -105,72 +105,10 @@
             </div>
           </div>
         </div>
-
-        <div class="col-lg-5">
-          <div class="card">
-            <div class="card-header pb-0 p-3">
-              <h6 class="mb-0">Sales by Stations</h6>
-            </div>
-            <div class="card-body p-3">
-              <ul class="list-group" >
-                @if (count($stations)>0)
-                <?php 
-                  $station_tansaction_amounts=[];
-
-                  foreach ($stations as $key => $ss) {
-                    $trans = $ss->transactions;
-                    $a=0;
-                    foreach ($trans as $key => $tt) {
-                      $a = $a + $tt->amount;
-                    }
-                    $station_transaction_amounts[$ss->id] = $a;
-                    // array_push($station_transaction_amounts, $a);
-                  }
-
-                  asort($station_transaction_amounts);
-                  $s_t_a = array_reverse($station_transaction_amounts, true);
-
-                ?>
-                
-                @foreach ($s_t_a as $key => $s)
-                <?php 
-                  $station = \App\Models\Station::where(['org_id'=>Auth::user()->org_id, 'id'=>$key])->get();
-                  $station = $station[0];
-                  $q=0;
-                  if (count($station->transactions)>0) {
-                    foreach ($station->transactions as $ttt) {
-                      $q=$q+$ttt->quantity;
-                    }
-                  }
-                ?>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex align-items-center">
-                    <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                      <i class="ni ni-tag text-white opacity-10"></i>
-                    </div>
-                    <div class="d-flex flex-column">
-                      <h6 class="mb-1 text-dark text-sm">{{$station->name}}</h6>
-                      <span class="text-xs">{{number_format($q, '2')}} Litres, <span class="font-weight-bold"> NGN {{number_format($s)}} Revenue</span></span>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                  </div>
-                </li>
-                @endforeach
-                @endif
-              </ul>
-            </div>
-          </div>
-        </div>
-
-
-        
-      </div>
+      </div> --}}
       
       <div class="row mt-4">
-        {{-- Station open and close status --}}
-      <div class="col-lg-6">
+      <div class="col-lg-7">
         <div class="card">
           <div class="card-header pb-0 p-3">
             <h6 class="mb-0">Station Operation Status</h6>
@@ -250,7 +188,68 @@
         </div>
       </div>
 
-      <div class="col-lg-6">
+      <div class="col-lg-5">
+          <div class="card">
+            <div class="card-header pb-0 p-3">
+              <h6 class="mb-0">Sales by Stations</h6>
+            </div>
+            <div class="card-body p-3">
+              <ul class="list-group" >
+                @if (count($stations)>0)
+                <?php 
+                  $station_tansaction_amounts=[];
+
+                  foreach ($stations as $key => $ss) {
+                    $trans = $ss->transactions;
+                    $a=0;
+                    foreach ($trans as $key => $tt) {
+                      $a = $a + $tt->amount;
+                    }
+                    $station_transaction_amounts[$ss->id] = $a;
+                    // array_push($station_transaction_amounts, $a);
+                  }
+
+                  asort($station_transaction_amounts);
+                  $s_t_a = array_reverse($station_transaction_amounts, true);
+
+                ?>
+                
+                @foreach ($s_t_a as $key => $s)
+                <?php 
+                  $station = \App\Models\Station::where(['org_id'=>Auth::user()->org_id, 'id'=>$key])->get();
+                  $station = $station[0];
+                  $q=0;
+                  if (count($station->transactions)>0) {
+                    foreach ($station->transactions as $ttt) {
+                      $q=$q+$ttt->quantity;
+                    }
+                  }
+                ?>
+                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                  <div class="d-flex align-items-center">
+                    <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                      <i class="ni ni-tag text-white opacity-10"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <h6 class="mb-1 text-dark text-sm">{{$station->name}}</h6>
+                      <span class="text-xs">{{number_format($q, '2')}} Litres, <span class="font-weight-bold"> NGN {{number_format($s)}} Revenue</span></span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
+                  </div>
+                </li>
+                @endforeach
+                @endif
+              </ul>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-12">
         <div class="card">
           <div class="card-header pb-0 p-3">
             <h6 class="mb-0">Recent Supplies</h6>
@@ -263,28 +262,28 @@
                   <table class="table dataTable-table" id="datatable-search">
                 <thead class="thead-light">
                   <tr>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 10%;">
                       <a href="#" class="dataTable-sorter">ID</a>
                     </th>
-                    <th data-sortable="" style="width: 51.1261%;">
+                    <th data-sortable="" style="width: 15%;">
                       <a href="#" class="dataTable-sorter">Dispatch Company</a>
                     </th>
-                    <th data-sortable="" style="width: 51.1261%;">
+                    <th data-sortable="" style="width: 15%;">
                       <a href="#" class="dataTable-sorter">From</a>
                     </th>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 10%;">
                       <a href="#" class="dataTable-sorter">Product</a>
                     </th>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 10%;">
                       <a href="#" class="dataTable-sorter">Station</a>
                     </th>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 20%;">
                       <a href="#" class="dataTable-sorter">Manager<small><br>(phone)</small></a>
                     </th>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 5%;">
                       <a href="#" class="dataTable-sorter">Status</a>
                     </th>
-                    <th data-sortable="" style="width: 24.3243%;">
+                    <th data-sortable="" style="width: 5%;">
                       <a href="#" class="dataTable-sorter">Recieved Date</a>
                     </th>
                   </tr>
@@ -320,8 +319,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
 
 {{-- 
