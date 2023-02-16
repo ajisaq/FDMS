@@ -81,10 +81,16 @@
               </p>
               <div class="row">
                 
-                <div class="col-md-12">
+                <div class="col-md-8">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Name</label>
                     <input class="form-control" type="text" name="name" value="{{$pos->name}}" >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Name</label>
+                    <input class="form-control" type="text" disabled name="flow_rate_meter" value="{{$pos->flow}} Ltr/sec" >
                   </div>
                 </div>
                 {{-- <div class="col-md-6">
