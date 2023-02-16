@@ -231,14 +231,14 @@ class PosController extends Controller
 
     public function update_pump(Request $request)
     {
-        if ($request->ajax()) {
+        // if ($request->ajax()) {
 
             $state = $request->data;
             $controller = $request->controller;
             if ($controller=="no") {
                 return false;
             }else{
-                $response = Http::get('http://35.178.174.64/s'.$controller, [
+                $response = Http::get('http://35.178.174.64/'.$controller, [
                     's' => $state,
                 ]);
                 if ($response) {
@@ -252,12 +252,12 @@ class PosController extends Controller
                 }
             }
 
-        }
+        // }
     }
 
     public function update_pos_pump(Request $request)
     {
-        if ($request->ajax()) {
+        // if ($request->ajax()) {
             $controller = $request->data;
             if ($controller=="no") {
                 return false;
@@ -273,8 +273,8 @@ class PosController extends Controller
                     return false;
                 }
             }
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 }
