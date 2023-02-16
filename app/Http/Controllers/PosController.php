@@ -244,7 +244,7 @@ class PosController extends Controller
                 if ($response) {
                     $pos = Pos::where('device_control_id', $controller)->update([
                         'flow'=> $response['current_status']['rate'],
-                        'state'=>  $response['current_status']['switch'],
+                        'state'=>  $state, //$response['current_status']['switch'],
                     ]);
                     return $response['current_status'];
                 }else{ 
