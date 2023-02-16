@@ -59,9 +59,11 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">POS Info <span class="form-check form-switch ms-auto" style="margin-left: 5px;">
+                <p class="mb-0">POS Info
+                    {{-- <span class="form-check form-switch ms-auto" style="margin-left: 5px;">
                       <input class="form-check-input pump-state" {{$pos->state==1 ? 'checked=""':""}} type="checkbox" id="pump_state">
-                </span></p>
+                    </span> --}}
+              </p>
                 {{-- <div style="float: right;" class="mb-0"> --}}
                   <button style="float: right;" class="btn btn-primary btn-sm ms-auto" type="submit">Update</button>
                 {{-- </div> --}}
@@ -81,16 +83,25 @@
               </p>
               <div class="row">
                 
-                <div class="col-md-8">
+                <div class="col-md-7">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Name</label>
                     <input class="form-control" type="text" name="name" value="{{$pos->name}}" >
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Name</label>
+                    <label for="example-text-input" class="form-control-label">Flow Rate</label>
                     <input class="form-control" type="text" disabled name="flow_rate_meter" value="{{$pos->flow}} Ltr/sec" >
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">POS Pump Switch</label>
+                    <span class="form-check form-switch ms-auto" style="margin-left: 5px;">
+                      <input class="form-check-input pump-state" {{$pos->state==1 ? 'checked=""':""}} type="checkbox" id="pump_state">
+                    </span>
+                    {{-- <input class="form-control" type="text" disabled name="flow_rate_meter" value="{{$pos->flow}} Ltr/sec" > --}}
                   </div>
                 </div>
                 {{-- <div class="col-md-6">
