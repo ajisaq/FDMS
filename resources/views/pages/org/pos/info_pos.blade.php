@@ -194,6 +194,7 @@ $(document).ready(function () {
         	      data:{'data':req_value, 'controller':'{{$pos->device_control_id ?? "no"}}'},
         	      success:function (data) {
                   // if succeeded
+                  console.log(data);
                   setTimeout(
                   function() 
                   {
@@ -202,6 +203,7 @@ $(document).ready(function () {
         	              type:"GET",
         	              data:{'data':'{{$pos->device_control_id ?? "no"}}'},
         	              success:function (data) {
+                          console.log(data);
                           setTimeout(
                           function() 
                           {
@@ -209,7 +211,7 @@ $(document).ready(function () {
                           }, 2000);
         	              }
         	          });
-                  }, 15000);
+                  }, 10000);
         	      }
         	  })
     	});
