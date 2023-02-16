@@ -195,23 +195,23 @@ $(document).ready(function () {
         	      success:function (data) {
                   // if succeeded
                   console.log(data);
-                  // setTimeout(
-                  // function() 
-                  // {
-                  //   $.ajax({
-        	        //       url:"{{ route('update_pos_pump') }}",
-        	        //       type:"GET",
-        	        //       data:{'data':'{{$pos->device_control_id ?? "no"}}'},
-        	        //       success:function (data) {
-                  //         console.log(data);
-                  //         setTimeout(
-                  //         function() 
-                  //         {
-                  //           location.reload();
-                  //         }, 2000);
-        	        //       }
-        	        //   });
-                  // }, 10000);
+                  setTimeout(
+                  function() 
+                  {
+                    $.ajax({
+        	              url:"{{ route('update_pos_pump') }}",
+        	              type:"GET",
+        	              data:{'data':'{{$pos->device_control_id ?? "no"}}'},
+        	              success:function (data) {
+                          console.log(data);
+                          setTimeout(
+                          function() 
+                          {
+                            location.reload();
+                          }, 2000);
+        	              }
+        	          });
+                  }, 10000);
         	      }
         	  })
     	});
